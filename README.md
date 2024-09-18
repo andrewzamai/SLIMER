@@ -19,44 +19,38 @@ Works on:
   ✅ Never-Seen-Before Named Entities 
 
 
-<div style="border: none; padding: 5px; width: 300px; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12px; border-radius: 10px; overflow: hidden;">
-
-  <!-- Header Section -->
-  <div style="background-color: black; color: white; padding: 5px; text-align: center; font-weight: bold; font-size: 14px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-    Instruction Tuning Prompt
-  </div>
-
-  <!-- Content Section -->
-  <div style="padding: 5px;">
-    <p><b>[INST]</b></p>
-    <p>You are given a text chunk (delimited by triple quotes) and an instruction.<br>
-    Read the text and answer to the instruction in the end.</p>
-    <p>
-      """<br>
-      {input text}<br>
-      """
-    </p>
-    <p><b>Instruction:</b> Extract the Named Entities of type <b>DATE</b> from the text chunk you have read.</p>
-    <p>You are given a <b>DEFINITION</b> and some <b>GUIDELINES</b>.</p>
-
-    <!-- Definition Box -->
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 10px;">
-      <p><b>DEFINITION:</b> <b>DATE</b> refers to specific points in time, including days, months, years, and relative time expressions like 'Week 2'.</p>
-    </div>
-
-    <!-- Guidelines Box -->
-    <div style="background-color: #ffffcc; padding: 5px; border-radius: 10px;">
-      <p><b>GUIDELINES:</b> Avoid labeling non-specific time references like 'recently' or 'soon'. Exercise caution with ambiguous terms like 'May' (month or verb) and 'Wednesday Adams' (person's name which includes a day of the week).</p>
-    </div>
-
-    <p>Return a JSON list of instances of this Named Entity type. Return an empty list if no instances are present.</p>
-    <p><b>[/INST]</b></p>
-  </div>
-
-  <!-- Footer (Empty for now) -->
-  <div style="background-color: black; color: white; padding: 10px; font-weight: bold; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;"></div>
-
+<!-- Simplified container layout -->
+<div align="center">
+  <h2>Instruction Tuning Prompt</h2>
 </div>
+
+<!-- Content section -->
+<p><b>[INST]</b></p>
+<p>You are given a text chunk (delimited by triple quotes) and an instruction.<br>
+Read the text and answer to the instruction in the end.</p>
+
+<pre>
+"""
+{input text}
+"""
+</pre>
+
+<p><b>Instruction:</b> Extract the Named Entities of type <b>DATE</b> from the text chunk you have read.</p>
+<p>You are given a <b>DEFINITION</b> and some <b>GUIDELINES</b>.</p>
+
+<!-- Definition box -->
+<div style="background-color: #ccffcc; padding: 10px; border: 1px solid #000;">
+  <p><b>DEFINITION:</b> <b>DATE</b> refers to specific points in time, including days, months, years, and relative time expressions like 'Week 2'.</p>
+</div>
+
+<!-- Guidelines box -->
+<div style="background-color: #ffffcc; padding: 10px; border: 1px solid #000;">
+  <p><b>GUIDELINES:</b> Avoid labeling non-specific time references like 'recently' or 'soon'. Exercise caution with ambiguous terms like 'May' (month or verb) and 'Wednesday Adams' (person's name which includes a day of the week).</p>
+</div>
+
+<p>Return a JSON list of instances of this Named Entity type. Return an empty list if no instances are present.</p>
+<p><b>[/INST]</b></p>
+
 
 
 ## 📄 Abstract
