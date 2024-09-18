@@ -15,10 +15,7 @@
 Works on:
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Out-Of-Domain inputs
-
-  
-
-  ✅ Never-Seen-Before Named Entities 
+&nbsp;&nbsp;&nbsp;&nbsp;✅ Never-Seen-Before Named Entities 
 
 <div align="center">
 <img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 275px;">
