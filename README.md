@@ -44,10 +44,7 @@ PROs:
 &nbsp;&nbsp;&nbsp;&nbsp;✅ different granularity and exceptions (all people not musicians)
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ disambiguate on polysemous NEs
-
 &nbsp;&nbsp;&nbsp;&nbsp;✅ nested-NER (one span of text, multiple categories)
-
-
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ long documents handling
 
