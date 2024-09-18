@@ -73,7 +73,7 @@ if __name__ == '__main__':
     """
     from transformers import AutoTokenizer
 
-    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf", token="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")
+    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf", token="")
     average_prompt_length = 0
     for i in range(1):
         sample = data['train'][i]
