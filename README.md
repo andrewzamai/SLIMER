@@ -12,7 +12,7 @@
 
 ## Instruct your LLM with Definitions and Guidelines for Zero-Shot NER 🔎 📖
 
-Works on:
+Designed to work on:
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Out-Of-Domain inputs (e.g. news, science, politics, music ...)
 
