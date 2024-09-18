@@ -13,8 +13,10 @@
 # Enrich Prompts with Definitions and Guidelines for Zero-Shot NER
 
 Works on:
-
-  ✅ Out-Of-Domain inputs
+<blockquote>
+✅ Out-Of-Domain inputs
+</blockquote>
+  
 
   ✅ Never-Seen-Before Named Entities 
 
