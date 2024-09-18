@@ -1,2 +1,4 @@
 huggingface-hub==0.25.0
+datasets
+numpy
 

@@ -2,7 +2,7 @@
 
 base_model: meta-llama/Llama-2-7b-chat-hf
 # NB: this Huggingface repository requires to login with an account with granted access
-prompt_template_name: reverse_INST
+prompt_template_name: LLaMA2-chat
 # using dataset GenQA format (instruction, input, output) columns
 data_path: None
 val_data_path: None

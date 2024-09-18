@@ -15,7 +15,7 @@ We use convert_official_uniNER_eval_dataset_for_GenQA for:
  - format to input expected by SFT_finetuning preprocess and tokenizer function
 """
 
-__package__ = "SFT_finetuning.evaluating"
+# __package__ = "SFT_finetuning.evaluating"
 
 import shutil
 
@@ -137,7 +137,7 @@ if __name__ == '__main__':
 
     print(sampling_params)
 
-    prompter = Prompter('reverse_INST', template_path='./src/SFT_finetuning/templates', eos_text='')
+    prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
 
     for data in to_eval_on:
 

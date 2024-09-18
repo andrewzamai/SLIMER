@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     print(tokenizer.padding_side)
 
-    prompter = Prompter('reverse_INST', template_path='./SFT_finetuning/templates', eos_text='')
+    prompter = Prompter('LLaMA2-chat', template_path='./SFT_finetuning/templates', eos_text='')
 
     for data in to_eval_on:
         for subdataset_name in data['subdataset_names']:

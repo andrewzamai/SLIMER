@@ -1,12 +1,11 @@
 """ Supervised Fine-tuning Trainer (SFT) for generative LLMs """
 
-__package__ = "SFT_finetuning.training"
+# __package__ = "SFT_finetuning.training"
 
 import os
 import sys
 import shutil
 
-import safetensors
 import yaml
 import argparse
 from typing import List
@@ -17,9 +16,9 @@ from datasets import load_dataset
 from peft import set_peft_model_state_dict
 from transformers import EarlyStoppingCallback
 
-from ..commons.initialization import init_model, wrap_model_for_peft, get_HF_access_token
-from ..commons.preprocessing import generate_and_tokenize_prompt
-from ..commons.prompter import Prompter
+from src.SFT_finetuning.commons.initialization import init_model, wrap_model_for_peft, get_HF_access_token
+from src.SFT_finetuning.commons.preprocessing import generate_and_tokenize_prompt
+from src.SFT_finetuning.commons.prompter import Prompter
 
 
 def train(
@@ -176,29 +175,7 @@ def train(
         data = data.rename_column(output_col, "output")
 
     if resume_from_checkpoint:
-        # Check the available weights and load them
-        checkpoint_name = os.path.join(
-            resume_from_checkpoint, "pytorch_model.bin"
-        )  # Full checkpoint
-        if not os.path.exists(checkpoint_name):
-            checkpoint_name = os.path.join(
-                resume_from_checkpoint, "adapter_model.safetensors"
-            )  # only LoRA model - LoRA config above has to fit
-            resume_from_checkpoint = (
-                False  # So the trainer won't try loading its state
-            )
-        # The two files above have a different name depending on how they were saved, but are actually the same.
-        if os.path.exists(checkpoint_name):
-            print(f"Restarting from {checkpoint_name}")
-            # adapters_weights = torch.load(checkpoint_name)
-            # TODO: fix this
-            adapters_weights = {}
-            with safetensors.safe_open(checkpoint_name, framework="pt") as f:
-                for k in f.keys():
-                    adapters_weights[k] = f.get_tensor(k)
-            model = set_peft_model_state_dict(model, adapters_weights)
-        else:
-            print(f"Checkpoint {checkpoint_name} not found")
+        raise ValueError("resume_from_checkpoint not implemented")
 
     train_data = data["train"]
     print("Train statistics: ")
@@ -207,15 +184,7 @@ def train(
                                                                             instruction_column_name='instruction',
                                                                             output_column_name='output')
     print(dataset_statistics)
-
     print(train_data['instruction'][0])
-
-    # TODO: masking for enhanced training
-    from MSEQA_4_NER.data_handlers.data_handler_pileNER import mask_named_entities
-    # train_data = mask_named_entities(train_data, corruption_prob=0.5, masking_prob=0.8, default_mask='<unk>')
-
-    #if os.path.exists(data_path[:-len(".json") + '_' + base_model.split("/")[-1] + '_tokenized'):
-    #train_data = load_dataset()
 
     if shuffle:
         # shuffle train_data
@@ -242,8 +211,7 @@ def train(
         if val_set_size == -1:
             val_set_size = len(val_data["train"])
         val_data = val_data["train"].select(list(range(min(val_set_size, len(val_data["train"])))))  # no more than val_set_size 5k examples
-        # TODO: masking for enhanced training
-        # val_data = mask_named_entities(val_data, corruption_prob=0.5, masking_prob=0.8, default_mask='<unk>')
+
         print("Validation statistics: ")
         dataset_statistics = data_handler_pileNER.get_statistics_for_QA_dataset(val_data,
                                                                                 input_column_name='input',
