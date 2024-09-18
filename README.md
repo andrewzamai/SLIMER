@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>👻 SLIMER: Show Less Instruct More Entity Recognition 🔎</h1>
+  <h1>👻 SLIMER: Show Less Instruct More Entity Recognition 🔎 📖</h1>
 </div>
 
 
