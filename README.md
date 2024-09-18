@@ -1,5 +1,8 @@
 # 👻 SLIMER: Show Less Instruct More Entity Recognition 
 Enrich Prompts with Definitions and Guidelines for Zero-Shot NER
+Works on:
+✔️ Out-Of-Domain inputs
+✔️ Never-Seen-Before Named Entities 
 
 
 ## 📚 Citation
