@@ -18,7 +18,8 @@ Works on:
 
   ✅ Never-Seen-Before Named Entities 
 
-![Alt text](assets/SLIMER_prompt.png)
+<img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 400px;">
+
 
 ## 📄 Abstract
 Recently, several specialized instruction-tuned Large Language Models (LLMs) for Named Entity Recognition (NER) have emerged. Compared to traditional NER approaches, these models have demonstrated strong generalization capabilities. Existing LLMs primarily focus on addressing zero-shot NER on Out-of-Domain inputs, while fine-tuning on an extensive number of entity classes that often highly or completely overlap with test sets. In this work instead, we propose SLIMER, an approach designed to tackle never-seen-before entity tags by instructing the model on fewer examples, and by leveraging a prompt enriched with definition} and guidelines.
