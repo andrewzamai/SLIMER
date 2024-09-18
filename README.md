@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>👻 SLIMER: Show Less Instruct More Entity Recognition 🔎 📖</h1>
+  <h1>👻 SLIMER: Show Less Instruct More Entity Recognition</h1>
 </div>
 
 
@@ -10,7 +10,7 @@
     <a href="https://www.expert.ai/"><img src="https://img.shields.io/badge/company-expert.ai-blueviolet"></a>
 </p>
 
-## Instruct your LLM with Definitions and Guidelines for Zero-Shot NER 🔎 📖
+## Instruct your LLM with Definitions and Guidelines for Zero-Shot NER
 
 Works on:
 
