@@ -1,4 +1,4 @@
-<p align="center"><h2 align="center">👻 SLIMER: Show Less Instruct More Entity Recognition</h2></p>
+#<p align="center"><h2 align="center">👻 SLIMER: Show Less Instruct More Entity Recognition</h2></p>
 
 <p align="center">
     <a href="https://github.com/yyDing1/GNER/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/yyDing1/GNER"></a>
