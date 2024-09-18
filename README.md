@@ -41,7 +41,6 @@ PROs:
 &nbsp;&nbsp;&nbsp;&nbsp;✅ definition and guidelines simple syntax (no code needed)
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ flexibility to different annotation schemes 
-
 &nbsp;&nbsp;&nbsp;&nbsp;✅ different granularity and exceptions (all people not musicians)
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ disambiguate on polysemous NEs
