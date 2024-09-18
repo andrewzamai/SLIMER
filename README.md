@@ -24,13 +24,15 @@ Designed to work on:
 
 
 ## 📄 TL;DR
-Existing models primarily focus on addressing zero-shot NER on Out-of-Domain inputs, while fine-tuning on an extensive number of entity classes that often highly or completely overlap with test sets in literature. 
+Existing models primarily focus on addressing zero-shot NER on Out-of-Domain inputs, while fine-tuning on an extensive number of entity classes that often highly or completely overlap with the test sets used in the literature. 
 
-But what happens in every-day uses when they encounter entities that were not included in training? As demonstrated on BUSTER, they are likely to under-perform.
+But what happens in everyday use when they encounter entities that were not included in training? As demonstrated on BUSTER, they are likely to significantly underperform 📉, revealing a critical weakness in handling unseen entities. 🆘
 
-In this work instead, we propose SLIMER, an approach designed to tackle never-seen-before entity tags by instructing the model on fewer examples, and by leveraging a prompt enriched with definition and guidelines.
+In this work, we propose SLIMER, an approach designed to tackle never-seen-before entity tags by instructing the model on fewer examples, and by leveraging a prompt enriched with definition and guidelines.
+
 Experiments demonstrate that definition and guidelines yield better performance, faster and more robust learning, particularly when labelling unseen named entities. 
-Furthermore, SLIMER performs comparably to state-of-the-art approaches in out-of-domain zero-shot NER, while being trained in a more fair, though certainly more challenging, setting.
+
+When compared to other existing solutions under similar training conditions, SLIMER outperforms other existing solutions, demonstrating superior capability in handling unseen entities and delivering more robust performance in real-world applications. 🏆
 
 
 ## 📚 Citation
