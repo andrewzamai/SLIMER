@@ -14,7 +14,7 @@
 
 Works on:
 
-&nbsp;&nbsp;&nbsp;&nbsp;✅ Out-Of-Domain inputs
+&nbsp;&nbsp;&nbsp;&nbsp;✅ Out-Of-Domain inputs (e.g. news, science, politics, music, ...)
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Never-Seen-Before Named Entities 
 
