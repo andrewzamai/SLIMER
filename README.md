@@ -30,9 +30,9 @@ But what happens in everyday use when they encounter entities that were not incl
 
 In this work, we propose SLIMER, an approach designed to tackle never-seen-before entity tags by instructing the model on fewer examples, and by leveraging a prompt enriched with definition and guidelines.
 
-Experiments demonstrate that definition and guidelines yield better performance, faster and more robust learning, particularly when labelling unseen named entities. 
+Experiments demonstrate that definition and guidelines yield to faster, more robust learning, and better performance, particularly when labelling unseen named entities. 
 
-When compared to other existing solutions under similar training conditions, SLIMER outperforms other existing solutions, demonstrating superior capability in handling unseen entities and delivering more robust performance in real-world applications. 🏆
+When compared to other existing solutions under similar training conditions, SLIMER demonstrates superior capability in handling unseen entities, delivering more robust performance in real-world applications. 🏆
 
 
 ## 📚 Citation
