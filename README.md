@@ -26,7 +26,8 @@ Designed to work on:
 ## 📄 TL;DR
 Existing models primarily focus on addressing zero-shot NER on Out-of-Domain inputs, while fine-tuning on an extensive number of entity classes that often highly or completely overlap with the test sets used in the literature. 
 
-But what happens in everyday use when they encounter entities that were not included in training? As demonstrated on BUSTER, they are likely to significantly underperform 📉, revealing a critical weakness in handling unseen entities. 🆘
+But what happens in everyday use when they encounter entities that were not included in training? 
+As demonstrated on BUSTER, they are likely to significantly underperform 📉, revealing a critical weakness in handling unseen entities. 🆘
 
 In this work, we propose SLIMER, an approach designed to tackle never-seen-before entity tags by instructing the model on fewer examples, and by leveraging a prompt enriched with definition and guidelines.
 
