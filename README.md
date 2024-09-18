@@ -18,7 +18,7 @@ Works on:
 
   ✅ Never-Seen-Before Named Entities 
 
-<img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 200px;">
+<img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 250px;">
 
 
 ## 📄 Abstract
