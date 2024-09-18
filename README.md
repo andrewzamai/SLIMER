@@ -38,6 +38,7 @@ When compared to other existing solutions under similar training conditions, SLI
 PROs:
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ guide your LLM with external knowledge about the NE to tag 
+&nbsp;&nbsp;&nbsp;&nbsp;✅ definition and guidelines simple syntax (no code needed)
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ flexibility to different annotation schemes 
 
@@ -47,7 +48,7 @@ PROs:
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ nested-NER (one span of text, multiple categories)
 
-&nbsp;&nbsp;&nbsp;&nbsp;✅ definition and guidelines simple syntax (no code needed)
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ long documents handling
 
