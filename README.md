@@ -35,6 +35,10 @@ Experiments demonstrate that definition and guidelines yield to faster, more rob
 
 When compared to other existing solutions under similar training conditions, SLIMER demonstrates superior capability in handling unseen entities, delivering more robust performance in real-world applications. 🏆
 
+PROs:
+
+&nbsp;&nbsp;&nbsp;&nbsp;✅ guide your LLM with external knowledge about the NE to tag by providing a definition and guidelines 
+
 
 ## 📚 Citation
 
