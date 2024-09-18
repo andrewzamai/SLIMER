@@ -49,6 +49,7 @@ PROs:
 &nbsp;&nbsp;&nbsp;&nbsp;✅ long documents handling
 
 CONs:
+
 &nbsp;&nbsp;&nbsp;&nbsp;❌ does not scale well with increasing label set cardinality
 
 
