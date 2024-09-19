@@ -53,6 +53,14 @@ CONs:
 &nbsp;&nbsp;&nbsp;&nbsp;❌ does not scale well with increasing label set cardinality
 
 
+## Installation
+
+You will need to install the following dependencies to run SLIMER:
+```
+pip install --upgrade pip
+pip install -r ./requirements.txt
+```
+
 ## 📚 Citation
 
 If you find SLIMER useful in your work or research, please consider citing our paper:
