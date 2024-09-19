@@ -61,6 +61,14 @@ pip install --upgrade pip
 pip install -r ./requirements.txt
 ```
 
+## Running
+
+To train SLIMER on PileNER-subset with Definition and Guidelines:
+```
+PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft.py 391 5 5 --with_guidelines
+```
+
+
 ## 📚 Citation
 
 If you find SLIMER useful in your work or research, please consider citing our paper:
