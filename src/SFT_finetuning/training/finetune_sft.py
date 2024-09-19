@@ -338,22 +338,17 @@ if __name__ == "__main__":
     data_handler_pileNER.convert_MSEQA_dataset_to_GenQA_format_SI(
         dataset_MSEQA_format=dataset_MSEQA_format_with_n_samples_per_NE_FalseDef,
         with_definition=args.with_guidelines,
-        path_to_NE_guidelines_json="../../data_handlers/questions/pileNER/top391NEs_definitions.json",
-        path_to_save_to=f'../../../data/pileNER/{dataset_name}'
+        path_to_NE_guidelines_json="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
+        path_to_save_to=f'./data/pileNER/{dataset_name}'
     )
 
-    pileNER_MSEQA_FalseDef = data_handler_pileNER.build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(args.number_pos_samples_per_NE,
-                                                                                                           args.number_neg_samples_per_NE,
-                                                                                                           removeTestDatasetsNEs=True if args.number_NEs < 423 else False,
-                                                                                                           keep_only_top_tagNames=args.number_NEs)
-
     # now loading training config from yml and overriding some variables like dataset name and output_dir
-    path_to_training_config = '../training_config/llama2_4_NER_XDef_NsamplesPerNE.yml'
+    path_to_training_config = './src/SFT_finetuning/training_config/llama2_4_NER_XDef_NsamplesPerNE.yml'
     with open(path_to_training_config, 'rb') as f:
         configs = yaml.safe_load(f.read())
-    configs['data_path'] = f'../../../data/pileNER/{dataset_name}/train.jsonl'
-    configs['val_data_path'] = f'../../../data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"../../../trained_models/LLaMA2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
+    configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
+    configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
+    configs['output_dir'] = f"./trained_models/LLaMA2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
 
     train(**configs)
 
