@@ -41,9 +41,9 @@ def init_model(base_model, **kwargs):
 
     # added cache_dir
     # added padding_side
-    tokenizer = AutoTokenizer.from_pretrained(base_model, padding_side=padding_side, trust_remote_code=True, cache_dir='./hf_cache_dir')
+    tokenizer = AutoTokenizer.from_pretrained(base_model, padding_side=padding_side, trust_remote_code=True)
 
-    config = AutoConfig.from_pretrained(base_model, trust_remote_code=True, cache_dir='./hf_cache_dir')
+    config = AutoConfig.from_pretrained(base_model, trust_remote_code=True)
     config.update({"max_seq_len": cutoff_len})
 
     model = AutoModelForCausalLM.from_pretrained(
@@ -54,8 +54,7 @@ def init_model(base_model, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map=device_map,
         trust_remote_code=True,
-        use_flash_attention_2=use_flash_attention,
-        cache_dir='./hf_cache_dir'
+        use_flash_attention_2=use_flash_attention
     )
 
     # if use_flash_attention:
