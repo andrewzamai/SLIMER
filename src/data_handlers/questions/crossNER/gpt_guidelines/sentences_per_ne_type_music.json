@@ -1,0 +1,332 @@
+{
+  "album": [
+    {
+      "sentence": "Following the end of Nirvana , Novoselic worked on completing the With the Lights Out box set and From the Muddy Banks of the Wishkah album , as well as pushing for release of a Nevermind .",
+      "target_words_in_it": [
+        "From the Muddy Banks of the Wishkah",
+        "With the Lights Out",
+        "Nevermind"
+      ],
+      "occurrences_count": 3
+    },
+    {
+      "sentence": "Her early works in the 1960s ( her debut The Barbra Streisand Album , The Second Barbra Streisand Album , The Third Album , My Name Is Barbra , etc .",
+      "target_words_in_it": [
+        "My Name Is Barbra",
+        "The Barbra Streisand Album",
+        "The Third Album",
+        "The Second Barbra Streisand Album"
+      ],
+      "occurrences_count": 4
+    },
+    {
+      "sentence": "Their debut album The Magnificent Moodies , produced by Denny Cordell with a strong Beat music / Rhythm and blues flavour , was released on Decca in mono only in 1965 .",
+      "target_words_in_it": [
+        "The Magnificent Moodies"
+      ],
+      "occurrences_count": 1
+    }
+  ],
+  "award": [
+    {
+      "sentence": "Michael won various music awards including two Grammy Award s , three Brit Awards , three American Music Award s , four MTV Video Music Award s and six Ivor Novello Awards .",
+      "target_words_in_it": [
+        "Ivor Novello Awards",
+        "MTV Video Music Award s",
+        "Grammy Award s",
+        "American Music Award s",
+        "Brit Awards"
+      ],
+      "occurrences_count": 5
+    },
+    {
+      "sentence": "She released her first Spanish language album , Mi Plan , in 2009 , which won her a Latin Grammy Award for Latin Grammy Award for Best Female Pop Vocal Album .",
+      "target_words_in_it": [
+        "Latin Grammy Award for Latin Grammy Award for Best Female Pop Vocal Album"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "In 1995 , Dookie won the Grammy Award for Grammy Award for Best Alternative Music Album and the band was nominated for nine MTV Video Music Award s including Video of the Year .",
+      "target_words_in_it": [
+        "MTV Video Music Award",
+        "Video of the Year",
+        "Grammy Award"
+      ],
+      "occurrences_count": 4
+    }
+  ],
+  "band": [
+    {
+      "sentence": "Coldcut returned with the single Everything Is Under Control at the end of 2005 , featuring Jon Spencer ( of Jon Spencer Blues Explosion ) and Mike Ladd .",
+      "target_words_in_it": [
+        "Coldcut",
+        "Jon Spencer Blues Explosion"
+      ],
+      "occurrences_count": 2
+    },
+    {
+      "sentence": "Their music has a particular rumba flamenca style , with Pop music influences ; many songs of the Gipsy Kings fit social dance s , such as salsa and Rhumba .",
+      "target_words_in_it": [
+        "Gipsy Kings"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "In addition to relentless touring in the U.S. and Canada , PUSA made multiple tours of Europe , Australia , New Zealand and Japan .",
+      "target_words_in_it": [
+        "PUSA"
+      ],
+      "occurrences_count": 1
+    }
+  ],
+  "country": [
+    {
+      "sentence": "In addition to relentless touring in the U.S. and Canada , PUSA made multiple tours of Europe , Australia , New Zealand and Japan .",
+      "target_words_in_it": [
+        "New Zealand",
+        "Australia",
+        "Canada",
+        "Japan"
+      ],
+      "occurrences_count": 4
+    },
+    {
+      "sentence": "This style emerged in the United States in the early and mid-1980s , with innovators such as Queensr\u00ffche , Fates Warning , and Dream Theater .",
+      "target_words_in_it": [
+        "United States"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "On 24 August 2012 , Westenra staged a concert in the G\u0175yl Gobaith Music Festival in Wales to support for charities Cancer Research UK , Wales Air Ambulance , CLIC Sargent and HeadtoHeart .",
+      "target_words_in_it": [
+        "Wales"
+      ],
+      "occurrences_count": 2
+    }
+  ],
+  "event": [
+    {
+      "sentence": "The self-titled record was an instant success both critically and commercially , led by the official theme song for UAAP Season 71 of the UAAP - Puso ( trans : Heart ) .",
+      "target_words_in_it": [
+        "UAAP Season 71"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "On 24 August 2012 , Westenra staged a concert in the G\u0175yl Gobaith Music Festival in Wales to support for charities Cancer Research UK , Wales Air Ambulance , CLIC Sargent and HeadtoHeart .",
+      "target_words_in_it": [
+        "G\u0175yl Gobaith Music Festival"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "In 2003 , the Stade de France was the primary site of the 2003 World Championships in Athletics .",
+      "target_words_in_it": [
+        "2003 World Championships in Athletics"
+      ],
+      "occurrences_count": 1
+    }
+  ],
+  "location": [
+    {
+      "sentence": "In addition to relentless touring in the U.S. and Canada , PUSA made multiple tours of Europe , Australia , New Zealand and Japan .",
+      "target_words_in_it": [
+        "Europe"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "In 2003 , the Stade de France was the primary site of the 2003 World Championships in Athletics .",
+      "target_words_in_it": [
+        "Stade de France"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "This was followed by a series of small , intimate gigs at UK venues such as Liverpool 's The Cavern Club , London 's Mean Fiddler , and Glasgow 's Barrowland Ballroom .",
+      "target_words_in_it": [
+        "Liverpool",
+        "London",
+        "Barrowland Ballroom",
+        "Glasgow",
+        "Mean Fiddler",
+        "The Cavern Club"
+      ],
+      "occurrences_count": 6
+    }
+  ],
+  "misc": [
+    {
+      "sentence": "The series featured five albums of Masada themes including Masada Guitars by Marc Ribot , Bill Frisell , and Tim Sparks ; Masada Recital by Mark Feldman and Sylvie Courvoisier ; Masada Rock by Rashanim ; and two albums featuring various artists , Voices in the Wilderness and The Unknown Masada .",
+      "target_words_in_it": [
+        "Masada"
+      ],
+      "occurrences_count": 5
+    },
+    {
+      "sentence": "' s last four original albums , Boonoonoonoos , Ten Thousand Lightyears , Kalimba de Luna - 16 Happy Songs and Eye Dance were reissued on compact disc in Europe and the United States , all including bonus tracks .",
+      "target_words_in_it": [
+        "compact disc",
+        "bonus tracks"
+      ],
+      "occurrences_count": 2
+    },
+    {
+      "sentence": "In addition , a vintage siren , just as the original Boston Garden had used , was added to replace the end-of-period horn for hockey only , a feature of the Montreal Canadiens , the Bruins ' arch-rivals , at the Montreal Forum ( now the Pepsi Forum shopping centre ) and the current Bell Centre .",
+      "target_words_in_it": [
+        "Bruins",
+        "Montreal Canadiens"
+      ],
+      "occurrences_count": 2
+    }
+  ],
+  "musicalartist": [
+    {
+      "sentence": "Coldcut returned with the single Everything Is Under Control at the end of 2005 , featuring Jon Spencer ( of Jon Spencer Blues Explosion ) and Mike Ladd .",
+      "target_words_in_it": [
+        "Mike Ladd",
+        "Jon Spencer"
+      ],
+      "occurrences_count": 3
+    },
+    {
+      "sentence": "It started with pop music singers like Glen Campbell , Bobbie Gentry , John Denver , Olivia Newton-John , Anne Murray , B.",
+      "target_words_in_it": [
+        "Anne Murray"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "Following the end of Nirvana , Novoselic worked on completing the With the Lights Out box set and From the Muddy Banks of the Wishkah album , as well as pushing for release of a Nevermind .",
+      "target_words_in_it": [
+        "Novoselic"
+      ],
+      "occurrences_count": 1
+    }
+  ],
+  "musicalinstrument": [
+    {
+      "sentence": "Today , musicians as diverse as Keith Urban , Rod Stewart , Taj Mahal , Joe Satriani , David Hidalgo , Larry Lalonde and Doc Watson play the six-string guitar banjo .",
+      "target_words_in_it": [
+        "six-string guitar banjo"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "Outside the south , the accordion ( predominantly the piano accordion ) is used in almost all styles of Forr\u00f3 ( in particular in the subgenres of Xote and Bai\u00e3o ) as the principal instrument , Luiz Gonzaga ( the King of the Bai\u00e3o ) and Dominguinhos being among the notable musicians in this style from the northeast .",
+      "target_words_in_it": [
+        "piano accordion"
+      ],
+      "occurrences_count": 1
+    }
+  ],
+  "musicgenre": [
+    {
+      "sentence": "Their music has a particular rumba flamenca style , with Pop music influences ; many songs of the Gipsy Kings fit social dance s , such as salsa and Rhumba .",
+      "target_words_in_it": [
+        "rumba flamenca",
+        "Rhumba",
+        "salsa",
+        "Pop music"
+      ],
+      "occurrences_count": 4
+    },
+    {
+      "sentence": "It started with pop music singers like Glen Campbell , Bobbie Gentry , John Denver , Olivia Newton-John , Anne Murray , B.",
+      "target_words_in_it": [
+        "pop music"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "Routledge , 2002 The band was renamed Rocket Baby Dolls and adopted a Gothic rock - Glam rock image .",
+      "target_words_in_it": [
+        "Glam rock",
+        "Gothic rock"
+      ],
+      "occurrences_count": 2
+    }
+  ],
+  "organisation": [
+    {
+      "sentence": "The Benedictines and their offshoots ( Cistercians and Trappists among them ) , the Premonstratensians , and the military orders distinguish between conventual and simple or obedientiary priories .",
+      "target_words_in_it": [
+        "Premonstratensians",
+        "Benedictines",
+        "Trappists",
+        "military orders",
+        "Cistercians"
+      ],
+      "occurrences_count": 5
+    },
+    {
+      "sentence": "Their debut album The Magnificent Moodies , produced by Denny Cordell with a strong Beat music / Rhythm and blues flavour , was released on Decca in mono only in 1965 .",
+      "target_words_in_it": [
+        "Decca"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "The self-titled record was an instant success both critically and commercially , led by the official theme song for UAAP Season 71 of the UAAP - Puso ( trans : Heart ) .",
+      "target_words_in_it": [
+        "UAAP"
+      ],
+      "occurrences_count": 2
+    }
+  ],
+  "person": [
+    {
+      "sentence": "Arguably the most successful boy band manager from the U.S. was Lou Pearlman , who founded commercially successful acts such as the Backstreet Boys in 1993 , NSYNC and LFO in 1995 , O-Town in 2000 , and US5 in 2005 .",
+      "target_words_in_it": [
+        "Lou Pearlman"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "It started with pop music singers like Glen Campbell , Bobbie Gentry , John Denver , Olivia Newton-John , Anne Murray , B.",
+      "target_words_in_it": [
+        "Olivia Newton-John",
+        "John Denver",
+        "Bobbie Gentry",
+        "Glen Campbell"
+      ],
+      "occurrences_count": 4
+    },
+    {
+      "sentence": "For Mirrors , instead of working with previous producers Sandy Pearlman ( who instead went on to manage Black Sabbath ) and Murray Krugman , Blue \u00d6yster Cult chose Tom Werman , who had worked with acts such as Cheap Trick and Ted Nugent .",
+      "target_words_in_it": [
+        "Sandy Pearlman",
+        "Murray Krugman",
+        "Tom Werman"
+      ],
+      "occurrences_count": 3
+    }
+  ],
+  "song": [
+    {
+      "sentence": "Coldcut returned with the single Everything Is Under Control at the end of 2005 , featuring Jon Spencer ( of Jon Spencer Blues Explosion ) and Mike Ladd .",
+      "target_words_in_it": [
+        "Everything Is Under Control"
+      ],
+      "occurrences_count": 1
+    },
+    {
+      "sentence": "The self-titled record was an instant success both critically and commercially , led by the official theme song for UAAP Season 71 of the UAAP - Puso ( trans : Heart ) .",
+      "target_words_in_it": [
+        "Puso",
+        "Heart"
+      ],
+      "occurrences_count": 2
+    },
+    {
+      "sentence": "Two of his most popular recordings were Layla , recorded with Derek and the Dominos ; and Robert Johnson ' s Cross Road Blues , recorded with Cream .",
+      "target_words_in_it": [
+        "Layla",
+        "Cross Road Blues"
+      ],
+      "occurrences_count": 2
+    }
+  ]
+}

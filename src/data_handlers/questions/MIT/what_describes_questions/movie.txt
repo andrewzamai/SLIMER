@@ -1,0 +1,23 @@
+ACTOR:What describes actor in the text?
+
+CHARACTER:What describes character in the text?
+
+DIRECTOR:What describes director in the text?
+
+GENRE:What describes movie genre in the text?
+
+PLOT:What describes plot in the text?
+
+RATING:What describes rating in the text?
+
+RATINGS_AVERAGE:What describes ratings average in the text?
+
+REVIEW:What describes review in the text?
+
+SONG:What describes song in the text?
+
+TITLE:What describes title in the text?
+
+TRAILER:What describes trailer in the text?
+
+YEAR:What describes year in the text?

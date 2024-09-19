@@ -1,0 +1,269 @@
+{
+  "country": {
+    "real_name": "country",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Clay ( the US administrator of Germany ) , Konrad Adenauer ( the German chancellor ) , Willy Brandt , and Otto Bach ( President of the Abgeordnetenhaus of Berlin ) .",
+        "target_words_in_it": [
+          "Germany",
+          "US"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "The carrier traces its roots back to , initially serving Athens , Cairo , London , Malta , Paris , Rome and Tunis .",
+        "target_words_in_it": [
+          "Malta"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The heads of state summit was followed by a ministerial summit on November 2009 in Montego Bay , Jamaica to prepare an action plan to develop the agenda agreed in the I CALC summit .",
+        "target_words_in_it": [
+          "Jamaica"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "election": {
+    "real_name": "election",
+    "Hints": "If an event entity is an election event, you should label it as an 'election' entity instead of an 'event' entity.",
+    "sentences": [
+      {
+        "sentence": "The 1824 United States presidential election was contested by Adams , Andrew Jackson , William H.",
+        "target_words_in_it": [
+          "1824 United States presidential election"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Like most other Texas Republicans , Bush supported conservative Senator Barry Goldwater over the more centrist Nelson Rockefeller in the 1964 Republican Party presidential primaries .",
+        "target_words_in_it": [
+          "1964 Republican Party presidential primaries"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "In the 1994 European Parliament election in Ireland , Patricia McKenna topped the poll in the Dublin constituency and Nuala Ahern won a seat in Leinster .",
+        "target_words_in_it": [
+          "1994 European Parliament election in Ireland"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "event": {
+    "real_name": "event",
+    "Hints": "The event entity, which includes festival, war, summit, Campaign, and etc. If an event entity is an election event, you should label it as an 'election' entity instead of an 'event' entity.",
+    "sentences": [
+      {
+        "sentence": "The IV CELAC summit or 2016 CELAC summit was the fourth ordinary heads of state summit of the Community of Latin American and Caribbean States .",
+        "target_words_in_it": [
+          "IV CELAC summit",
+          "2016 CELAC summit"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Roosevelt , a summit meeting known as the Second Washington Conference .",
+        "target_words_in_it": [
+          "Second Washington Conference"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Taft at the 1952 Republican National Convention , but the party 's presidential nomination instead went to Dwight D.",
+        "target_words_in_it": [
+          "1952 Republican National Convention"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "location": {
+    "real_name": "location",
+    "Hints": "The location entity, including place, bridge, city, county and etc.",
+    "sentences": [
+      {
+        "sentence": "Pi\u0142sudski , together with Colonel Kazimierz Sosnkowski , was greeted at Warsaw 's railway station by Regent Zdzis\u0142aw Lubomirski and by Colonel Adam Koc .",
+        "target_words_in_it": [
+          "Warsaw 's railway station"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Rome and Paris became the airline 's third and fourth European destinations , with flights stopping in Mumbai and Cairo to refuel .",
+        "target_words_in_it": [
+          "Mumbai",
+          "Cairo",
+          "Rome",
+          "Paris",
+          "European"
+        ],
+        "occurrences_count": 5
+      },
+      {
+        "sentence": "Masud Sabri , a Uyghur was appointed as Governor of Xinjiang by KMT , as was the Tatar Burhan Shahidi and the Uyghur Yulbars Khan .",
+        "target_words_in_it": [
+          "Xinjiang"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "misc": {
+    "real_name": "miscellaneous",
+    "Hints": "An entity needs to be classified as the miscellaneous type if it does not belong to any other category in the political context, such as person, politician, location, country, event, election, organization, political party.",
+    "sentences": [
+      {
+        "sentence": "He led a government 's coalition composed by Christian Democrats , Italian Socialist Party , Italian Democratic Socialist Party , Italian Republican Party and Italian Liberal Party .",
+        "target_words_in_it": [
+          "Christian Democrats"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Six other Republican senators - Wayne Morse , Irving Ives , Charles W.",
+        "target_words_in_it": [
+          "Republican"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Masud Sabri , a Uyghur was appointed as Governor of Xinjiang by KMT , as was the Tatar Burhan Shahidi and the Uyghur Yulbars Khan .",
+        "target_words_in_it": [
+          "Uyghur",
+          "Tatar"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "organisation": {
+    "real_name": "organization",
+    "Hints": "If an organization entity is a political party, you should label it as a 'political party' entity instead of an 'organization' entity.",
+    "sentences": [
+      {
+        "sentence": "The IV CELAC summit or 2016 CELAC summit was the fourth ordinary heads of state summit of the Community of Latin American and Caribbean States .",
+        "target_words_in_it": [
+          "Community of Latin American and Caribbean States"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "He was the former president of the American Political Science Association and a member of the American Academy of Arts and Sciences , American Philosophical Society and Human Rights Foundation .",
+        "target_words_in_it": [
+          "American Philosophical Society",
+          "American Political Science Association",
+          "Human Rights Foundation",
+          "American Academy of Arts and Sciences"
+        ],
+        "occurrences_count": 4
+      },
+      {
+        "sentence": "Amnesty International and Human Rights Watch as well as B 'Tselem and Yesh Din criticized the military investigation .",
+        "target_words_in_it": [
+          "B 'Tselem",
+          "Human Rights Watch",
+          "Yesh Din",
+          "Amnesty International"
+        ],
+        "occurrences_count": 4
+      }
+    ]
+  },
+  "person": {
+    "real_name": "person",
+    "Hints": "Proper names of person. If a person entity is a politician, you should label this person as a 'politician' entity instead of a 'person' entity.",
+    "sentences": [
+      {
+        "sentence": "Like Fidel , Ra\u00fal later attended the Jesuit School of Colegio Dolores in Santiago de Cuba and Belen Jesuit Preparatory School in Havana .",
+        "target_words_in_it": [
+          "Ra\u00fal",
+          "Fidel"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Brooks was a member of the Masonic Lodge , the Shriners , the Benevolent and Protective Order of Elks , American Legion , Veterans of Foreign Wars , and the Kiwanis International .",
+        "target_words_in_it": [
+          "Brooks"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Joschka Fischer became Vice-Chancellor of Germany and foreign minister in the new government , which had two other Green ministers ( Andrea Fischer , later Renate K\u00fcnast , and J\u00fcrgen Trittin ) .",
+        "target_words_in_it": [
+          "Andrea Fischer"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "politicalparty": {
+    "real_name": "political party",
+    "Hints": "The political party entity. If an organization entity is a political party, you should label it as a 'political party' entity instead of an 'organization' entity.",
+    "sentences": [
+      {
+        "sentence": "This tends to lead to the chamber being dominated by two major parties , the Liberal Party of Australia / National Party of Australia Coalition and the Australian Labor Party .",
+        "target_words_in_it": [
+          "National Party of Australia",
+          "Liberal Party of Australia",
+          "Australian Labor Party"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "Parties with mainly Eurosceptic views are the ruling United Russia , and opposition parties the Communist Party of the Russian Federation and Liberal Democratic Party of Russia .",
+        "target_words_in_it": [
+          "United Russia",
+          "Communist Party of the Russian Federation",
+          "Liberal Democratic Party of Russia"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "Crawford , and Henry Clay , all of whom were members of the Democratic-Republican Party .",
+        "target_words_in_it": [
+          "Democratic-Republican Party"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "politician": {
+    "real_name": "politician",
+    "Hints": "The politician entity. If a person entity is a politician, you should label this person as a 'politician' entity instead of a 'person' entity.",
+    "sentences": [
+      {
+        "sentence": "Pi\u0142sudski , together with Colonel Kazimierz Sosnkowski , was greeted at Warsaw 's railway station by Regent Zdzis\u0142aw Lubomirski and by Colonel Adam Koc .",
+        "target_words_in_it": [
+          "Adam Koc",
+          "Zdzis\u0142aw Lubomirski",
+          "Pi\u0142sudski",
+          "Kazimierz Sosnkowski"
+        ],
+        "occurrences_count": 4
+      },
+      {
+        "sentence": "The 1824 United States presidential election was contested by Adams , Andrew Jackson , William H.",
+        "target_words_in_it": [
+          "Adams",
+          "Andrew Jackson"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Gandhian right-wing Congressmen Vallabhbhai Patel , Rajendra Prasad and C.",
+        "target_words_in_it": [
+          "Gandhian",
+          "Rajendra Prasad",
+          "Vallabhbhai Patel"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  }
+}

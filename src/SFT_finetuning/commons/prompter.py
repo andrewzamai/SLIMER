@@ -61,31 +61,30 @@ class Prompter(object):
 if __name__ == '__main__':
 
     from datasets import load_dataset
-    path_to_dataset = "../../../datasets/pileNER/pileNER_GenQA_format_TrueDef/train.jsonl"
+    path_to_dataset = "../../../data/pileNER/5pos_5neg_perNE_top391NEs_TrueDef/train.jsonl"
     data = load_dataset("json", data_files=path_to_dataset)
+    sample = data['train'][1]
 
-    sample = data['train'][0]
-    prompt = Prompter("reverse_INST", template_path="../templates").generate_prompt(instruction=sample['instruction'],
-                                                                                    input=sample['input'],
-                                                                                    label=sample['output'])
+    """
+    from src.data_handlers import data_handler_pileNER
+    data = data_handler_pileNER.convert_MIT_CrossNER_test_sets_for_SLIMER_inference(
+        'ai',
+        '../../../data/eval_data_UniNER/test_data/CrossNER_AI.json',
+        path_to_NE_guidelines_json='../../data_handlers/questions/crossNER/gpt_guidelines/ai_NE_definitions.json',
+        with_definition=True
+    )
+    sample = data[1]
+    """
+
+    prompt = Prompter("LLaMA2-chat", template_path="../templates").generate_prompt(
+        instruction=sample['instruction'],
+        input=sample['input'],
+        label=sample['output']
+    )
+
     #print(json.dumps(prompt))
     print(prompt)
-    """
-    from transformers import AutoTokenizer
 
-    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf", token="")
-    average_prompt_length = 0
-    for i in range(1):
-        sample = data['train'][i]
-        prompt = Prompter("reverse_INST", template_path="../templates").generate_prompt(instruction=sample['instruction'], input=sample['input'], label=sample['output'])
-        print(prompt)
-
-        # print(len(prompt.split()))
-        n_tokens = len(tokenizer(prompt)['input_ids'])
-        average_prompt_length += n_tokens
-
-    print(f"\nAverage n tokens: {average_prompt_length/1000}")
-    """
 
 
 

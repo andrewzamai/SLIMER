@@ -1,0 +1,17 @@
+Parties:BUYING_COMPANY
+Which is the buying company ?
+---
+Parties:SELLING_COMPANY
+Who is selling something ?
+---
+Parties:ACQUIRED_COMPANY
+Which is the acquired company ?
+---
+Advisors:LEGAL_CONSULTING_COMPANY
+Which is a law firm providing legal advice on the transaction ?
+---
+Advisors:GENERIC_CONSULTING_COMPANY
+Which is a general firm providing non legal advice on the transaction ?
+---
+Generic_Info:ANNUAL_REVENUES
+What are the annual revenues ?

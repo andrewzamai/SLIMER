@@ -1,0 +1,25 @@
+album:What describes music albums in the text?
+
+award:What describes music awards in the text?
+
+band:What describes music bands in the text?
+
+country:What describes countries in the text?
+
+event:What describes events in the text?
+
+location:What describes locations in the text?
+
+misc:What describes other relevant information in the text?
+
+musicalartist:What describes musical artists in the text?
+
+musicalinstrument:What describes musical instruments in the text?
+
+musicgenre:What describes music genres in the text?
+
+organisation:What describes organizations in the text?
+
+person:What describes persons, but not musical artists, in the text?
+
+song:What describes songs in the text?

@@ -1,0 +1,342 @@
+{
+  "award": {
+    "real_name": "award",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "In 1990 , he published the last Rabbit novel , Rabbit at Rest , which won the Pulitzer Prize and the National Book Critics Circle Award .",
+        "target_words_in_it": [
+          "National Book Critics Circle Award",
+          "Pulitzer Prize"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Gravity 's Rainbow shared the 1974 National Book Award with A Crown of Feathers and Other Stories by Isaac Bashevis Singer ( split award ) .",
+        "target_words_in_it": [
+          "National Book Award"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "At the 47th Berlin International Film Festival in 1997 , DiCaprio won the Silver Bear for Best Actor and Luhrmann won the Alfred Bauer Prize .",
+        "target_words_in_it": [
+          "Alfred Bauer Prize",
+          "Silver Bear for Best Actor"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "book": {
+    "real_name": "book",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "In 1990 , he published the last Rabbit novel , Rabbit at Rest , which won the Pulitzer Prize and the National Book Critics Circle Award .",
+        "target_words_in_it": [
+          "Rabbit at Rest"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Gravity 's Rainbow shared the 1974 National Book Award with A Crown of Feathers and Other Stories by Isaac Bashevis Singer ( split award ) .",
+        "target_words_in_it": [
+          "A Crown of Feathers and Other Stories",
+          "Gravity 's Rainbow"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "In Beyond Good and Evil and On the Genealogy of Morality , Nietzsche 's genealogical account of the development of modern moral systems occupies a central place .",
+        "target_words_in_it": [
+          "Beyond Good and Evil",
+          "On the Genealogy of Morality"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "country": {
+    "real_name": "country",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Although not accessible for years within Germany to comply with a court order from S.",
+        "target_words_in_it": [
+          "Germany"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Under the succeeding Han dynasty and Tang dynasty dynasties , Confucian ideas gained even more widespread prominence .",
+        "target_words_in_it": [
+          "Tang dynasty",
+          "Han dynasty"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Sprague de Camp , in which an American academic travels to Italy at the time of the Byzantine invasion of the Ostrogoths .",
+        "target_words_in_it": [
+          "Italy"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "event": {
+    "real_name": "event",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "At the 47th Berlin International Film Festival in 1997 , DiCaprio won the Silver Bear for Best Actor and Luhrmann won the Alfred Bauer Prize .",
+        "target_words_in_it": [
+          "47th Berlin International Film Festival"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The period around World War II also saw the publication of the time travel novel Lest Darkness Fall by L.",
+        "target_words_in_it": [
+          "World War II"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The film was presented at the Cannes Film Festival , won the Grand Prix Sp\u00e9cial du Jury and the FIPRESCI prize , and was nominated for the Palme d 'Or .",
+        "target_words_in_it": [
+          "Cannes Film Festival"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "literarygenre": {
+    "real_name": "literary genre",
+    "Hints": "The literary genre entity, such as novel and science fiction.",
+    "sentences": [
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "target_words_in_it": [
+          "poem"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Charles spent time outdoors , but also read voraciously , including the picaresque novel s of Tobias Smollett and Henry Fielding , as well as Robinson Crusoe and Gil Blas .",
+        "target_words_in_it": [
+          "picaresque novel"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The period around World War II also saw the publication of the time travel novel Lest Darkness Fall by L.",
+        "target_words_in_it": [
+          "time travel novel"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "location": {
+    "real_name": "location",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "After a 1995 staging at the La Jolla Playhouse , he retained David Mamet to help rework the book before its relaunch on the Chicago Goodman Theatre mainstage in 1996 .",
+        "target_words_in_it": [
+          "La Jolla Playhouse",
+          "Chicago Goodman Theatre"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "He was influenced by the Marxist playwright Bertolt Brecht and was invited by Brecht to be his assistant at the East Berlin State Opera but turned down the offer .",
+        "target_words_in_it": [
+          "East Berlin State Opera"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Augustine was born in the year 354 AD in the municipium of Thagaste ( now Souk Ahras , Algeria ) in the Roman province of Numidia .",
+        "target_words_in_it": [
+          "Thagaste",
+          "Souk Ahras",
+          "Roman province of Numidia"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "magazine": {
+    "real_name": "magazine",
+    "Hints": "The magazine that publishes articles as well as any other literature work.",
+    "sentences": [
+      {
+        "sentence": "In an article for The Atlantic , film critic Ty Burr deemed The Birth of a Nation the most influential film in history while criticizing its portrayal of black men as savage .",
+        "target_words_in_it": [
+          "The Atlantic"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "In 1952 , Capp and his characters graced the covers of both Life and TV Guide .",
+        "target_words_in_it": [
+          "TV Guide",
+          "Life"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "In addition to writing for The New Yorker , he has written for The Atlantic Monthly and National Geographic .",
+        "target_words_in_it": [
+          "National Geographic",
+          "The New Yorker",
+          "The Atlantic Monthly"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "misc": {
+    "real_name": "miscellaneous",
+    "Hints": ": An entity needs to be classified as the miscellaneous type if it does not belong to any other category in the 'literature' context such as book, poem, writer, magazine, literary genre, location, person, organization, event.",
+    "sentences": [
+      {
+        "sentence": "In an article for The Atlantic , film critic Ty Burr deemed The Birth of a Nation the most influential film in history while criticizing its portrayal of black men as savage .",
+        "target_words_in_it": [
+          "The Birth of a Nation"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "In 1990 , he published the last Rabbit novel , Rabbit at Rest , which won the Pulitzer Prize and the National Book Critics Circle Award .",
+        "target_words_in_it": [
+          "Rabbit novel"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "target_words_in_it": [
+          "Australian"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "organisation": {
+    "real_name": "organization",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Fischer Verlag regarding the works of Heinrich Mann , Thomas Mann and Alfred D\u00f6blin , Project Gutenberg is once more accessible .",
+        "target_words_in_it": [
+          "Project Gutenberg"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "It was selected as one of the best science fiction short stories of the pre- Nebula Award period by the Science Fiction and Fantasy Writers of America .",
+        "target_words_in_it": [
+          "Science Fiction and Fantasy Writers of America"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Also in 2007 he provided consulting services to Silver Pictures on the film adaptation of Richard K.",
+        "target_words_in_it": [
+          "Silver Pictures"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "person": {
+    "real_name": "person",
+    "Hints": "If a person is working on literature (including writer, novelist, scriptwriter, poet, and etc), do not label it as a person entity.",
+    "sentences": [
+      {
+        "sentence": "In an article for The Atlantic , film critic Ty Burr deemed The Birth of a Nation the most influential film in history while criticizing its portrayal of black men as savage .",
+        "target_words_in_it": [
+          "Ty Burr"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "target_words_in_it": [
+          "Banjo Paterson"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "At the 47th Berlin International Film Festival in 1997 , DiCaprio won the Silver Bear for Best Actor and Luhrmann won the Alfred Bauer Prize .",
+        "target_words_in_it": [
+          "Luhrmann",
+          "DiCaprio"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "poem": {
+    "real_name": "poem",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "target_words_in_it": [
+          "The Man from Ironbark"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "This uses the words of war poet Wilfred Owen ' s At a Calvary near the Ancre .",
+        "target_words_in_it": [
+          "At a Calvary near the Ancre"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The original Chanson d 'Antioche is lost , but it was edited in the 12th century by Graindor de Douai , who also edited the Chanson de J\u00e9rusalem , and possibly wrote the Chanson des Ch\u00e9tifs himself .",
+        "target_words_in_it": [
+          "Chanson de J\u00e9rusalem",
+          "Chanson d 'Antioche",
+          "Chanson des Ch\u00e9tifs"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "writer": {
+    "real_name": "writer",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Fischer Verlag regarding the works of Heinrich Mann , Thomas Mann and Alfred D\u00f6blin , Project Gutenberg is once more accessible .",
+        "target_words_in_it": [
+          "Thomas Mann",
+          "Alfred D\u00f6blin",
+          "Heinrich Mann"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "Gravity 's Rainbow shared the 1974 National Book Award with A Crown of Feathers and Other Stories by Isaac Bashevis Singer ( split award ) .",
+        "target_words_in_it": [
+          "Isaac Bashevis Singer"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "This uses the words of war poet Wilfred Owen ' s At a Calvary near the Ancre .",
+        "target_words_in_it": [
+          "Wilfred Owen"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+algorithm:What describes algorithm in the text?
+
+conference:What describes conference in the text?
+
+country:What describes country in the text?
+
+field:What describes field in the text?
+
+location:What describes location in the text?
+
+metrics:What describes metrics in the text?
+
+misc:What describes other relevant information in the text?
+
+organisation:What describes organization in the text?
+
+person:What describes person in the text?
+
+product:What describes product in the text?
+
+programlang:What describes programming language in the text?
+
+researcher:What describes researcher in the text?
+
+task:What describes task in the text?
+
+university:What describes university in the text?

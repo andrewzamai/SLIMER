@@ -1,0 +1,443 @@
+[
+  {
+    "named_entity": "algorithm",
+    "real_name": "algorithm",
+    "sentences_as_example": [
+      {
+        "sentence": "Another technique particularly used for recurrent neural network s is the long short-term memory ( LSTM ) network of 1997 by Sepp Hochreiter & J\u00fcrgen Schmidhuber .",
+        "entities": [
+          "recurrent neural network",
+          "LSTM",
+          "long short-term memory"
+        ]
+      },
+      {
+        "sentence": "In 1999 , Felix Gers and his advisor J\u00fcrgen Schmidhuber and Fred Cummins introduced the forget gate ( also called keep gate ) into LSTM architecture ,",
+        "entities": [
+          "keep gate",
+          "LSTM",
+          "forget gate"
+        ]
+      },
+      {
+        "sentence": "J48 is an open source Java implementation of the C4.5 algorithm in the Weka data mining tool .",
+        "entities": [
+          "C4.5 algorithm"
+        ]
+      }
+    ],
+    "prompt_length": 546,
+    "output_length": 75,
+    "gpt_answer": "{\"Definition\": \"'algorithm' entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines.\", \"Guidelines\": \"Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "conference",
+    "real_name": "conference",
+    "sentences_as_example": [
+      {
+        "sentence": "Xu has published more than 50 papers at international conferences and in journals in the field of computer vision and won the Best Paper Award at the international conference on Non-Photorealistic Rendering and Animation ( NPAR ) 2012 and the Best Reviewer Award at the international conferences Asian Conference on Computer Vision ACCV 2012 and International Conference on Computer Vision ( ICCV ) 2015 .",
+        "entities": [
+          "international conference on Non-Photorealistic Rendering and Animation",
+          "ICCV",
+          "International Conference on Computer Vision",
+          "ACCV 2012",
+          "international conferences Asian Conference on Computer Vision",
+          "NPAR"
+        ]
+      },
+      {
+        "sentence": "He is a Fellow of the American Association for the Advancement of Science , Association for the Advancement Artificial Intelligence , and Cognitive Science Society , and an editor of the J.",
+        "entities": [
+          "Association for the Advancement Artificial Intelligence"
+        ]
+      },
+      {
+        "sentence": "Eurisko made many interesting discoveries and enjoyed significant acclaim , with his paper Heuretics : Theoretical and Study of Heuristic Rules winning the Best Paper award at the 1982 Association for the Advancement of Artificial Intelligence .",
+        "entities": [
+          "1982 Association for the Advancement of Artificial Intelligence"
+        ]
+      }
+    ],
+    "prompt_length": 625,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'conference' refers to specific events or gatherings where experts, researchers, and professionals convene to present and discuss their work in a particular field or discipline.\", \"Guidelines\": \"Exercise caution when labeling entities that could refer to institutions, organizations, or associations rather than specific events. Take care with ambiguous terms like 'International Journal of Computer Vision', which may refer to a publication rather than a conference.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "country",
+    "real_name": "country",
+    "sentences_as_example": [
+      {
+        "sentence": "The company has international locations in Australia , Brazil , Canada , China , Germany , India , Italy , Japan , Korea , Lithuania , Poland , Malaysia , the Philippines , Russia , Singapore , South Africa , Spain , Taiwan , Thailand , Turkey and the United Kingdom .",
+        "entities": [
+          "Lithuania",
+          "Italy",
+          "United Kingdom",
+          "China",
+          "South Africa",
+          "Turkey",
+          "Australia",
+          "Thailand",
+          "India",
+          "Poland",
+          "Canada",
+          "Malaysia",
+          "Spain",
+          "Russia",
+          "Korea",
+          "Taiwan",
+          "Japan",
+          "Singapore",
+          "Germany",
+          "Brazil",
+          "Philippines"
+        ]
+      },
+      {
+        "sentence": "Licensing the original patent awarded to inventor George Devol , Engelberger developed the first industrial robot in the United States , the Unimate , in the 1950s .",
+        "entities": [
+          "United States"
+        ]
+      },
+      {
+        "sentence": "One of the metrics used in NIST ' s annual Document Understanding Conferences , in which research groups submit their systems for both summarization and translation tasks , is the ROUGE metric ( Recall-Oriented Understudy for Gisting Evaluation , In Advances of Neural Information Processing Systems ( NIPS ) , Montreal , Canada , December - 2014 .",
+        "entities": [
+          "Canada"
+        ]
+      }
+    ],
+    "prompt_length": 622,
+    "output_length": 94,
+    "gpt_answer": "{\"Definition\": \"'country' refers to a sovereign state, including recognized independent nations and regions with their own government and boundaries.\", \"Guidelines\": \"Do not label organizations or businesses unless they represent a sovereign state (e.g., do not label 'United Nations' as a 'country'). Be cautious of historical references (e.g., 'Yugoslavia') and ambiguous terms like 'Georgia' (referring to the country or the U.S. state).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "field",
+    "real_name": "field",
+    "sentences_as_example": [
+      {
+        "sentence": "CycL in computer science and artificial intelligence is an ontology language used by Doug Lenat 's Cyc artificial project .",
+        "entities": [
+          "computer science",
+          "artificial intelligence"
+        ]
+      },
+      {
+        "sentence": "Heterodyning is a signal processing technique invented by Canadian inventor-engineer Reginald Fessenden that creates new frequencies by combining mixing two frequencies .",
+        "entities": [
+          "signal processing"
+        ]
+      },
+      {
+        "sentence": "tity contains a collection of visualization tools and algorithms for data analysis and predictive modeling , together with graphical user interfaces for easy access to these functions.",
+        "entities": [
+          "data analysis"
+        ]
+      }
+    ],
+    "prompt_length": 506,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'field' in the context of NER refers to specific areas of study, research, or expertise, such as computer science, artificial intelligence, or signal processing.\", \"Guidelines\": \"Avoid labeling general terms such as 'science', 'technology', and 'engineering' unless they are part of a specific field. Exercise caution with terms that could be interpreted as both a field and a different entity, such as 'French literature' (literature from France) and 'financial markets' \"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "location",
+    "real_name": "location",
+    "sentences_as_example": [
+      {
+        "sentence": "Beginning at the 2019 Toronto International Film Festival , films may now be restricted from screening at Scotiabank Theatre Toronto - one of the festival 's main venues - and screened elsewhere ( such as TIFF Bell Lightbox and other local cinemas ) if distributed by a service such as Netflix .",
+        "entities": [
+          "TIFF Bell Lightbox",
+          "Scotiabank Theatre Toronto"
+        ]
+      },
+      {
+        "sentence": "One of the metrics used in NIST ' s annual Document Understanding Conferences , in which research groups submit their systems for both summarization and translation tasks , is the ROUGE metric ( Recall-Oriented Understudy for Gisting Evaluation , In Advances of Neural Information Processing Systems ( NIPS ) , Montreal , Canada , December - 2014 .",
+        "entities": [
+          "Montreal"
+        ]
+      },
+      {
+        "sentence": "Boris Katz , ( born October 5 , 1947 , Chi\u0219in\u0103u , Moldavian SSR , Soviet Union , ( now Chi\u0219in\u0103u , Moldova ) ) is a principal American research scientist ( computer scientist ) at the MIT Computer Science and Artificial Intelligence Laboratory at the Massachusetts Institute of Technology in Cambridge and head of the Laboratory 's InfoLab Group .",
+        "entities": [
+          "Moldavian SSR",
+          "Chi\u0219in\u0103u"
+        ]
+      }
+    ],
+    "prompt_length": 623,
+    "output_length": 100,
+    "gpt_answer": "{\n  \"Definition\": \"'location' refers to specific geographic entities such as venues, facilities, and institutions that represent physical places with distinct addresses or functions.\",\n  \"Guidelines\": \"Exercise caution with ambiguous terms, e.g., 'Amazon' (company, river, and region) and 'Cambridge' (U.S. city, UK city, and university). Consider the context and specificity to accurately classify locations.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "metrics",
+    "real_name": "metrics",
+    "sentences_as_example": [
+      {
+        "sentence": "Sigmoid function Cross entropy loss is used for predicting K independent probability values in math 0,1 / math .",
+        "entities": [
+          "Sigmoid function Cross entropy loss"
+        ]
+      },
+      {
+        "sentence": "The parameters \u03b2 are typically estimated by maximum likelihood .",
+        "entities": [
+          "maximum likelihood"
+        ]
+      },
+      {
+        "sentence": "The NIST metric is based on the BLEU metric , but with some alterations .",
+        "entities": [
+          "BLEU metric",
+          "NIST metric"
+        ]
+      }
+    ],
+    "prompt_length": 470,
+    "output_length": 69,
+    "gpt_answer": "{\"Definition\": \"'metrics' refer to quantifiable measures used for evaluation or comparison, often in the fields of data analysis, machine learning, and statistics.\", \"Guidelines\": \"Do not label general mathematical functions or formulas. Exercise caution with terms that have multiple meanings, such as 'beta' (parameter or letter in the Greek alphabet).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "misc",
+    "real_name": "miscellaneous",
+    "sentences_as_example": [
+      {
+        "sentence": "During the 1990s , encouraged by successes in speech recognition and speech synthesis , research began into speech translation with the development of the German Verbmobil project .",
+        "entities": [
+          "Verbmobil project",
+          "German"
+        ]
+      },
+      {
+        "sentence": "CycL in computer science and artificial intelligence is an ontology language used by Doug Lenat 's Cyc artificial project .",
+        "entities": [
+          "ontology language",
+          "Cyc artificial project"
+        ]
+      },
+      {
+        "sentence": "Heterodyning is a signal processing technique invented by Canadian inventor-engineer Reginald Fessenden that creates new frequencies by combining mixing two frequencies .",
+        "entities": [
+          "Canadian"
+        ]
+      }
+    ],
+    "prompt_length": 553,
+    "output_length": 94,
+    "gpt_answer": "{\"Definition\": \"'miscellaneous' encompasses entities in the 'Artificial Intelligence' context that do not fit into any other specific category, such as field, task, product, algorithm, researcher, metrics, university, country, person, organization, location, programming language, conference.\", \"Guidelines\": \"If an entity is not readily categorized into any other specific literary entity type, and does not represent a location, person, organization, or event within the context of artificial intelligence, it should be labeled as 'miscellaneous'. Be cautious with ambiguous terms.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "organisation",
+    "real_name": "organization",
+    "sentences_as_example": [
+      {
+        "sentence": "He is a Fellow of the American Association for the Advancement of Science , Association for the Advancement Artificial Intelligence , and Cognitive Science Society , and an editor of the J.",
+        "entities": [
+          "American Association for the Advancement of Science",
+          "Cognitive Science Society"
+        ]
+      },
+      {
+        "sentence": "Unimation purchased Victor Scheinman ' s Vicarm Inc.",
+        "entities": [
+          "Unimation"
+        ]
+      },
+      {
+        "sentence": "David Norris , Bloor Research , November 13 , 2013 .",
+        "entities": [
+          "Bloor Research"
+        ]
+      }
+    ],
+    "prompt_length": 471,
+    "output_length": 64,
+    "gpt_answer": "{\"Definition\": \"'organization' refers to structured groups, institutions, companies, or associations.\", \"Guidelines\": \"Avoid labeling generic terms like 'team' or 'group'. Exercise caution with ambiguous entities like 'Apple' (company vs. fruit) and 'Manchester United' (sports team vs. fan club).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "person",
+    "real_name": "person",
+    "sentences_as_example": [
+      {
+        "sentence": ") , Columbia 's Miss Sadie Thompson with Rita Hayworth , and Paramount 's Money From Home with Dean Martin and Jerry Lewis .",
+        "entities": [
+          "Jerry Lewis",
+          "Rita Hayworth",
+          "Dean Martin"
+        ]
+      },
+      {
+        "sentence": "The Walt Disney Company also began more prominent use of 3D films in special venues to impress audiences with Magic Journeys ( 1982 ) and Captain EO ( Francis Ford Coppola , 1986 , starring Michael Jackson ) being notable examples .",
+        "entities": [
+          "Francis Ford Coppola",
+          "Michael Jackson"
+        ]
+      }
+    ],
+    "prompt_length": 515,
+    "output_length": 85,
+    "gpt_answer": "{\"Definition\": \"'person' refers to individuals, including public figures, celebrities, and notable personalities.\", \"Guidelines\": \"If a person is working on research (including professor, Ph.D. student, researcher in companies, and etc) avoid labeling it as 'person' entity.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "product",
+    "real_name": "product",
+    "sentences_as_example": [
+      {
+        "sentence": "Some less widely spoken languages use the open-source eSpeak synthesizer for their speech ; producing a robotic , awkward voice that may be difficult to understand .",
+        "entities": [
+          "eSpeak synthesizer"
+        ]
+      },
+      {
+        "sentence": "Libraries written in Perl , Java , ActiveX or .NET can be directly called from MATLAB ,",
+        "entities": [
+          "MATLAB"
+        ]
+      },
+      {
+        "sentence": "Licensing the original patent awarded to inventor George Devol , Engelberger developed the first industrial robot in the United States , the Unimate , in the 1950s .",
+        "entities": [
+          "Unimate",
+          "industrial robot"
+        ]
+      }
+    ],
+    "prompt_length": 533,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'product' refers to tangible or intangible items, systems, or tools, including but not limited to physical products, software, and industrial machinery, designed for specific functions or applications.\", \"Guidelines\": \"Exercise caution when dealing with ambiguous terms like 'Java' (programming language, island, and coffee). Consider the context to discern the correct entity. Be mindful of generic terms like 'system' and 'toolkit' which may require additional context to determine if they fall under the 'product' category.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "programlang",
+    "real_name": "programming language",
+    "sentences_as_example": [
+      {
+        "sentence": "Libraries written in Perl , Java , ActiveX or .NET can be directly called from MATLAB ,",
+        "entities": [
+          "Java",
+          "Perl",
+          "ActiveX"
+        ]
+      },
+      {
+        "sentence": "Same implementation , to run in Java with JShell ( Java 9 minimum ) : codejshell scriptfile / codesyntaxhighlight lang = java",
+        "entities": [
+          "Java",
+          "java"
+        ]
+      },
+      {
+        "sentence": "J48 is an open source Java implementation of the C4.5 algorithm in the Weka data mining tool .",
+        "entities": [
+          "Java"
+        ]
+      }
+    ],
+    "prompt_length": 490,
+    "output_length": 99,
+    "gpt_answer": "{\"Definition\": \"'programming language' refers to a formal language used to communicate instructions to a computer. It includes languages like Java, Python, C++, and others.\", \"Guidelines\": \"Avoid labeling generic terms like 'code' or 'script' as 'programming language'. Exercise caution with context-dependent terms such as 'Java' (could refer to the island, the coffee, or the programming language).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "researcher",
+    "real_name": "researcher",
+    "sentences_as_example": [
+      {
+        "sentence": "Advocates of procedural representations were mainly centered at MIT , under the leadership of Marvin Minsky and Seymour Papert .",
+        "entities": [
+          "Marvin Minsky",
+          "Seymour Papert"
+        ]
+      },
+      {
+        "sentence": "Another technique particularly used for recurrent neural network s is the long short-term memory ( LSTM ) network of 1997 by Sepp Hochreiter & J\u00fcrgen Schmidhuber .",
+        "entities": [
+          "Sepp Hochreiter",
+          "J\u00fcrgen Schmidhuber"
+        ]
+      },
+      {
+        "sentence": "In 1999 , Felix Gers and his advisor J\u00fcrgen Schmidhuber and Fred Cummins introduced the forget gate ( also called keep gate ) into LSTM architecture ,",
+        "entities": [
+          "Felix Gers",
+          "J\u00fcrgen Schmidhuber",
+          "Fred Cummins"
+        ]
+      }
+    ],
+    "prompt_length": 562,
+    "output_length": 56,
+    "gpt_answer": "{\"Definition\": \"'researcher' refers to individuals who are actively involved in scientific or academic investigation and experimentation such as professors, Ph.D. students, researchers in companies, and etc.\", \"Guidelines\": \"Do not label individuals based solely on their affiliation with research institutions. When in doubt, prioritize individuals directly credited with specific research contributions or innovations.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "task",
+    "real_name": "task",
+    "sentences_as_example": [
+      {
+        "sentence": "Speech recognition and speech synthesis deal with how spoken language can be understood or created using computers .",
+        "entities": [
+          "Speech recognition",
+          "speech synthesis"
+        ]
+      },
+      {
+        "sentence": "The input is called speech recognition and the output is called speech synthesis .",
+        "entities": [
+          "speech recognition",
+          "speech synthesis"
+        ]
+      },
+      {
+        "sentence": "During the 1990s , encouraged by successes in speech recognition and speech synthesis , research began into speech translation with the development of the German Verbmobil project .",
+        "entities": [
+          "speech translation",
+          "speech recognition",
+          "speech synthesis"
+        ]
+      }
+    ],
+    "prompt_length": 498,
+    "output_length": 87,
+    "gpt_answer": "{\"Definition\": \"'task' refers to specific activities, processes, or objectives within a research field, particularly in relation to machine learning, artificial intelligence, or computational linguistics.\", \"Guidelines\": \"Avoid labeling generic terms like 'language understanding' or 'computer vision'. Be mindful of ambiguous terms like 'detection' (could refer to both task and action).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "university",
+    "real_name": "university",
+    "sentences_as_example": [
+      {
+        "sentence": "Advocates of procedural representations were mainly centered at MIT , under the leadership of Marvin Minsky and Seymour Papert .",
+        "entities": [
+          "MIT"
+        ]
+      },
+      {
+        "sentence": "He holds a D.Sc. degree in electrical and computer engineering ( 2000 ) from Inria and the University of Nice Sophia Antipolis , and has held permanent positions at Siemens Corporate Technology , \u00c9cole des ponts ParisTech as well as visiting positions at Rutgers University , Yale University and University of Houston .",
+        "entities": [
+          "Yale University",
+          "University of Houston",
+          "Rutgers University",
+          "University of Nice Sophia Antipolis",
+          "\u00c9cole des ponts ParisTech"
+        ]
+      },
+      {
+        "sentence": "Variants of the back-propagation algorithm as well as unsupervised methods by Geoff Hinton and colleagues at the University of Toronto can be used to train deep , highly nonlinear neural architectures , { { cite journal",
+        "entities": [
+          "University of Toronto"
+        ]
+      }
+    ],
+    "prompt_length": 557,
+    "output_length": 73,
+    "gpt_answer": "{\"Definition\": \"'university' represents educational institutions that offer higher education and academic research programs.\", \"Guidelines\": \"Avoid labeling general concepts such as 'education' or 'academia' as 'university'. Exercise caution with ambiguous terms like 'Cambridge' (can refer to different institutions) and 'Harvard' (can refer to a person).\"}",
+    "finish_reason": "stop"
+  }
+]

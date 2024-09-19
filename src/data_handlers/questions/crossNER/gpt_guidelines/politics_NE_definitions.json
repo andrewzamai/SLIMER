@@ -1,0 +1,278 @@
+[
+  {
+    "named_entity": "country",
+    "real_name": "country",
+    "sentences_as_example": [
+      {
+        "sentence": "Clay ( the US administrator of Germany ) , Konrad Adenauer ( the German chancellor ) , Willy Brandt , and Otto Bach ( President of the Abgeordnetenhaus of Berlin ) .",
+        "entities": [
+          "Germany",
+          "US"
+        ]
+      },
+      {
+        "sentence": "The carrier traces its roots back to , initially serving Athens , Cairo , London , Malta , Paris , Rome and Tunis .",
+        "entities": [
+          "Malta"
+        ]
+      },
+      {
+        "sentence": "The heads of state summit was followed by a ministerial summit on November 2009 in Montego Bay , Jamaica to prepare an action plan to develop the agenda agreed in the I CALC summit .",
+        "entities": [
+          "Jamaica"
+        ]
+      }
+    ],
+    "prompt_length": 506,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'country' represents a sovereign state and should be labeled for names of specific countries and nation-states.\", \"Guidelines\": \"Do not label regions, cities, or territories unless they are independent countries. Exercise caution with ambiguous terms like 'Georgia' (a country and a U.S. state) or 'Belize City' (city within a country).\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "election",
+    "real_name": "election",
+    "sentences_as_example": [
+      {
+        "sentence": "The 1824 United States presidential election was contested by Adams , Andrew Jackson , William H.",
+        "entities": [
+          "1824 United States presidential election"
+        ]
+      },
+      {
+        "sentence": "Like most other Texas Republicans , Bush supported conservative Senator Barry Goldwater over the more centrist Nelson Rockefeller in the 1964 Republican Party presidential primaries .",
+        "entities": [
+          "1964 Republican Party presidential primaries"
+        ]
+      },
+      {
+        "sentence": "In the 1994 European Parliament election in Ireland , Patricia McKenna topped the poll in the Dublin constituency and Nuala Ahern won a seat in Leinster .",
+        "entities": [
+          "1994 European Parliament election in Ireland"
+        ]
+      }
+    ],
+    "prompt_length": 522,
+    "output_length": 81,
+    "gpt_answer": "{\"Definition\": \"'election' represents a specific event in which individuals vote to choose a candidate or make a decision on a particular issue.\", \"Guidelines\": \"Label specific election events, such as '2008 US presidential election', and avoid labeling general terms like 'voting' or 'decision-making'. Be mindful of distinguishing between election-related entities and general event entities, such as rallies or debates.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "event",
+    "real_name": "event",
+    "sentences_as_example": [
+      {
+        "sentence": "The IV CELAC summit or 2016 CELAC summit was the fourth ordinary heads of state summit of the Community of Latin American and Caribbean States .",
+        "entities": [
+          "IV CELAC summit",
+          "2016 CELAC summit"
+        ]
+      },
+      {
+        "sentence": "Roosevelt , a summit meeting known as the Second Washington Conference .",
+        "entities": [
+          "Second Washington Conference"
+        ]
+      },
+      {
+        "sentence": "Taft at the 1952 Republican National Convention , but the party 's presidential nomination instead went to Dwight D.",
+        "entities": [
+          "1952 Republican National Convention"
+        ]
+      }
+    ],
+    "prompt_length": 524,
+    "output_length": 97,
+    "gpt_answer": "{\"Definition\": \"'event' represents instances of occurrences or happenings, such as festivals, wars, summits, campaigns, and etc.\", \"Guidelines\": \"Avoid labeling 'election' events.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "location",
+    "real_name": "location",
+    "sentences_as_example": [
+      {
+        "sentence": "Pi\u0142sudski , together with Colonel Kazimierz Sosnkowski , was greeted at Warsaw 's railway station by Regent Zdzis\u0142aw Lubomirski and by Colonel Adam Koc .",
+        "entities": [
+          "Warsaw 's railway station"
+        ]
+      },
+      {
+        "sentence": "Rome and Paris became the airline 's third and fourth European destinations , with flights stopping in Mumbai and Cairo to refuel .",
+        "entities": [
+          "Mumbai",
+          "Cairo",
+          "Rome",
+          "Paris",
+          "European"
+        ]
+      },
+      {
+        "sentence": "Masud Sabri , a Uyghur was appointed as Governor of Xinjiang by KMT , as was the Tatar Burhan Shahidi and the Uyghur Yulbars Khan .",
+        "entities": [
+          "Xinjiang"
+        ]
+      }
+    ],
+    "prompt_length": 544,
+    "output_length": 100,
+    "gpt_answer": "{\n  \"Definition\": \"'location' refers to specific geographic areas, such as cities, countries, landmarks, and infrastructure, that represent places on Earth.\",\n  \"Guidelines\": \"Exercise care when labeling entities that might be used metaphorically to refer to abstract places.",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "misc",
+    "real_name": "miscellaneous",
+    "sentences_as_example": [
+      {
+        "sentence": "He led a government 's coalition composed by Christian Democrats , Italian Socialist Party , Italian Democratic Socialist Party , Italian Republican Party and Italian Liberal Party .",
+        "entities": [
+          "Christian Democrats"
+        ]
+      },
+      {
+        "sentence": "Six other Republican senators - Wayne Morse , Irving Ives , Charles W.",
+        "entities": [
+          "Republican"
+        ]
+      },
+      {
+        "sentence": "Masud Sabri , a Uyghur was appointed as Governor of Xinjiang by KMT , as was the Tatar Burhan Shahidi and the Uyghur Yulbars Khan .",
+        "entities": [
+          "Uyghur",
+          "Tatar"
+        ]
+      }
+    ],
+    "prompt_length": 533,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'miscellaneous' encompasses entities in the political context that do not fit into any other specific named entity category, such as person, politician, location, country, event, election, organization, or political party.\", \"Guidelines\": \"Carefully consider whether an entity fits into any other defined political category before classifying it as 'miscellaneous'. Be vigilant for entities that are not easily classified and do not readily fit into any other category, such as specific ethnic or religious groups in political context.",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "organisation",
+    "real_name": "organization",
+    "sentences_as_example": [
+      {
+        "sentence": "The IV CELAC summit or 2016 CELAC summit was the fourth ordinary heads of state summit of the Community of Latin American and Caribbean States .",
+        "entities": [
+          "Community of Latin American and Caribbean States"
+        ]
+      },
+      {
+        "sentence": "He was the former president of the American Political Science Association and a member of the American Academy of Arts and Sciences , American Philosophical Society and Human Rights Foundation .",
+        "entities": [
+          "American Philosophical Society",
+          "American Political Science Association",
+          "Human Rights Foundation",
+          "American Academy of Arts and Sciences"
+        ]
+      },
+      {
+        "sentence": "Amnesty International and Human Rights Watch as well as B 'Tselem and Yesh Din criticized the military investigation .",
+        "entities": [
+          "B 'Tselem",
+          "Human Rights Watch",
+          "Yesh Din",
+          "Amnesty International"
+        ]
+      }
+    ],
+    "prompt_length": 558,
+    "output_length": 85,
+    "gpt_answer": "{\"Definition\": \"'organization' refers to named entities that represent companies, institutions, associations, or any group of people with a particular purpose.\", \"Guidelines\": \"Avoid labeling 'political parties' as 'organization' entities. Exercise caution when identifying acronyms or ambiguous terms like 'WHO' (World Health Organization or the pronoun 'who').\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "person",
+    "real_name": "person",
+    "sentences_as_example": [
+      {
+        "sentence": "Like Fidel , Ra\u00fal later attended the Jesuit School of Colegio Dolores in Santiago de Cuba and Belen Jesuit Preparatory School in Havana .",
+        "entities": [
+          "Ra\u00fal",
+          "Fidel"
+        ]
+      },
+      {
+        "sentence": "Brooks was a member of the Masonic Lodge , the Shriners , the Benevolent and Protective Order of Elks , American Legion , Veterans of Foreign Wars , and the Kiwanis International .",
+        "entities": [
+          "Brooks"
+        ]
+      },
+      {
+        "sentence": "Joschka Fischer became Vice-Chancellor of Germany and foreign minister in the new government , which had two other Green ministers ( Andrea Fischer , later Renate K\u00fcnast , and J\u00fcrgen Trittin ) .",
+        "entities": [
+          "Andrea Fischer"
+        ]
+      }
+    ],
+    "prompt_length": 559,
+    "output_length": 65,
+    "gpt_answer": "{\"Definition\": \"'person' refers to individual human beings, but who are not politicians.\", \"Guidelines\": \"In this political context, avoid labelling as 'person' people who are 'politicians'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "politicalparty",
+    "real_name": "political party",
+    "sentences_as_example": [
+      {
+        "sentence": "This tends to lead to the chamber being dominated by two major parties , the Liberal Party of Australia / National Party of Australia Coalition and the Australian Labor Party .",
+        "entities": [
+          "National Party of Australia",
+          "Liberal Party of Australia",
+          "Australian Labor Party"
+        ]
+      },
+      {
+        "sentence": "Parties with mainly Eurosceptic views are the ruling United Russia , and opposition parties the Communist Party of the Russian Federation and Liberal Democratic Party of Russia .",
+        "entities": [
+          "United Russia",
+          "Communist Party of the Russian Federation",
+          "Liberal Democratic Party of Russia"
+        ]
+      },
+      {
+        "sentence": "Crawford , and Henry Clay , all of whom were members of the Democratic-Republican Party .",
+        "entities": [
+          "Democratic-Republican Party"
+        ]
+      }
+    ],
+    "prompt_length": 549,
+    "output_length": 96,
+    "gpt_answer": "{\"Definition\": \"'political party' refers to an organized group of individuals with common political goals and ideologies, officially recognized as a party within a particular political system.\", \"Guidelines\": \"Ensure that the labeled entities are indeed political parties and not generic organizations or entities with political affiliations.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "politician",
+    "real_name": "politician",
+    "sentences_as_example": [
+      {
+        "sentence": "Pi\u0142sudski , together with Colonel Kazimierz Sosnkowski , was greeted at Warsaw 's railway station by Regent Zdzis\u0142aw Lubomirski and by Colonel Adam Koc .",
+        "entities": [
+          "Adam Koc",
+          "Zdzis\u0142aw Lubomirski",
+          "Pi\u0142sudski",
+          "Kazimierz Sosnkowski"
+        ]
+      },
+      {
+        "sentence": "The 1824 United States presidential election was contested by Adams , Andrew Jackson , William H.",
+        "entities": [
+          "Adams",
+          "Andrew Jackson"
+        ]
+      },
+      {
+        "sentence": "Gandhian right-wing Congressmen Vallabhbhai Patel , Rajendra Prasad and C.",
+        "entities": [
+          "Gandhian",
+          "Rajendra Prasad",
+          "Vallabhbhai Patel"
+        ]
+      }
+    ],
+    "prompt_length": 563,
+    "output_length": 67,
+    "gpt_answer": "{\"Definition\": \"'politician' represents individuals involved in government, political offices, or public leadership roles.\", \"Guidelines\": \"\"}",
+    "finish_reason": "stop"
+  }
+]

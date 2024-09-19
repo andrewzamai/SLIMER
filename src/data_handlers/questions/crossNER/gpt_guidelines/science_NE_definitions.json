@@ -1,0 +1,529 @@
+[
+  {
+    "named_entity": "academicjournal",
+    "real_name": "academic journal",
+    "sentences_as_example": [
+      {
+        "sentence": "Holmes has served on the editorial or advisory boards of numerous learned scientific journals , including Organic Letters , Chemical Communications and Angewandte Chemie .",
+        "entities": [
+          "Angewandte Chemie",
+          "Organic Letters",
+          "Chemical Communications"
+        ]
+      },
+      {
+        "sentence": "Alberts has also served as an editor for numerous peer-reviewed journals in a variety of fields , including Behavioral Ecology ( journal ) , the American Journal of Primatology , and PeerJ .",
+        "entities": [
+          "Behavioral Ecology",
+          "PeerJ",
+          "American Journal of Primatology"
+        ]
+      },
+      {
+        "sentence": "The journal establishment was similar to the starting of The Astrophysical Journal and The Astronomical Journal by George Ellery Hale .",
+        "entities": [
+          "The Astronomical Journal",
+          "The Astrophysical Journal"
+        ]
+      }
+    ],
+    "prompt_length": 578,
+    "output_length": 83,
+    "gpt_answer": "{\"Definition\": \"'academic journal' refers to scholarly publications or periodicals that serve as mediums for sharing research and academic discourse.\", \"Guidelines\": \"Exercise caution with ambiguous titles that could also refer to non-academic entities, such as 'Nature' (a journal and a concept). Consider the context to discern if the term is being used to denote an academic journal or a general concept.\" \n}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "astronomicalobject",
+    "real_name": "astronomical object",
+    "sentences_as_example": [
+      {
+        "sentence": "5145 Pholus in diameter , that crosses the orbit of both Saturn and Neptune .",
+        "entities": [
+          "Neptune",
+          "Saturn",
+          "5145 Pholus"
+        ]
+      },
+      {
+        "sentence": "This is due to the gravitation influence of Saturn and Jupiter .",
+        "entities": [
+          "Jupiter",
+          "Saturn"
+        ]
+      },
+      {
+        "sentence": "It will use the gravity assist technique with Earth once , with Venus twice , and six times with Mercury .",
+        "entities": [
+          "Mercury",
+          "Venus",
+          "Earth"
+        ]
+      }
+    ],
+    "prompt_length": 527,
+    "output_length": 94,
+    "gpt_answer": "{\"Definition\": \"'astronomical object' refers to celestial bodies, such as planets, moons, asteroids, and comets, that exist in outer space.\", \"Guidelines\": \"Avoid labeling general terms like 'orbit', 'gravitation', or 'gravity assist'. Exercise caution with terms that can have multiple meanings, such as 'Moon' (natural satellite vs. a generic noun) or 'Mars' (the planet vs. the god of war).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "award",
+    "real_name": "award",
+    "sentences_as_example": [
+      {
+        "sentence": "In 1871 he was elected a fellow of the Linnean Society of London , and in 1881 he was elected a fellow of the Royal Society .",
+        "entities": [
+          "fellow of the Linnean Society of London",
+          "fellow of the Royal Society"
+        ]
+      },
+      {
+        "sentence": "The album received a Grammy Award nomination for Grammy Award for Best Pop Vocal Album at the 45th Annual Grammy Awards ( 2003 ) .",
+        "entities": [
+          "45th Annual Grammy Awards",
+          "Grammy Award"
+        ]
+      },
+      {
+        "sentence": "The Hannes Alfv\u00e9n Prize , awarded annually by the European Physical Society for outstanding contributions in plasma physics , is named after him .",
+        "entities": [
+          "Hannes Alfv\u00e9n Prize"
+        ]
+      }
+    ],
+    "prompt_length": 567,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'award' refers to recognitions, honors, or prizes given to individuals or entities in recognition of their achievements or contributions in various fields such as arts, sciences, and humanities.\", \"Guidelines\": \"Do not label generic terms like 'prize' or 'recognition'. Consider labeling also recognitions such as 'fellow of society' as 'award'. Avoid labeling entities that are not specifically a type of award, such as 'Ceremony'.",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "chemicalcompound",
+    "real_name": "chemical compound",
+    "sentences_as_example": [
+      {
+        "sentence": "They may also use Adenosine triphosphate , Nitric oxide , and ROS for signaling in the same ways that animals do .",
+        "entities": [
+          "ROS",
+          "Adenosine triphosphate",
+          "Nitric oxide"
+        ]
+      },
+      {
+        "sentence": "The most common trialkyl aluminum reagents for this transformation are Trimethylaluminium , Triethylaluminium , and sometimes Triisobutylaluminium .",
+        "entities": [
+          "Triethylaluminium",
+          "Trimethylaluminium",
+          "Triisobutylaluminium",
+          "trialkyl aluminum"
+        ]
+      },
+      {
+        "sentence": "DNA methyltransferase is recruited to the site and adds methyl groups to the cytosine of the CpG dinucleotides .",
+        "entities": [
+          "cytosine"
+        ]
+      }
+    ],
+    "prompt_length": 605,
+    "output_length": 85,
+    "gpt_answer": "{\"Definition\": \"'chemical compound' refers to distinct chemical substances composed of two or more elements in fixed proportions.\", \"Guidelines\": \"Label entities as 'chemical compound' if they are not proteins or enzymes. Exercise caution with ambiguous terms like 'Almond', which can refer to both a food item and a chemical compound (benzaldehyde). Be aware of complex nomenclature and chemical structures when identifying compounds.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "chemicalelement",
+    "real_name": "chemical element",
+    "sentences_as_example": [
+      {
+        "sentence": "Nihonium was first reported to have been created in 2003 by a Russian-American collaboration at the Joint Institute for Nuclear Research ( JINR ) in Dubna , Russia , and in 2004 by a team of Japanese scientists at Riken in Wak\u014d , Japan .",
+        "entities": [
+          "Nihonium"
+        ]
+      },
+      {
+        "sentence": "Most of metal contribution , copper , lead , and zinc , comes from Hammarbybacken where high levels of arsenic , chromium , phthalates , Polychlorinated biphenyl , and Carbon tetrachloride have also been recorded .",
+        "entities": [
+          "lead",
+          "zinc",
+          "copper",
+          "arsenic",
+          "chromium",
+          "phthalates"
+        ]
+      },
+      {
+        "sentence": "This discovery , which earned him the Copley Medal of the Royal Society in 1825 , was followed by another , that a rotating plate of copper tends to communicate its motion to a magnetic needle suspended over it , which he called magnetism of rotation Annales de chimie et de physique ( 1824 ) , vol .",
+        "entities": [
+          "copper"
+        ]
+      }
+    ],
+    "prompt_length": 669,
+    "output_length": 87,
+    "gpt_answer": "{\"Definition\": \"'chemical element' refers to specific substances listed in the periodic table of elements, each characterized by a unique atomic number and chemical properties.\", \"Guidelines\": \"Avoid labeling generic terms like 'metal' or 'substance' as chemical elements. Exercise caution with ambiguous terms like 'lead' (can refer to the metal or a command) or 'mercury' (can refer to the element or the planet).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "country",
+    "real_name": "country",
+    "sentences_as_example": [
+      {
+        "sentence": "He was awarded honorary degree from the University of Cambridge in Cambridge , UK , and the Copley Medal of the Royal Society in 1906 .",
+        "entities": [
+          "UK"
+        ]
+      },
+      {
+        "sentence": "After students at Uppsala University celebrated Bonaparte 's return to France from his Italian campaigns , Gustav IV Adolf appointed von Fersen as Uppsala University .",
+        "entities": [
+          "France"
+        ]
+      },
+      {
+        "sentence": "Flexner had studied European schools such as Heidelberg University , All Souls College , Oxford , and the Coll\u00e8ge de France -and he wanted to establish a similar advanced research center in the United States .",
+        "entities": [
+          "United States"
+        ]
+      }
+    ],
+    "prompt_length": 553,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'country' refers to a sovereign state, recognized by international law, typically consisting of a defined territory, a permanent population, a government, and the capacity to enter into relations with other sovereign states.\", \"Guidelines\": \"Avoid labeling non-sovereign territories (e.g., Hong Kong, Puerto Rico) unless contextually relevant. Exercise caution with ambiguous references, such as 'Georgia' (can refer to the U.S. state or the country in Eurasia).\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "discipline",
+    "real_name": "discipline",
+    "sentences_as_example": [
+      {
+        "sentence": "The Hannes Alfv\u00e9n Prize , awarded annually by the European Physical Society for outstanding contributions in plasma physics , is named after him .",
+        "entities": [
+          "plasma physics"
+        ]
+      },
+      {
+        "sentence": "He is well known for his structural enzymology work on Rieske protein non-heme iron oxygenases and Alcohol dehydrogenase",
+        "entities": [
+          "enzymology"
+        ]
+      },
+      {
+        "sentence": "Griffiths ( 1999 ) , Introduction to electrodynamics , third Edition , ed .",
+        "entities": [
+          "electrodynamics"
+        ]
+      }
+    ],
+    "prompt_length": 555,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'discipline' refers to a field of study or area of expertise within academia or research, often associated with a specific branch of science, technology, or humanities.\", \"Guidelines\": \"Exercise caution when labeling generic terms like 'science' or 'technology' that can encompass a wide range of disciplines. Take into account the specific subarea or expertise being referred to.",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "enzyme",
+    "real_name": "enzyme",
+    "sentences_as_example": [
+      {
+        "sentence": "Other silencing mechanisms include the recruitment of specialized proteins that methylate DNA such that the core promoter element is inaccessible to transcription factor s and RNA polymerase .",
+        "entities": [
+          "RNA polymerase"
+        ]
+      },
+      {
+        "sentence": "He is well known for his structural enzymology work on Rieske protein non-heme iron oxygenases and Alcohol dehydrogenase",
+        "entities": [
+          "Rieske protein non-heme iron oxygenases",
+          "Alcohol dehydrogenase"
+        ]
+      },
+      {
+        "sentence": "In DNA replication , RNA primers must be inserted along the lagging strand so that DNA polymerase is able to synthesize the strand in the 5 to 3 direction .",
+        "entities": [
+          "DNA polymerase"
+        ]
+      }
+    ],
+    "prompt_length": 600,
+    "output_length": 86,
+    "gpt_answer": "{\"Definition\": \"'enzyme' refers to a specific type of protein that acts as a biological catalyst to facilitate biochemical reactions.\", \"Guidelines\": \"If a protein entity is known to function as a catalyst for biochemical reactions, it should be labeled as an 'enzyme' entity. Be cautious with proteins that have dual functions, as not all proteins are 'enzymes'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "event",
+    "real_name": "event",
+    "sentences_as_example": [
+      {
+        "sentence": "She represented her country at the 2017 World Championships in Athletics without advancing from the first round .",
+        "entities": [
+          "2017 World Championships in Athletics"
+        ]
+      },
+      {
+        "sentence": "Among those in attendance were Werner Heisenberg , Carl Ramsauer , Wolfgang Finkelnburg , Carl Friedrich von Weizs\u00e4cker , Juilfs , as well as supporters of the declining deutsche Physik movement .",
+        "entities": [
+          "deutsche Physik movement"
+        ]
+      },
+      {
+        "sentence": "He represented his country at the 2013 World Championships in Athletics and 2015 World Championships in Athletics without qualifying for the final .",
+        "entities": [
+          "2015 World Championships",
+          "2013 World Championships"
+        ]
+      }
+    ],
+    "prompt_length": 557,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"event' refers to occurrences or happenings, such as competitions, meetings, or incidents, that take place at a specific time and place.\", \"Guidelines\": \"Do not label general time references (e.g., 'yesterday,' 'tomorrow'). Be cautious when distinguishing between event and organization names.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "location",
+    "real_name": "location",
+    "sentences_as_example": [
+      {
+        "sentence": "He was awarded honorary degree from the University of Cambridge in Cambridge , UK , and the Copley Medal of the Royal Society in 1906 .",
+        "entities": [
+          "Cambridge"
+        ]
+      },
+      {
+        "sentence": "The U.S. Navy has three other facilities on the bay : Naval Station San Diego , Naval Base Point Loma at Ballast Point , which is a Nuclear Submarine base , and Naval Amphibious Base Coronado .",
+        "entities": [
+          "Naval Base Point Loma",
+          "Naval Amphibious Base Coronado",
+          "Naval Station San Diego",
+          "Ballast Point",
+          "Nuclear Submarine base"
+        ]
+      },
+      {
+        "sentence": "The Big Bend Country is part of the larger Columbia Country , which includes the Columbia Valley and upper Arrow Lakes .",
+        "entities": [
+          "Arrow Lakes",
+          "Columbia Country",
+          "Big Bend Country",
+          "Columbia Valley"
+        ]
+      }
+    ],
+    "prompt_length": 611,
+    "output_length": 99,
+    "gpt_answer": "{\"Definition\": \"'location' is a named entity denoting geographic entities, such as cities, countries, and landmarks, which represent specific places or areas on Earth.\", \"Guidelines\": \"Avoid labeling generic terms like 'here' and 'there' as location entities. Exercise caution with ambiguous terms as 'Paris Hilton' (referring to a person with a location name) or 'Amazon' (which can denote both a company and a river) and ensure proper disambiguation.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "misc",
+    "real_name": "miscellaneous",
+    "sentences_as_example": [
+      {
+        "sentence": "Other silencing mechanisms include the recruitment of specialized proteins that methylate DNA such that the core promoter element is inaccessible to transcription factor s and RNA polymerase .",
+        "entities": [
+          "transcription factor",
+          "DNA",
+          "silencing mechanisms"
+        ]
+      },
+      {
+        "sentence": "Human leukocyte antigen constitutes a group of cell surface antigens also known as the Major histocompatibility complex of humans .",
+        "entities": [
+          "Major histocompatibility complex",
+          "Human leukocyte antigen"
+        ]
+      },
+      {
+        "sentence": "H3K9me3 is an epigenetic modification to the DNA packaging protein Histone H3 .",
+        "entities": [
+          "epigenetic modification",
+          "DNA",
+          "H3K9me3"
+        ]
+      }
+    ],
+    "prompt_length": 587,
+    "output_length": 82,
+    "gpt_answer": "{\"Definition\": \"'miscellaneous' includes entities that do not fall into other predefined named entity categories in this scientific context, encompassing diverse terms and concepts relevant to the domain.\", \"Guidelines\": \"Do not label entities that fall into the following named entity categories: academic journal, astronomical object, award, chemical compound, chemical element, country, discipline, enzyme, event, location, organization, person, protein, scientist, theory, university.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "organisation",
+    "real_name": "organization",
+    "sentences_as_example": [
+      {
+        "sentence": "He visited some European universities and institutions , including Cavendish Laboratory , Georg August University of G\u00f6ttingen , and University of Copenhagen .",
+        "entities": [
+          "Cavendish Laboratory"
+        ]
+      },
+      {
+        "sentence": "The Hannes Alfv\u00e9n Prize , awarded annually by the European Physical Society for outstanding contributions in plasma physics , is named after him .",
+        "entities": [
+          "European Physical Society"
+        ]
+      },
+      {
+        "sentence": "He was awarded honorary degree from the University of Cambridge in Cambridge , UK , and the Copley Medal of the Royal Society in 1906 .",
+        "entities": [
+          "Royal Society"
+        ]
+      }
+    ],
+    "prompt_length": 539,
+    "output_length": 70,
+    "gpt_answer": "{\"Definition\": \"'organization' refers to institutions, companies, and other entities formed for a specific purpose or activity.\", \"Guidelines\": \"Avoid labeling generic terms like 'team' or 'group'. Exercise caution with ambiguous entities like 'United Nations' (also considered a geopolitical entity) and 'Apple' (company as well as a fruit).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "person",
+    "real_name": "person",
+    "sentences_as_example": [
+      {
+        "sentence": "He described Bleach 's portrayal as a halfway house between the original version as played by Michael Wisher and the more exuberant ...",
+        "entities": [
+          "Michael Wisher"
+        ]
+      },
+      {
+        "sentence": "After students at Uppsala University celebrated Bonaparte 's return to France from his Italian campaigns , Gustav IV Adolf appointed von Fersen as Uppsala University .",
+        "entities": [
+          "Bonaparte",
+          "Gustav IV Adolf",
+          "von Fersen"
+        ]
+      },
+      {
+        "sentence": "Ragtime was nominated for twelve Tony Awards and won the Tony Award for Best Original Score for Lynn Ahrens and Stephen Flahertyin addition to the Drama Desk Award for Outstanding Lyrics .",
+        "entities": [
+          "Lynn Ahrens",
+          "Stephen Flahertyin"
+        ]
+      }
+    ],
+    "prompt_length": 600,
+    "output_length": 96,
+    "gpt_answer": "{\"Definition\": \"'person' refers to individual human beings, including historical figures, celebrities, and any named human entity.\", \"Guidelines\": \"If the person entity is a scientist, it should be labeled as a scientist entity instead of a person entity. Be mindful of titles like 'Sir', 'Dr.', and 'President' which can be part of the person's name or a separate entity. Pay attention to potential ambiguity of names that can also represent locations or organizations.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "protein",
+    "real_name": "protein",
+    "sentences_as_example": [
+      {
+        "sentence": "H3K9me3 is an epigenetic modification to the DNA packaging protein Histone H3 .",
+        "entities": [
+          "Histone H3"
+        ]
+      },
+      {
+        "sentence": "In the early days of his laboratory he discovered a new mechanism of microRNA processing independent of Dicer that requires the catalytic activity of Argonaute 2 , a type of Argonaute protein .",
+        "entities": [
+          "Argonaute",
+          "Argonaute 2"
+        ]
+      },
+      {
+        "sentence": "Several genes known to be affected by differential methylation are the CYP1A1 xenobiotic response element , Aryl hydrocarbon receptor repressor , and F2RL3 .",
+        "entities": [
+          "CYP1A1"
+        ]
+      }
+    ],
+    "prompt_length": 601,
+    "output_length": 97,
+    "gpt_answer": "{\"Definition\": \"'protein' refers to biological macromolecules composed of amino acid chains that perform various functions in living organisms, such as structural components, and signaling molecules.\", \"Guidelines\": \"If a protein entity is an enzyme, avoid labeling it as 'protein'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "scientist",
+    "real_name": "scientist",
+    "sentences_as_example": [
+      {
+        "sentence": "Mechnikov was appointed docent at the newly established Odessa University ( now Odessa University ) .",
+        "entities": [
+          "Mechnikov"
+        ]
+      },
+      {
+        "sentence": "Among those in attendance were Werner Heisenberg , Carl Ramsauer , Wolfgang Finkelnburg , Carl Friedrich von Weizs\u00e4cker , Juilfs , as well as supporters of the declining deutsche Physik movement .",
+        "entities": [
+          "Werner Heisenberg",
+          "Juilfs",
+          "Carl Ramsauer",
+          "Wolfgang Finkelnburg",
+          "Carl Friedrich von Weizs\u00e4cker"
+        ]
+      },
+      {
+        "sentence": "Prominent anatomists and geologists such as Georges Cuvier , Richard Owen , Adam Sedgwick , and Charles Lyell attacked it vigorously .",
+        "entities": [
+          "Charles Lyell",
+          "Adam Sedgwick",
+          "Richard Owen",
+          "Georges Cuvier"
+        ]
+      }
+    ],
+    "prompt_length": 600,
+    "output_length": 78,
+    "gpt_answer": "{\"Definition\": \"'scientist' refers to a person who conducts scientific research and contributes to the advancement of knowledge in various fields of science.\", \"Guidelines\": \"Avoid labeling non-scientists with similar names (e.g., George W. Bush) or generic terms (e.g., 'researcher'). Exercise caution with ambiguous terms like 'Newton' (also a place name).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "theory",
+    "real_name": "theory",
+    "sentences_as_example": [
+      {
+        "sentence": "The Nicolaus Copernicus heliocentric theory of the Solar System had received confirmation by the observations of Galileo Galilei and Tycho Brahe and the mathematical investigations of Johannes Kepler and Isaac Newton .",
+        "entities": [
+          "Nicolaus Copernicus heliocentric theory"
+        ]
+      },
+      {
+        "sentence": "moves from metaphysics to methodology , a move that anticipates modernity , and at the level of philosophy , Alfarabi unites theory and practice ...",
+        "entities": [
+          "metaphysics",
+          "methodology"
+        ]
+      },
+      {
+        "sentence": "He has written several invited review articles and book chapters for a number of prestigious journals and books including Chemical Reviews , Accounts of Chemical Research , Angewandte Chemie and the main textbook in the field of circular dichroism , Comprehensive Chiroptical Spectroscopy .",
+        "entities": [
+          "circular dichroism"
+        ]
+      }
+    ],
+    "prompt_length": 618,
+    "output_length": 84,
+    "gpt_answer": "{\"Definition\": \"'theory' refers to a comprehensive and well-substantiated explanation of natural phenomena or a set of related observations\", \"Guidelines\": \"Consider labeling comprehensive and well-substantiated explanations or frameworks that integrate empirical evidence, supporting predictions and contributing significantly to the understanding of natural phenomena in a given scientific context.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "university",
+    "real_name": "university",
+    "sentences_as_example": [
+      {
+        "sentence": "He visited some European universities and institutions , including Cavendish Laboratory , Georg August University of G\u00f6ttingen , and University of Copenhagen .",
+        "entities": [
+          "Georg August University of G\u00f6ttingen",
+          "University of Copenhagen"
+        ]
+      },
+      {
+        "sentence": "Mechnikov was appointed docent at the newly established Odessa University ( now Odessa University ) .",
+        "entities": [
+          "Odessa University"
+        ]
+      },
+      {
+        "sentence": "He received his PhD in 1953 and began postdoctoral work at the University of London , Cambridge University , and the University of Amsterdam .",
+        "entities": [
+          "Cambridge University",
+          "University of London",
+          "University of Amsterdam"
+        ]
+      }
+    ],
+    "prompt_length": 554,
+    "output_length": 85,
+    "gpt_answer": "{\"Definition\": \"'university' refers to educational institutions that offer higher education and academic research programs.\", \"Guidelines\": \"Exercise caution when labeling terms like 'Harvard' which may refer to a person or a university. Avoid labeling general terms like 'school' or 'college' as 'universities'. Be mindful of potential abbreviations or informal references, such as 'MIT' for Massachusetts Institute of Technology.\"}",
+    "finish_reason": "stop"
+  }
+]

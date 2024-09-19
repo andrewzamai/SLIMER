@@ -1,0 +1,23 @@
+award:What describes award in the text?
+
+book:What describes book in the text?
+
+country:What describes country in the text?
+
+event:What describes event in the text?
+
+literarygenre:What describes literary genre in the text?
+
+location:What describes location in the text?
+
+magazine:What describes magazine in the text?
+
+misc:What describes other relevant information in the text?
+
+organisation:What describes organization in the text?
+
+person:What describes person in the text?
+
+poem:What describes poem in the text?
+
+writer:What describes writer in the text?

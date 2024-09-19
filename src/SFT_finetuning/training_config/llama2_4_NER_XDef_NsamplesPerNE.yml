@@ -1,4 +1,4 @@
-# fine-tuning Llama-2-7b-chat on PileNER with topNE NEs and N samples per NE (N positive + N negative)
+# fine-tuning Llama-2-7b-chat on PileNER-subset with topNE NEs and N samples per NE (N positive + N negative)
 
 base_model: meta-llama/Llama-2-7b-chat-hf
 # NB: this Huggingface repository requires to login with an account with granted access

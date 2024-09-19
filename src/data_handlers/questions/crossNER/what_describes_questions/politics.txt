@@ -1,0 +1,17 @@
+country:What describes country in the text?
+
+election:What describes election in the text?
+
+event:What describes event in the text?
+
+location:What describes location in the text?
+
+misc:What describes other relevant information in the text?
+
+organisation:What describes organization in the text?
+
+person:What describes person in the text?
+
+politicalparty:What describes political party in the text?
+
+politician:What describes politician in the text?

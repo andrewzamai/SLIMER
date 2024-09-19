@@ -1,0 +1,227 @@
+[
+  {
+    "named_entity": "Amenity",
+    "real_name": "amenity",
+    "sentences_as_example": [
+      {
+        "sentence": "im looking for an upscale place that serves porkchops",
+        "entities": [
+          "upscale place"
+        ]
+      },
+      {
+        "sentence": "i would like to go to a steampunk flavored bar could you direct me to one",
+        "entities": [
+          "steampunk flavored"
+        ]
+      },
+      {
+        "sentence": "can you make me a reservation at gallaghers in manhattan for 5 pm this evening",
+        "entities": [
+          "reservation"
+        ]
+      }
+    ],
+    "prompt_length": 448,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'amenity' refers to services, facilities, or features that enhance the convenience, comfort, or enjoyment of a location.\", \"Guidelines\": \"When annotating 'amenity', focus on tangible or accessible services and facilities. Avoid labeling abstract concepts, such as 'ambiance' or 'vibe', that are not clearly associated with a specific amenity. Examples of 'amenity' are 'steampunk flavored', 'upscale place' and 'reservation'.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "Cuisine",
+    "real_name": "cuisine",
+    "sentences_as_example": [
+      {
+        "sentence": "where can i find the best place chinese to eat",
+        "entities": [
+          "chinese"
+        ]
+      },
+      {
+        "sentence": "i would like to go to a steampunk flavored bar could you direct me to one",
+        "entities": [
+          "bar"
+        ]
+      },
+      {
+        "sentence": "are there any steak houses",
+        "entities": [
+          "steak houses"
+        ]
+      }
+    ],
+    "prompt_length": 431,
+    "output_length": 73,
+    "gpt_answer": "{\"Definition\": \"'cuisine' refers to specific styles or types of food preparation, often associated with a particular cultural or regional identity.\", \"Guidelines\": \"Annotate the specific type of cuisine mentioned in the text. This could include terms like 'Italian', 'Chinese', 'Mediterranean', or any other culinary style. Consider also 'establishments' such as 'bar', 'steakhouse' and the like as 'cuisine'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "Dish",
+    "real_name": "dish",
+    "sentences_as_example": [
+      {
+        "sentence": "im looking for an upscale place that serves porkchops",
+        "entities": [
+          "porkchops"
+        ]
+      },
+      {
+        "sentence": "i would love to find some local barbecue sauces within five miles of here",
+        "entities": [
+          "barbecue sauces"
+        ]
+      },
+      {
+        "sentence": "can you take me to a place to eat sushi",
+        "entities": [
+          "sushi"
+        ]
+      }
+    ],
+    "prompt_length": 435,
+    "output_length": 60,
+    "gpt_answer": "{\"Definition\": \"'dish' refers to specific food items or culinary creations served in restaurants or made at home.\", \"Guidelines\": \"Avoid labeling general terms like 'food' or 'meal'. Exercise caution with ambiguous references (e.g., 'apple' as a fruit or a tech company).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "Hours",
+    "real_name": "hours",
+    "sentences_as_example": [
+      {
+        "sentence": "where can i get pita bread late at night",
+        "entities": [
+          "late at night"
+        ]
+      },
+      {
+        "sentence": "can you make me a reservation at gallaghers in manhattan for 5 pm this evening",
+        "entities": [
+          "5 pm"
+        ]
+      },
+      {
+        "sentence": "could you find me a place to eat that has daily lunch specials",
+        "entities": [
+          "daily lunch"
+        ]
+      }
+    ],
+    "prompt_length": 440,
+    "output_length": 99,
+    "gpt_answer": "{\"Definition\": \"'hours' refers to specific time expressions, including clock times, periods of the day, days of the week, and recurring schedules.\", \"Guidelines\": \"Examples of 'hours' are '5 pm', 'late at night' and 'daily lunch'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "Location",
+    "real_name": "location",
+    "sentences_as_example": [
+      {
+        "sentence": "where can i find the best place chinese to eat",
+        "entities": [
+          "place"
+        ]
+      },
+      {
+        "sentence": "what can you tell me about the restaurants in this area are there any michelin star restaurants around here",
+        "entities": [
+          "around here"
+        ]
+      },
+      {
+        "sentence": "i would love to find some local barbecue sauces within five miles of here",
+        "entities": [
+          "local",
+          "five miles of here"
+        ]
+      }
+    ],
+    "prompt_length": 445,
+    "output_length": 78,
+    "gpt_answer": "{\"Definition\": \"'location' denotes geographic entities, such as cities, countries, and landmarks, that represent specific places on Earth.\", \"Guidelines\": \"Also consider labelling as 'location' expressions such as 'around here', 'five miles from here', and similar.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "Price",
+    "real_name": "price",
+    "sentences_as_example": [
+      {
+        "sentence": "im in the mood for a cheap burger",
+        "entities": [
+          "cheap"
+        ]
+      },
+      {
+        "sentence": "where can i get a cheap tomato",
+        "entities": [
+          "cheap"
+        ]
+      },
+      {
+        "sentence": "what restaurants along my current route are very inexpensive",
+        "entities": [
+          "very inexpensive"
+        ]
+      }
+    ],
+    "prompt_length": 419,
+    "output_length": 86,
+    "gpt_answer": "{\"Definition\": \"'price' represents the cost or value of a product or service in a given context.\", \"Guidelines\": \"Also consider labeling terms like 'cheap', 'inexpensive' and similar, when referring to a product or service.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "Rating",
+    "real_name": "rating",
+    "sentences_as_example": [
+      {
+        "sentence": "where can i find the best place chinese to eat",
+        "entities": [
+          "best"
+        ]
+      },
+      {
+        "sentence": "what can you tell me about the restaurants in this area are there any michelin star restaurants around here",
+        "entities": [
+          "michelin star"
+        ]
+      },
+      {
+        "sentence": "where can i rent a room near a nice italian restaurant",
+        "entities": [
+          "nice"
+        ]
+      }
+    ],
+    "prompt_length": 438,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'rating' refers to a qualitative assessment or score given to a product, service, or establishment to indicate its quality, performance, or standard.\", \"Guidelines\": \"Also consider labeling terms like 'best', 'nice' and similar, while focusing on specific rating systems (e.g., Michelin star) or actual numerical ratings.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "Restaurant_Name",
+    "real_name": "restaurant name",
+    "sentences_as_example": [
+      {
+        "sentence": "show me the way to white castle",
+        "entities": [
+          "white castle"
+        ]
+      },
+      {
+        "sentence": "is prattville pizza expensive",
+        "entities": [
+          "prattville pizza"
+        ]
+      },
+      {
+        "sentence": "can you make me a reservation at gallaghers in manhattan for 5 pm this evening",
+        "entities": [
+          "gallaghers"
+        ]
+      }
+    ],
+    "prompt_length": 434,
+    "output_length": 78,
+    "gpt_answer": "{\"Definition\": \"'restaurant name' refers to the specific name of a dining establishment or eatery.\", \"Guidelines\": \"Do not label generic references to food or dining, such as 'pizza place' or 'fine dining'.\"}",
+    "finish_reason": "stop"
+  }
+]

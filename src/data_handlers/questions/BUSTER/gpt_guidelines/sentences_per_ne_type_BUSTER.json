@@ -1,0 +1,166 @@
+{
+  "Advisors.GENERIC_CONSULTING_COMPANY": {
+    "real_name": "generic consulting company",
+    "Hints": "A general firm (not a law firm) providing any other non-legal type of advice, such as: financial, accountability, due diligence, etc. It has to be a company/firm, not a person or group of people. Be aware that company names often include the proper names of their founders or CEOs and thus may be difficult to distinguish from people.",
+    "sentences": [
+      {
+        "sentence": "Stifel Nicolaus Weisel acted as financial advisor to Somaxon in the transaction .",
+        "target_words_in_it": [
+          "Stifel Nicolaus Weisel"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Horowitz concluded his remarks by noting , \" Daroth Capital Advisors acted as financial advisor to P & F throughout this arduous process .\"",
+        "target_words_in_it": [
+          "Daroth Capital Advisors"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "BofA Merrill Lynch served as exclusive financial advisor , and Morrison & Foerster LLP and Venable LLP served as legal advisors to EdR .",
+        "target_words_in_it": [
+          "BofA Merrill Lynch"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Advisors.LEGAL_CONSULTING_COMPANY": {
+    "real_name": "legal consulting company",
+    "Hints": "A law firm providing advice on the transaction, such as: government regulation, litigation, anti-trust, structured finance, tax etc. It has to be a company/firm, not a person or group of people. Be aware that company names often include the proper names of their founders or CEOs and thus may be difficult to distinguish from people.",
+    "sentences": [
+      {
+        "sentence": "Morgan Securities LLC served as exclusive financial advisor , and Hogan Lovells US LLP and King & Spalding served as legal advisors , to Greystar .",
+        "target_words_in_it": [
+          "Hogan Lovells US LLP",
+          "King & Spalding"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Barclays acted as M & A advisor , Citigroup acted as M & A and Capital Markets advisor , and Kirkland & Ellis LLP served as legal counsel to ArcLight Clean Transition Corp .",
+        "target_words_in_it": [
+          "Kirkland & Ellis LLP"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Advisors The Bank Street Group LLC acted as exclusive financial advisor and Morrison & Foerster LLP acted as legal advisor to ATN and F3C in connection with the transaction .",
+        "target_words_in_it": [
+          "Morrison & Foerster LLP"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Generic_Info.ANNUAL_REVENUES": {
+    "real_name": "annual revenues",
+    "Hints": "The past or present annual revenues of any company or asset involved in the transaction. Do not label half-yearly revenues and future revenue forecasts. Do not confuse with dates or generic numbers.",
+    "sentences": [
+      {
+        "sentence": "The Group 's turnover exceeded US$ 900 million in FY2008 .",
+        "target_words_in_it": [
+          "US$ 900 million"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Tishman has 900 employees across the United States and in the United Arab Emirates and generated revenues of nearly US$ 1 billion in 2009 .",
+        "target_words_in_it": [
+          "US$ 1 billion"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "According to the Electronic Retailing Association ( ERA ) , the direct response television industry accounts for more than 150 billion dollars in annual revenue .",
+        "target_words_in_it": [
+          "150 billion dollars"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Parties.ACQUIRED_COMPANY": {
+    "real_name": "acquired company",
+    "Hints": "The company target of a transaction. Must be a company, not a product.",
+    "sentences": [
+      {
+        "sentence": "They announced the acquisition from LEI of Liberty Media Corporation.",
+        "target_words_in_it": [
+          "Liberty Media Corporation"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Homeland Security Capital Corporation announced today that it has completed the sale of its majority owned subsidiary, Security Holding Corp. (SHC), to Vuance Ltd., a provider of incident management.",
+        "target_words_in_it": [
+          "Security Holding Corp. (SHC)"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "( \" Pernix \" ) ( NASDAQ : PTX ) today announced the completion of its acquisition of Somaxon Pharmaceuticals , Inc .",
+        "target_words_in_it": [
+          "Somaxon Pharmaceuticals , Inc ."
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Parties.BUYING_COMPANY": {
+    "real_name": "buying company",
+    "Hints": "The company which is acquiring the target in a transaction.",
+    "sentences": [
+      {
+        "sentence": "With the team of James Clark , CEO and Board Chairman Phillip Nuciola III , Core acquired the oil and gas assets of both White Stone and Royal in exchange for common stock equity of Core .",
+        "target_words_in_it": [
+          "Core"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "The Merger Agreement provided for two mergers that resulted in DIRECTV Group and LEI becoming wholly - owned subsidiaries of DIRECTV .",
+        "target_words_in_it": [
+          "DIRECTV"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Homeland Security Capital Corporation announced today that it has completed the sale of its majority owned subsidiary, Security Holding Corp. (SHC), to Vuance Ltd., a provider of incident management.",
+        "target_words_in_it": [
+          "Vuance Ltd."
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Parties.SELLING_COMPANY": {
+    "real_name": "selling company",
+    "Hints": "The company which is selling the target in a transaction.",
+    "sentences": [
+      {
+        "sentence": "ABOUT FIRST STATE First State Bancorporation is a New Mexico based commercial bank holding company ( NASDAQ : FSNM ) .",
+        "target_words_in_it": [
+          "First State Bancorporation"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "With the team of James Clark , CEO and Board Chairman Phillip Nuciola III , Core acquired the oil and gas assets of both White Stone and Royal in exchange for common stock equity of Core .",
+        "target_words_in_it": [
+          "White Stone",
+          "Royal"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Homeland Security Capital Corporation announced today that it has completed the sale of its majority owned subsidiary, Security Holding Corp. (SHC), to Vuance Ltd., a provider of incident management.",
+        "target_words_in_it": [
+          "Homeland Security Capital Corporation"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  }
+}

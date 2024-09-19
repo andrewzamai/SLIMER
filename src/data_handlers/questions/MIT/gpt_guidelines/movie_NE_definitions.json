@@ -1,0 +1,338 @@
+[
+  {
+    "named_entity": "ACTOR",
+    "real_name": "actor",
+    "sentences_as_example": [
+      {
+        "sentence": "did jane fonda do an period picture",
+        "entities": [
+          "jane fonda"
+        ]
+      },
+      {
+        "sentence": "i want an r rated four stars western with jean arthur",
+        "entities": [
+          "jean arthur"
+        ]
+      },
+      {
+        "sentence": "is there a rated pg 13 movie in the year 1940 s with jordanna brewster",
+        "entities": [
+          "jordanna brewster"
+        ]
+      }
+    ],
+    "prompt_length": 445,
+    "output_length": 62,
+    "gpt_answer": "{\"Definition\": \"'actor' refers to individuals who perform in films, television shows, or theater productions.\", \"Guidelines\": \"Avoid labeling characters or fictional individuals. Exercise caution with ambiguous names that may refer to both real persons and fictional characters, such as 'Robin Hood' or 'James Bond'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "CHARACTER",
+    "real_name": "character",
+    "sentences_as_example": [
+      {
+        "sentence": "please show me the classic movie about nick and norah charles",
+        "entities": [
+          "nick and norah charles"
+        ]
+      },
+      {
+        "sentence": "show me a movie with sherlock holmes",
+        "entities": [
+          "sherlock holmes"
+        ]
+      },
+      {
+        "sentence": "show me all of the indiana jones movies ever made",
+        "entities": [
+          "indiana jones"
+        ]
+      }
+    ],
+    "prompt_length": 462,
+    "output_length": 91,
+    "gpt_answer": "{\"Definition\": \"'character' denotes fictional entities, such as protagonists, antagonists, and other personas created within the context of literature, film, or other storytelling mediums.\", \"Guidelines\": \"Ensure to label the name of the fictional character and not the name of the actor portraying the character. Be mindful of potential overlap with real person names or common terms, such as 'jack' or 'john smith', which may not necessarily be fictional characters.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "DIRECTOR",
+    "real_name": "director",
+    "sentences_as_example": [
+      {
+        "sentence": "movie directed by brian ide with a plot involving ring",
+        "entities": [
+          "brian ide"
+        ]
+      },
+      {
+        "sentence": "has sam raimi directed any documentary films",
+        "entities": [
+          "sam raimi"
+        ]
+      },
+      {
+        "sentence": "list science fiction movies directed by charlie vaughn",
+        "entities": [
+          "charlie vaughn"
+        ]
+      }
+    ],
+    "prompt_length": 434,
+    "output_length": 82,
+    "gpt_answer": "{\"Definition\": \"'director' refers to individuals responsible for the artistic aspects and excecution of a film.\", \"Guidelines\": \"Do not label job titles or other entities associated with directing but not specifically a film director such as 'corporate director'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "GENRE",
+    "real_name": "genre",
+    "sentences_as_example": [
+      {
+        "sentence": "what is a good 2010 s comedy",
+        "entities": [
+          "comedy"
+        ]
+      },
+      {
+        "sentence": "did jane fonda do an period picture",
+        "entities": [
+          "period picture"
+        ]
+      },
+      {
+        "sentence": "what techno thriller gets a high rating",
+        "entities": [
+          "techno thriller"
+        ]
+      }
+    ],
+    "prompt_length": 422,
+    "output_length": 95,
+    "gpt_answer": "{\"Definition\": \"'genre' refers to a category or classification characterized by specific stylistic, thematic, or content elements.\", \"Guidelines\": \"Avoid labeling general terms like 'film', 'book', or 'music' as 'genre'. Focus on labeling genres such as 'science ficiton', 'romance', 'horror' and similar. Exercise caution with ambiguous terms that can belong to multiple genres, such as 'drama' (which can refer to a genre or a situation within a story).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "PLOT",
+    "real_name": "plot",
+    "sentences_as_example": [
+      {
+        "sentence": "movie directed by brian ide with a plot involving ring",
+        "entities": [
+          "ring"
+        ]
+      },
+      {
+        "sentence": "is there a movie from the last two decades that got at least eight stars and featured a story about love at first sight",
+        "entities": [
+          "love at first sight"
+        ]
+      },
+      {
+        "sentence": "in which film did michael b jordan stars as a super powered individual",
+        "entities": [
+          "super powered individual"
+        ]
+      }
+    ],
+    "prompt_length": 459,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'plot' refers to words in the text that summarize the content or narrative of a movie.\", \"Guidelines\": \"Ensure the identified entities are key plot elements.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "RATING",
+    "real_name": "rating",
+    "sentences_as_example": [
+      {
+        "sentence": "was that western with cullen blaine with the r rating received well",
+        "entities": [
+          "r"
+        ]
+      },
+      {
+        "sentence": "i want an r rated four stars western with jean arthur",
+        "entities": [
+          "r"
+        ]
+      },
+      {
+        "sentence": "is there a rated pg 13 movie in the year 1940 s with jordanna brewster",
+        "entities": [
+          "pg 13"
+        ]
+      }
+    ],
+    "prompt_length": 452,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'rating' refers to a categorization or score given to a movie or any piece of entertainment content based on its suitability for certain audiences or its quality.\",\n  \"Guidelines\": \"Do not label generic terms like 'good', 'excellent', or 'popular' as 'rating'. Be cautious when the entity appears standalone without clear context, such as 'r' or 'pg13'. Consider the surrounding context to determine if the entity refers to a legitimate content rating.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "RATINGS_AVERAGE",
+    "real_name": "ratings average",
+    "sentences_as_example": [
+      {
+        "sentence": "what techno thriller gets a high rating",
+        "entities": [
+          "high rating"
+        ]
+      },
+      {
+        "sentence": "is there a movie from the last two decades that got at least eight stars and featured a story about love at first sight",
+        "entities": [
+          "eight stars"
+        ]
+      },
+      {
+        "sentence": "was that western with cullen blaine with the r rating received well",
+        "entities": [
+          "received well"
+        ]
+      }
+    ],
+    "prompt_length": 453,
+    "output_length": 93,
+    "gpt_answer": "{\"Definition\": \"'ratings average' refers to the average score or evaluation given to a movie, TV show, or other media content based on audience or critic reviews.\", \"Guidelines\": \"Avoid labeling generic terms like 'good' or 'bad' as 'ratings average'. Recognize that 'received well' or 'high rating' can indicate positive average ratings.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "REVIEW",
+    "real_name": "review",
+    "sentences_as_example": [
+      {
+        "sentence": "please show me the classic movie about nick and norah charles",
+        "entities": [
+          "classic"
+        ]
+      },
+      {
+        "sentence": "find the classic movie with the song as time goes by",
+        "entities": [
+          "classic"
+        ]
+      },
+      {
+        "sentence": "what 3d movies are a must see",
+        "entities": [
+          "must see"
+        ]
+      }
+    ],
+    "prompt_length": 439,
+    "output_length": 87,
+    "gpt_answer": "{\"Definition\": \"'review' refers to personal or collective assessments, evaluations, or opinions about a specific movie, book, product, or service.\", \"Guidelines\": \"When labeling 'review', consider expressions of subjective judgment, critique, or appraisal related to a specific movie, book, product, or service. Consider labeling general descriptive words like 'classic' or 'must see' when used as 'review'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "SONG",
+    "real_name": "song",
+    "sentences_as_example": [
+      {
+        "sentence": "find the classic movie with the song as time goes by",
+        "entities": [
+          "as time goes by"
+        ]
+      },
+      {
+        "sentence": "tell me what movie contains the song best of friends",
+        "entities": [
+          "best of friends"
+        ]
+      },
+      {
+        "sentence": "give mw the film with the nice song of enrique",
+        "entities": [
+          "song of enrique"
+        ]
+      }
+    ],
+    "prompt_length": 434,
+    "output_length": 86,
+    "gpt_answer": "{\"Definition\": \"'song' refers to a musical composition with lyrics and melody that can be performed or recorded.\", \"Guidelines\": \"Do not label general music-related terms like 'album' or 'lyrics'. Exercise caution with ambiguous cases like 'Billie Jean' (which can refer to a person or a song) or 'Guns N' Roses' (which can refer to a band or a song).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "TITLE",
+    "real_name": "title",
+    "sentences_as_example": [
+      {
+        "sentence": "do you have carry on nurse",
+        "entities": [
+          "carry on nurse"
+        ]
+      },
+      {
+        "sentence": "run rollerball the 1970s version",
+        "entities": [
+          "rollerball"
+        ]
+      },
+      {
+        "sentence": "who directed savannah smiles",
+        "entities": [
+          "savannah smiles"
+        ]
+      }
+    ],
+    "prompt_length": 419,
+    "output_length": 83,
+    "gpt_answer": "{\"Definition\": \"'title' refers to names of creative works, such as movies, books, music albums, and artistic productions.\", \"Guidelines\": \"Avoid labeling generic words that can be interpreted as common nouns, like 'run' or 'the'. Exercise caution with potentially ambiguous cases, such as 'Savannah Hilton' (person with a title name) or 'Apple' (brand and fruit).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "TRAILER",
+    "real_name": "trailer",
+    "sentences_as_example": [
+      {
+        "sentence": "is there a movie trailer that uses a katy perry song",
+        "entities": [
+          "trailer"
+        ]
+      },
+      {
+        "sentence": "find a preview for a elizabeth perkins period piece movie",
+        "entities": [
+          "preview"
+        ]
+      },
+      {
+        "sentence": "show me the trailer for the hunger games",
+        "entities": [
+          "trailer"
+        ]
+      }
+    ],
+    "prompt_length": 430,
+    "output_length": 83,
+    "gpt_answer": "{\"Definition\": \"'trailer' refers to a short promotional video that provides a preview or teaser of a forthcoming movie.\",\n  \"Guidelines\": \"Label general entertainment terms like 'preview' or 'teaser'.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "YEAR",
+    "real_name": "year",
+    "sentences_as_example": [
+      {
+        "sentence": "what is a good 2010 s comedy",
+        "entities": [
+          "2010 s"
+        ]
+      },
+      {
+        "sentence": "run rollerball the 1970s version",
+        "entities": [
+          "1970s"
+        ]
+      },
+      {
+        "sentence": "is there a movie from the last two decades that got at least eight stars and featured a story about love at first sight",
+        "entities": [
+          "last two decades"
+        ]
+      }
+    ],
+    "prompt_length": 442,
+    "output_length": 65,
+    "gpt_answer": "{\"Definition\": \"'year' refers to specific numerical values or expressions representing a particular calendar year, decade, or time period.\", \"Guidelines\": \"Avoid labeling ambiguous terms that refer to time periods, such as 'roaring twenties' (not a specific year) or 'back in the day' (vague time reference).\"}",
+    "finish_reason": "stop"
+  }
+]

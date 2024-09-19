@@ -1,0 +1,428 @@
+{
+  "algorithm": {
+    "real_name": "algorithm",
+    "Hints": "The algorithm entity. It contains algorithms (e.g., decision trees) and models (e.g, CNN and LSTM).",
+    "sentences": [
+      {
+        "sentence": "Another technique particularly used for recurrent neural network s is the long short-term memory ( LSTM ) network of 1997 by Sepp Hochreiter & J\u00fcrgen Schmidhuber .",
+        "target_words_in_it": [
+          "recurrent neural network",
+          "LSTM",
+          "long short-term memory"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "In 1999 , Felix Gers and his advisor J\u00fcrgen Schmidhuber and Fred Cummins introduced the forget gate ( also called keep gate ) into LSTM architecture ,",
+        "target_words_in_it": [
+          "keep gate",
+          "LSTM",
+          "forget gate"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "J48 is an open source Java implementation of the C4.5 algorithm in the Weka data mining tool .",
+        "target_words_in_it": [
+          "C4.5 algorithm"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "conference": {
+    "real_name": "conference",
+    "Hints": "The conference entity. It contains conference and journal entities.",
+    "sentences": [
+      {
+        "sentence": "Xu has published more than 50 papers at international conferences and in journals in the field of computer vision and won the Best Paper Award at the international conference on Non-Photorealistic Rendering and Animation ( NPAR ) 2012 and the Best Reviewer Award at the international conferences Asian Conference on Computer Vision ACCV 2012 and International Conference on Computer Vision ( ICCV ) 2015 .",
+        "target_words_in_it": [
+          "international conference on Non-Photorealistic Rendering and Animation",
+          "ICCV",
+          "International Conference on Computer Vision",
+          "ACCV 2012",
+          "international conferences Asian Conference on Computer Vision",
+          "NPAR"
+        ],
+        "occurrences_count": 6
+      },
+      {
+        "sentence": "He is a Fellow of the American Association for the Advancement of Science , Association for the Advancement Artificial Intelligence , and Cognitive Science Society , and an editor of the J.",
+        "target_words_in_it": [
+          "Association for the Advancement Artificial Intelligence"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Eurisko made many interesting discoveries and enjoyed significant acclaim , with his paper Heuretics : Theoretical and Study of Heuristic Rules winning the Best Paper award at the 1982 Association for the Advancement of Artificial Intelligence .",
+        "target_words_in_it": [
+          "1982 Association for the Advancement of Artificial Intelligence"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "country": {
+    "real_name": "country",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "The company has international locations in Australia , Brazil , Canada , China , Germany , India , Italy , Japan , Korea , Lithuania , Poland , Malaysia , the Philippines , Russia , Singapore , South Africa , Spain , Taiwan , Thailand , Turkey and the United Kingdom .",
+        "target_words_in_it": [
+          "Lithuania",
+          "Italy",
+          "United Kingdom",
+          "China",
+          "South Africa",
+          "Turkey",
+          "Australia",
+          "Thailand",
+          "India",
+          "Poland",
+          "Canada",
+          "Malaysia",
+          "Spain",
+          "Russia",
+          "Korea",
+          "Taiwan",
+          "Japan",
+          "Singapore",
+          "Germany",
+          "Brazil",
+          "Philippines"
+        ],
+        "occurrences_count": 21
+      },
+      {
+        "sentence": "Licensing the original patent awarded to inventor George Devol , Engelberger developed the first industrial robot in the United States , the Unimate , in the 1950s .",
+        "target_words_in_it": [
+          "United States"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "One of the metrics used in NIST ' s annual Document Understanding Conferences , in which research groups submit their systems for both summarization and translation tasks , is the ROUGE metric ( Recall-Oriented Understudy for Gisting Evaluation , In Advances of Neural Information Processing Systems ( NIPS ) , Montreal , Canada , December - 2014 .",
+        "target_words_in_it": [
+          "Canada"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "field": {
+    "real_name": "field",
+    "Hints": "The research field entity, such as machine learning, deep learning, and natural language processing.",
+    "sentences": [
+      {
+        "sentence": "CycL in computer science and artificial intelligence is an ontology language used by Doug Lenat 's Cyc artificial project .",
+        "target_words_in_it": [
+          "computer science",
+          "artificial intelligence"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Heterodyning is a signal processing technique invented by Canadian inventor-engineer Reginald Fessenden that creates new frequencies by combining mixing two frequencies .",
+        "target_words_in_it": [
+          "signal processing"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "tity contains a collection of visualization tools and algorithms for data analysis and predictive modeling , together with graphical user interfaces for easy access to these functions.",
+        "target_words_in_it": [
+          "data analysis"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "location": {
+    "real_name": "location",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Beginning at the 2019 Toronto International Film Festival , films may now be restricted from screening at Scotiabank Theatre Toronto - one of the festival 's main venues - and screened elsewhere ( such as TIFF Bell Lightbox and other local cinemas ) if distributed by a service such as Netflix .",
+        "target_words_in_it": [
+          "TIFF Bell Lightbox",
+          "Scotiabank Theatre Toronto"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "One of the metrics used in NIST ' s annual Document Understanding Conferences , in which research groups submit their systems for both summarization and translation tasks , is the ROUGE metric ( Recall-Oriented Understudy for Gisting Evaluation , In Advances of Neural Information Processing Systems ( NIPS ) , Montreal , Canada , December - 2014 .",
+        "target_words_in_it": [
+          "Montreal"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Boris Katz , ( born October 5 , 1947 , Chi\u0219in\u0103u , Moldavian SSR , Soviet Union , ( now Chi\u0219in\u0103u , Moldova ) ) is a principal American research scientist ( computer scientist ) at the MIT Computer Science and Artificial Intelligence Laboratory at the Massachusetts Institute of Technology in Cambridge and head of the Laboratory 's InfoLab Group .",
+        "target_words_in_it": [
+          "Moldavian SSR",
+          "Chi\u0219in\u0103u"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "metrics": {
+    "real_name": "metrics",
+    "Hints": "The evaluation metrics, such as F1-score.",
+    "sentences": [
+      {
+        "sentence": "Sigmoid function Cross entropy loss is used for predicting K independent probability values in math 0,1 / math .",
+        "target_words_in_it": [
+          "Sigmoid function Cross entropy loss"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The parameters \u03b2 are typically estimated by maximum likelihood .",
+        "target_words_in_it": [
+          "maximum likelihood"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The NIST metric is based on the BLEU metric , but with some alterations .",
+        "target_words_in_it": [
+          "BLEU metric",
+          "NIST metric"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "misc": {
+    "real_name": "miscellaneous",
+    "Hints": "An entity needs to be classified as the miscellaneous type if it does not belong to any other category in the context of Artificial Intelligence such as field, task, product, algorithm, researcher, metrics, university, country, person, organization, location, programming language, conference.",
+    "sentences": [
+      {
+        "sentence": "During the 1990s , encouraged by successes in speech recognition and speech synthesis , research began into speech translation with the development of the German Verbmobil project .",
+        "target_words_in_it": [
+          "Verbmobil project",
+          "German"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "CycL in computer science and artificial intelligence is an ontology language used by Doug Lenat 's Cyc artificial project .",
+        "target_words_in_it": [
+          "ontology language",
+          "Cyc artificial project"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Heterodyning is a signal processing technique invented by Canadian inventor-engineer Reginald Fessenden that creates new frequencies by combining mixing two frequencies .",
+        "target_words_in_it": [
+          "Canadian"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "organisation": {
+    "real_name": "organization",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "He is a Fellow of the American Association for the Advancement of Science , Association for the Advancement Artificial Intelligence , and Cognitive Science Society , and an editor of the J.",
+        "target_words_in_it": [
+          "American Association for the Advancement of Science",
+          "Cognitive Science Society"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Unimation purchased Victor Scheinman ' s Vicarm Inc.",
+        "target_words_in_it": [
+          "Unimation"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "David Norris , Bloor Research , November 13 , 2013 .",
+        "target_words_in_it": [
+          "Bloor Research"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "person": {
+    "real_name": "person",
+    "Hints": "If a person is working on research (including professor, Ph.D. student, researcher in companies, and etc) avoid labelling it as 'person' entity.",
+    "sentences": [
+      {
+        "sentence": ") , Columbia 's Miss Sadie Thompson with Rita Hayworth , and Paramount 's Money From Home with Dean Martin and Jerry Lewis .",
+        "target_words_in_it": [
+          "Jerry Lewis",
+          "Rita Hayworth",
+          "Dean Martin"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "The Walt Disney Company also began more prominent use of 3D films in special venues to impress audiences with Magic Journeys ( 1982 ) and Captain EO ( Francis Ford Coppola , 1986 , starring Michael Jackson ) being notable examples .",
+        "target_words_in_it": [
+          "Francis Ford Coppola",
+          "Michael Jackson"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "product": {
+    "real_name": "product",
+    "Hints": "The product entity that includes the product (e.g., a certain kind of robot like Pepper), system (e.g., facial recognition system) and toolkit (e.g., Tensorflow and PyTorch)",
+    "sentences": [
+      {
+        "sentence": "Some less widely spoken languages use the open-source eSpeak synthesizer for their speech ; producing a robotic , awkward voice that may be difficult to understand .",
+        "target_words_in_it": [
+          "eSpeak synthesizer"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Libraries written in Perl , Java , ActiveX or .NET can be directly called from MATLAB ,",
+        "target_words_in_it": [
+          "MATLAB"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Licensing the original patent awarded to inventor George Devol , Engelberger developed the first industrial robot in the United States , the Unimate , in the 1950s .",
+        "target_words_in_it": [
+          "Unimate",
+          "industrial robot"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "programlang": {
+    "real_name": "programming language",
+    "Hints": "The programming language, such as Java and Python.",
+    "sentences": [
+      {
+        "sentence": "Libraries written in Perl , Java , ActiveX or .NET can be directly called from MATLAB ,",
+        "target_words_in_it": [
+          "Java",
+          "Perl",
+          "ActiveX"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "Same implementation , to run in Java with JShell ( Java 9 minimum ) : codejshell scriptfile / codesyntaxhighlight lang = java",
+        "target_words_in_it": [
+          "Java",
+          "java"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "J48 is an open source Java implementation of the C4.5 algorithm in the Weka data mining tool .",
+        "target_words_in_it": [
+          "Java"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "researcher": {
+    "real_name": "researcher",
+    "Hints": "A person is working on research (including professor, Ph.D. student, researcher in companies, and etc)",
+    "sentences": [
+      {
+        "sentence": "Advocates of procedural representations were mainly centered at MIT , under the leadership of Marvin Minsky and Seymour Papert .",
+        "target_words_in_it": [
+          "Marvin Minsky",
+          "Seymour Papert"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Another technique particularly used for recurrent neural network s is the long short-term memory ( LSTM ) network of 1997 by Sepp Hochreiter & J\u00fcrgen Schmidhuber .",
+        "target_words_in_it": [
+          "Sepp Hochreiter",
+          "J\u00fcrgen Schmidhuber"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "In 1999 , Felix Gers and his advisor J\u00fcrgen Schmidhuber and Fred Cummins introduced the forget gate ( also called keep gate ) into LSTM architecture ,",
+        "target_words_in_it": [
+          "Felix Gers",
+          "J\u00fcrgen Schmidhuber",
+          "Fred Cummins"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "task": {
+    "real_name": "task",
+    "Hints": "The specific task entity in the research field, such as machine translation and object detection.",
+    "sentences": [
+      {
+        "sentence": "Speech recognition and speech synthesis deal with how spoken language can be understood or created using computers .",
+        "target_words_in_it": [
+          "Speech recognition",
+          "speech synthesis"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "The input is called speech recognition and the output is called speech synthesis .",
+        "target_words_in_it": [
+          "speech recognition",
+          "speech synthesis"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "During the 1990s , encouraged by successes in speech recognition and speech synthesis , research began into speech translation with the development of the German Verbmobil project .",
+        "target_words_in_it": [
+          "speech translation",
+          "speech recognition",
+          "speech synthesis"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "university": {
+    "real_name": "university",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Advocates of procedural representations were mainly centered at MIT , under the leadership of Marvin Minsky and Seymour Papert .",
+        "target_words_in_it": [
+          "MIT"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "He holds a D.Sc. degree in electrical and computer engineering ( 2000 ) from Inria and the University of Nice Sophia Antipolis , and has held permanent positions at Siemens Corporate Technology , \u00c9cole des ponts ParisTech as well as visiting positions at Rutgers University , Yale University and University of Houston .",
+        "target_words_in_it": [
+          "Yale University",
+          "University of Houston",
+          "Rutgers University",
+          "University of Nice Sophia Antipolis",
+          "\u00c9cole des ponts ParisTech"
+        ],
+        "occurrences_count": 5
+      },
+      {
+        "sentence": "Variants of the back-propagation algorithm as well as unsupervised methods by Geoff Hinton and colleagues at the University of Toronto can be used to train deep , highly nonlinear neural architectures , { { cite journal",
+        "target_words_in_it": [
+          "University of Toronto"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  }
+}

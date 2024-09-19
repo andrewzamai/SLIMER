@@ -1,0 +1,219 @@
+{
+  "Amenity": {
+    "real_name": "amenity",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "im looking for an upscale place that serves porkchops",
+        "target_words_in_it": [
+          "upscale place"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "i would like to go to a steampunk flavored bar could you direct me to one",
+        "target_words_in_it": [
+          "steampunk flavored"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "can you make me a reservation at gallaghers in manhattan for 5 pm this evening",
+        "target_words_in_it": [
+          "reservation"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Cuisine": {
+    "real_name": "cuisine",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "where can i find the best place chinese to eat",
+        "target_words_in_it": [
+          "chinese"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "i would like to go to a steampunk flavored bar could you direct me to one",
+        "target_words_in_it": [
+          "bar"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "are there any steak houses",
+        "target_words_in_it": [
+          "steak houses"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Dish": {
+    "real_name": "dish",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "im looking for an upscale place that serves porkchops",
+        "target_words_in_it": [
+          "porkchops"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "i would love to find some local barbecue sauces within five miles of here",
+        "target_words_in_it": [
+          "barbecue sauces"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "can you take me to a place to eat sushi",
+        "target_words_in_it": [
+          "sushi"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Hours": {
+    "real_name": "hours",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "where can i get pita bread late at night",
+        "target_words_in_it": [
+          "late at night"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "can you make me a reservation at gallaghers in manhattan for 5 pm this evening",
+        "target_words_in_it": [
+          "5 pm"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "could you find me a place to eat that has daily lunch specials",
+        "target_words_in_it": [
+          "daily lunch"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Location": {
+    "real_name": "location",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "where can i find the best place chinese to eat",
+        "target_words_in_it": [
+          "place"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "what can you tell me about the restaurants in this area are there any michelin star restaurants around here",
+        "target_words_in_it": [
+          "around here"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "i would love to find some local barbecue sauces within five miles of here",
+        "target_words_in_it": [
+          "local",
+          "five miles of here"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "Price": {
+    "real_name": "price",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "im in the mood for a cheap burger",
+        "target_words_in_it": [
+          "cheap"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "where can i get a cheap tomato",
+        "target_words_in_it": [
+          "cheap"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "what restaurants along my current route are very inexpensive",
+        "target_words_in_it": [
+          "very inexpensive"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Rating": {
+    "real_name": "rating",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "where can i find the best place chinese to eat",
+        "target_words_in_it": [
+          "best"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "what can you tell me about the restaurants in this area are there any michelin star restaurants around here",
+        "target_words_in_it": [
+          "michelin star"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "where can i rent a room near a nice italian restaurant",
+        "target_words_in_it": [
+          "nice"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "Restaurant_Name": {
+    "real_name": "restaurant name",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "show me the way to white castle",
+        "target_words_in_it": [
+          "white castle"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "is prattville pizza expensive",
+        "target_words_in_it": [
+          "prattville pizza"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "can you make me a reservation at gallaghers in manhattan for 5 pm this evening",
+        "target_words_in_it": [
+          "gallaghers"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  }
+}

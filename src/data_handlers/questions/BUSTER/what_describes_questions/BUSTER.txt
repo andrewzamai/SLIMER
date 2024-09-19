@@ -1,0 +1,17 @@
+Parties:BUYING_COMPANY
+What describes buying company in the text?
+---
+Parties:SELLING_COMPANY
+What describes selling company in the text?
+---
+Parties:ACQUIRED_COMPANY
+What describes acquired company in the text?
+---
+Advisors:LEGAL_CONSULTING_COMPANY
+What describes a law firm providing legal advice on the transaction in the text?
+---
+Advisors:GENERIC_CONSULTING_COMPANY
+What describes a general firm providing non legal advice on the transaction in the text?
+---
+Generic_Info:ANNUAL_REVENUES
+What describes annual revenues in the text?

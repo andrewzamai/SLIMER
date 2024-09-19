@@ -1,0 +1,512 @@
+{
+  "academicjournal": {
+    "real_name": "academic journal",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Holmes has served on the editorial or advisory boards of numerous learned scientific journals , including Organic Letters , Chemical Communications and Angewandte Chemie .",
+        "target_words_in_it": [
+          "Angewandte Chemie",
+          "Organic Letters",
+          "Chemical Communications"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "Alberts has also served as an editor for numerous peer-reviewed journals in a variety of fields , including Behavioral Ecology ( journal ) , the American Journal of Primatology , and PeerJ .",
+        "target_words_in_it": [
+          "Behavioral Ecology",
+          "PeerJ",
+          "American Journal of Primatology"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "The journal establishment was similar to the starting of The Astrophysical Journal and The Astronomical Journal by George Ellery Hale .",
+        "target_words_in_it": [
+          "The Astronomical Journal",
+          "The Astrophysical Journal"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "astronomicalobject": {
+    "real_name": "astronomical object",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "5145 Pholus in diameter , that crosses the orbit of both Saturn and Neptune .",
+        "target_words_in_it": [
+          "Neptune",
+          "Saturn",
+          "5145 Pholus"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "This is due to the gravitation influence of Saturn and Jupiter .",
+        "target_words_in_it": [
+          "Jupiter",
+          "Saturn"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "It will use the gravity assist technique with Earth once , with Venus twice , and six times with Mercury .",
+        "target_words_in_it": [
+          "Mercury",
+          "Venus",
+          "Earth"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "award": {
+    "real_name": "award",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "In 1871 he was elected a fellow of the Linnean Society of London , and in 1881 he was elected a fellow of the Royal Society .",
+        "target_words_in_it": [
+          "fellow of the Linnean Society of London",
+          "fellow of the Royal Society"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "The album received a Grammy Award nomination for Grammy Award for Best Pop Vocal Album at the 45th Annual Grammy Awards ( 2003 ) .",
+        "target_words_in_it": [
+          "45th Annual Grammy Awards",
+          "Grammy Award"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "The Hannes Alfv\u00e9n Prize , awarded annually by the European Physical Society for outstanding contributions in plasma physics , is named after him .",
+        "target_words_in_it": [
+          "Hannes Alfv\u00e9n Prize"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "chemicalcompound": {
+    "real_name": "chemical compound",
+    "Hints": "The chemical compound entity. If a chemical compound entity do not belong to protein or enzyme, you should label it as a chemical compound entity.",
+    "sentences": [
+      {
+        "sentence": "They may also use Adenosine triphosphate , Nitric oxide , and ROS for signaling in the same ways that animals do .",
+        "target_words_in_it": [
+          "ROS",
+          "Adenosine triphosphate",
+          "Nitric oxide"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "The most common trialkyl aluminum reagents for this transformation are Trimethylaluminium , Triethylaluminium , and sometimes Triisobutylaluminium .",
+        "target_words_in_it": [
+          "Triethylaluminium",
+          "Trimethylaluminium",
+          "Triisobutylaluminium",
+          "trialkyl aluminum"
+        ],
+        "occurrences_count": 4
+      },
+      {
+        "sentence": "DNA methyltransferase is recruited to the site and adds methyl groups to the cytosine of the CpG dinucleotides .",
+        "target_words_in_it": [
+          "cytosine"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "chemicalelement": {
+    "real_name": "chemical element",
+    "Hints": "The chemical element entity. Basically, this category contains the chemical elements from the periodic table.",
+    "sentences": [
+      {
+        "sentence": "Nihonium was first reported to have been created in 2003 by a Russian-American collaboration at the Joint Institute for Nuclear Research ( JINR ) in Dubna , Russia , and in 2004 by a team of Japanese scientists at Riken in Wak\u014d , Japan .",
+        "target_words_in_it": [
+          "Nihonium"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Most of metal contribution , copper , lead , and zinc , comes from Hammarbybacken where high levels of arsenic , chromium , phthalates , Polychlorinated biphenyl , and Carbon tetrachloride have also been recorded .",
+        "target_words_in_it": [
+          "lead",
+          "zinc",
+          "copper",
+          "arsenic",
+          "chromium",
+          "phthalates"
+        ],
+        "occurrences_count": 6
+      },
+      {
+        "sentence": "This discovery , which earned him the Copley Medal of the Royal Society in 1825 , was followed by another , that a rotating plate of copper tends to communicate its motion to a magnetic needle suspended over it , which he called magnetism of rotation Annales de chimie et de physique ( 1824 ) , vol .",
+        "target_words_in_it": [
+          "copper"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "country": {
+    "real_name": "country",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "He was awarded honorary degree from the University of Cambridge in Cambridge , UK , and the Copley Medal of the Royal Society in 1906 .",
+        "target_words_in_it": [
+          "UK"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "After students at Uppsala University celebrated Bonaparte 's return to France from his Italian campaigns , Gustav IV Adolf appointed von Fersen as Uppsala University .",
+        "target_words_in_it": [
+          "France"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Flexner had studied European schools such as Heidelberg University , All Souls College , Oxford , and the Coll\u00e8ge de France -and he wanted to establish a similar advanced research center in the United States .",
+        "target_words_in_it": [
+          "United States"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "discipline": {
+    "real_name": "discipline",
+    "Hints": "The discipline entity. For example areas and subareas of biology, chemistry and astrophysics, such as quantum chemistry.",
+    "sentences": [
+      {
+        "sentence": "The Hannes Alfv\u00e9n Prize , awarded annually by the European Physical Society for outstanding contributions in plasma physics , is named after him .",
+        "target_words_in_it": [
+          "plasma physics"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "He is well known for his structural enzymology work on Rieske protein non-heme iron oxygenases and Alcohol dehydrogenase",
+        "target_words_in_it": [
+          "enzymology"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Griffiths ( 1999 ) , Introduction to electrodynamics , third Edition , ed .",
+        "target_words_in_it": [
+          "electrodynamics"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "enzyme": {
+    "real_name": "enzyme",
+    "Hints": "Notice that enzyme is a special type of protein. Hence, if a protein entity is an enzyme, you should label this protein as an enzyme entity instead of a protein entity.",
+    "sentences": [
+      {
+        "sentence": "Other silencing mechanisms include the recruitment of specialized proteins that methylate DNA such that the core promoter element is inaccessible to transcription factor s and RNA polymerase .",
+        "target_words_in_it": [
+          "RNA polymerase"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "He is well known for his structural enzymology work on Rieske protein non-heme iron oxygenases and Alcohol dehydrogenase",
+        "target_words_in_it": [
+          "Rieske protein non-heme iron oxygenases",
+          "Alcohol dehydrogenase"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "In DNA replication , RNA primers must be inserted along the lagging strand so that DNA polymerase is able to synthesize the strand in the 5 to 3 direction .",
+        "target_words_in_it": [
+          "DNA polymerase"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "event": {
+    "real_name": "event",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "She represented her country at the 2017 World Championships in Athletics without advancing from the first round .",
+        "target_words_in_it": [
+          "2017 World Championships in Athletics"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Among those in attendance were Werner Heisenberg , Carl Ramsauer , Wolfgang Finkelnburg , Carl Friedrich von Weizs\u00e4cker , Juilfs , as well as supporters of the declining deutsche Physik movement .",
+        "target_words_in_it": [
+          "deutsche Physik movement"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "He represented his country at the 2013 World Championships in Athletics and 2015 World Championships in Athletics without qualifying for the final .",
+        "target_words_in_it": [
+          "2015 World Championships",
+          "2013 World Championships"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "location": {
+    "real_name": "location",
+    "Hints": "You should not label here, there and similar as location entities.",
+    "sentences": [
+      {
+        "sentence": "He was awarded honorary degree from the University of Cambridge in Cambridge , UK , and the Copley Medal of the Royal Society in 1906 .",
+        "target_words_in_it": [
+          "Cambridge"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "The U.S. Navy has three other facilities on the bay : Naval Station San Diego , Naval Base Point Loma at Ballast Point , which is a Nuclear Submarine base , and Naval Amphibious Base Coronado .",
+        "target_words_in_it": [
+          "Naval Base Point Loma",
+          "Naval Amphibious Base Coronado",
+          "Naval Station San Diego",
+          "Ballast Point",
+          "Nuclear Submarine base"
+        ],
+        "occurrences_count": 5
+      },
+      {
+        "sentence": "The Big Bend Country is part of the larger Columbia Country , which includes the Columbia Valley and upper Arrow Lakes .",
+        "target_words_in_it": [
+          "Arrow Lakes",
+          "Columbia Country",
+          "Big Bend Country",
+          "Columbia Valley"
+        ],
+        "occurrences_count": 4
+      }
+    ]
+  },
+  "misc": {
+    "real_name": "miscellaneous",
+    "Hints": "An entity needs to be classified as themiscellaneous type if it does not belong to any other category in this scientific context.",
+    "sentences": [
+      {
+        "sentence": "Other silencing mechanisms include the recruitment of specialized proteins that methylate DNA such that the core promoter element is inaccessible to transcription factor s and RNA polymerase .",
+        "target_words_in_it": [
+          "transcription factor",
+          "DNA",
+          "silencing mechanisms"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "Human leukocyte antigen constitutes a group of cell surface antigens also known as the Major histocompatibility complex of humans .",
+        "target_words_in_it": [
+          "Major histocompatibility complex",
+          "Human leukocyte antigen"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "H3K9me3 is an epigenetic modification to the DNA packaging protein Histone H3 .",
+        "target_words_in_it": [
+          "epigenetic modification",
+          "DNA",
+          "H3K9me3"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  },
+  "organisation": {
+    "real_name": "organization",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "He visited some European universities and institutions , including Cavendish Laboratory , Georg August University of G\u00f6ttingen , and University of Copenhagen .",
+        "target_words_in_it": [
+          "Cavendish Laboratory"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "The Hannes Alfv\u00e9n Prize , awarded annually by the European Physical Society for outstanding contributions in plasma physics , is named after him .",
+        "target_words_in_it": [
+          "European Physical Society"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "He was awarded honorary degree from the University of Cambridge in Cambridge , UK , and the Copley Medal of the Royal Society in 1906 .",
+        "target_words_in_it": [
+          "Royal Society"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "person": {
+    "real_name": "person",
+    "Hints": "If a person entity is a scientist, you should label this person as a scientist entity instead of a person entity.",
+    "sentences": [
+      {
+        "sentence": "He described Bleach 's portrayal as a halfway house between the original version as played by Michael Wisher and the more exuberant ...",
+        "target_words_in_it": [
+          "Michael Wisher"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "After students at Uppsala University celebrated Bonaparte 's return to France from his Italian campaigns , Gustav IV Adolf appointed von Fersen as Uppsala University .",
+        "target_words_in_it": [
+          "Bonaparte",
+          "Gustav IV Adolf",
+          "von Fersen"
+        ],
+        "occurrences_count": 3
+      },
+      {
+        "sentence": "Ragtime was nominated for twelve Tony Awards and won the Tony Award for Best Original Score for Lynn Ahrens and Stephen Flahertyin addition to the Drama Desk Award for Outstanding Lyrics .",
+        "target_words_in_it": [
+          "Lynn Ahrens",
+          "Stephen Flahertyin"
+        ],
+        "occurrences_count": 2
+      }
+    ]
+  },
+  "protein": {
+    "real_name": "protein",
+    "Hints": "Notice that enzyme is a special type of protein. Hence, if a protein entity is an enzyme, you should label this protein as an enzyme entity instead of a protein entity.",
+    "sentences": [
+      {
+        "sentence": "H3K9me3 is an epigenetic modification to the DNA packaging protein Histone H3 .",
+        "target_words_in_it": [
+          "Histone H3"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "In the early days of his laboratory he discovered a new mechanism of microRNA processing independent of Dicer that requires the catalytic activity of Argonaute 2 , a type of Argonaute protein .",
+        "target_words_in_it": [
+          "Argonaute",
+          "Argonaute 2"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Several genes known to be affected by differential methylation are the CYP1A1 xenobiotic response element , Aryl hydrocarbon receptor repressor , and F2RL3 .",
+        "target_words_in_it": [
+          "CYP1A1"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "scientist": {
+    "real_name": "scientist",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "Mechnikov was appointed docent at the newly established Odessa University ( now Odessa University ) .",
+        "target_words_in_it": [
+          "Mechnikov"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "Among those in attendance were Werner Heisenberg , Carl Ramsauer , Wolfgang Finkelnburg , Carl Friedrich von Weizs\u00e4cker , Juilfs , as well as supporters of the declining deutsche Physik movement .",
+        "target_words_in_it": [
+          "Werner Heisenberg",
+          "Juilfs",
+          "Carl Ramsauer",
+          "Wolfgang Finkelnburg",
+          "Carl Friedrich von Weizs\u00e4cker"
+        ],
+        "occurrences_count": 5
+      },
+      {
+        "sentence": "Prominent anatomists and geologists such as Georges Cuvier , Richard Owen , Adam Sedgwick , and Charles Lyell attacked it vigorously .",
+        "target_words_in_it": [
+          "Charles Lyell",
+          "Adam Sedgwick",
+          "Richard Owen",
+          "Georges Cuvier"
+        ],
+        "occurrences_count": 4
+      }
+    ]
+  },
+  "theory": {
+    "real_name": "theory",
+    "Hints": "The theory entity. It includes law and theory entities, such as ptolemaic planetary theories.",
+    "sentences": [
+      {
+        "sentence": "The Nicolaus Copernicus heliocentric theory of the Solar System had received confirmation by the observations of Galileo Galilei and Tycho Brahe and the mathematical investigations of Johannes Kepler and Isaac Newton .",
+        "target_words_in_it": [
+          "Nicolaus Copernicus heliocentric theory"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "moves from metaphysics to methodology , a move that anticipates modernity , and at the level of philosophy , Alfarabi unites theory and practice ...",
+        "target_words_in_it": [
+          "metaphysics",
+          "methodology"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "He has written several invited review articles and book chapters for a number of prestigious journals and books including Chemical Reviews , Accounts of Chemical Research , Angewandte Chemie and the main textbook in the field of circular dichroism , Comprehensive Chiroptical Spectroscopy .",
+        "target_words_in_it": [
+          "circular dichroism"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "university": {
+    "real_name": "university",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "He visited some European universities and institutions , including Cavendish Laboratory , Georg August University of G\u00f6ttingen , and University of Copenhagen .",
+        "target_words_in_it": [
+          "Georg August University of G\u00f6ttingen",
+          "University of Copenhagen"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "Mechnikov was appointed docent at the newly established Odessa University ( now Odessa University ) .",
+        "target_words_in_it": [
+          "Odessa University"
+        ],
+        "occurrences_count": 2
+      },
+      {
+        "sentence": "He received his PhD in 1953 and began postdoctoral work at the University of London , Cambridge University , and the University of Amsterdam .",
+        "target_words_in_it": [
+          "Cambridge University",
+          "University of London",
+          "University of Amsterdam"
+        ],
+        "occurrences_count": 3
+      }
+    ]
+  }
+}

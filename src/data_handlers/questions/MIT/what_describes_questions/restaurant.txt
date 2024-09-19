@@ -1,0 +1,15 @@
+Amenity:What describes amenity in the text?
+
+Cuisine:What describes cuisine in the text?
+
+Dish:What describes dish in the text?
+
+Hours:What describes hours in the text?
+
+Location:What describes location in the text?
+
+Price:What describes price in the text?
+
+Rating:What describes rating in the text?
+
+Restaurant_Name:What describes restaurant name in the text?

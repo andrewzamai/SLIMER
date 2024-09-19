@@ -78,7 +78,10 @@ def load_or_build_dataset_GenQA_format(datasets_cluster_name, subdataset_name, d
         # load definitions also if with_def False to map NEs to their canonical names
         path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder, subdataset_name + '_NE_definitions.json')
         # TODO: changed to same instruction
-        return data_handler.convert_official_uniNER_eval_dataset_for_GenQA_same_instruction(subdataset_name, path_to_eval_dataset_uniNER, with_definition, path_to_subdataset_guidelines)
+        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_inference(subdataset_name,
+                                                                                path_to_eval_dataset_uniNER,
+                                                                                with_definition,
+                                                                                path_to_subdataset_guidelines)
 
 
 if __name__ == '__main__':

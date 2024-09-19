@@ -1,0 +1,326 @@
+{
+  "ACTOR": {
+    "real_name": "actor",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "did jane fonda do an period picture",
+        "target_words_in_it": [
+          "jane fonda"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "i want an r rated four stars western with jean arthur",
+        "target_words_in_it": [
+          "jean arthur"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "is there a rated pg 13 movie in the year 1940 s with jordanna brewster",
+        "target_words_in_it": [
+          "jordanna brewster"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "CHARACTER": {
+    "real_name": "character",
+    "Hints": "Ensure to label the name of the fictional character and not the name of the actor portraying the character.",
+    "sentences": [
+      {
+        "sentence": "please show me the classic movie about nick and norah charles",
+        "target_words_in_it": [
+          "nick and norah charles"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "show me a movie with sherlock holmes",
+        "target_words_in_it": [
+          "sherlock holmes"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "show me all of the indiana jones movies ever made",
+        "target_words_in_it": [
+          "indiana jones"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "DIRECTOR": {
+    "real_name": "director",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "movie directed by brian ide with a plot involving ring",
+        "target_words_in_it": [
+          "brian ide"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "has sam raimi directed any documentary films",
+        "target_words_in_it": [
+          "sam raimi"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "list science fiction movies directed by charlie vaughn",
+        "target_words_in_it": [
+          "charlie vaughn"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "GENRE": {
+    "real_name": "genre",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "what is a good 2010 s comedy",
+        "target_words_in_it": [
+          "comedy"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "did jane fonda do an period picture",
+        "target_words_in_it": [
+          "period picture"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "what techno thriller gets a high rating",
+        "target_words_in_it": [
+          "techno thriller"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "PLOT": {
+    "real_name": "plot",
+    "Hints": "a short description about the movie plot",
+    "sentences": [
+      {
+        "sentence": "movie directed by brian ide with a plot involving ring",
+        "target_words_in_it": [
+          "ring"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "is there a movie from the last two decades that got at least eight stars and featured a story about love at first sight",
+        "target_words_in_it": [
+          "love at first sight"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "in which film did michael b jordan stars as a super powered individual",
+        "target_words_in_it": [
+          "super powered individual"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "RATING": {
+    "real_name": "rating",
+    "Hints": "a score for the movie",
+    "sentences": [
+      {
+        "sentence": "was that western with cullen blaine with the r rating received well",
+        "target_words_in_it": [
+          "r"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "i want an r rated four stars western with jean arthur",
+        "target_words_in_it": [
+          "r"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "is there a rated pg 13 movie in the year 1940 s with jordanna brewster",
+        "target_words_in_it": [
+          "pg 13"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "RATINGS_AVERAGE": {
+    "real_name": "ratings average",
+    "Hints": "an overall evaluation of the movie",
+    "sentences": [
+      {
+        "sentence": "what techno thriller gets a high rating",
+        "target_words_in_it": [
+          "high rating"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "is there a movie from the last two decades that got at least eight stars and featured a story about love at first sight",
+        "target_words_in_it": [
+          "eight stars"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "was that western with cullen blaine with the r rating received well",
+        "target_words_in_it": [
+          "received well"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "REVIEW": {
+    "real_name": "review",
+    "Hints": "personal or collective considerations about a movie",
+    "sentences": [
+      {
+        "sentence": "please show me the classic movie about nick and norah charles",
+        "target_words_in_it": [
+          "classic"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "find the classic movie with the song as time goes by",
+        "target_words_in_it": [
+          "classic"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "what 3d movies are a must see",
+        "target_words_in_it": [
+          "must see"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "SONG": {
+    "real_name": "song",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "find the classic movie with the song as time goes by",
+        "target_words_in_it": [
+          "as time goes by"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "tell me what movie contains the song best of friends",
+        "target_words_in_it": [
+          "best of friends"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "give mw the film with the nice song of enrique",
+        "target_words_in_it": [
+          "song of enrique"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "TITLE": {
+    "real_name": "title",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "do you have carry on nurse",
+        "target_words_in_it": [
+          "carry on nurse"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "run rollerball the 1970s version",
+        "target_words_in_it": [
+          "rollerball"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "who directed savannah smiles",
+        "target_words_in_it": [
+          "savannah smiles"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "TRAILER": {
+    "real_name": "trailer",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "is there a movie trailer that uses a katy perry song",
+        "target_words_in_it": [
+          "trailer"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "find a preview for a elizabeth perkins period piece movie",
+        "target_words_in_it": [
+          "preview"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "show me the trailer for the hunger games",
+        "target_words_in_it": [
+          "trailer"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  },
+  "YEAR": {
+    "real_name": "year",
+    "Hints": "",
+    "sentences": [
+      {
+        "sentence": "what is a good 2010 s comedy",
+        "target_words_in_it": [
+          "2010 s"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "run rollerball the 1970s version",
+        "target_words_in_it": [
+          "1970s"
+        ],
+        "occurrences_count": 1
+      },
+      {
+        "sentence": "is there a movie from the last two decades that got at least eight stars and featured a story about love at first sight",
+        "target_words_in_it": [
+          "last two decades"
+        ],
+        "occurrences_count": 1
+      }
+    ]
+  }
+}

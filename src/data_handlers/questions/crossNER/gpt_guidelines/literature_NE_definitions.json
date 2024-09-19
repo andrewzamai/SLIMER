@@ -1,0 +1,354 @@
+[
+  {
+    "named_entity": "award",
+    "real_name": "award",
+    "sentences_as_example": [
+      {
+        "sentence": "In 1990 , he published the last Rabbit novel , Rabbit at Rest , which won the Pulitzer Prize and the National Book Critics Circle Award .",
+        "entities": [
+          "National Book Critics Circle Award",
+          "Pulitzer Prize"
+        ]
+      },
+      {
+        "sentence": "Gravity 's Rainbow shared the 1974 National Book Award with A Crown of Feathers and Other Stories by Isaac Bashevis Singer ( split award ) .",
+        "entities": [
+          "National Book Award"
+        ]
+      },
+      {
+        "sentence": "At the 47th Berlin International Film Festival in 1997 , DiCaprio won the Silver Bear for Best Actor and Luhrmann won the Alfred Bauer Prize .",
+        "entities": [
+          "Alfred Bauer Prize",
+          "Silver Bear for Best Actor"
+        ]
+      }
+    ],
+    "prompt_length": 511,
+    "output_length": 91,
+    "gpt_answer": "{\"Definition\": \"'award' represents recognition or honor given to individuals or entities for their achievements or contributions in various fields such as literature, film, science, and so on.\", \"Guidelines\": \"Do not label general achievements or activities; only label specific recognized honors or titles. Be cautious with terms that have multiple meanings, like 'Oscar' (name vs. award) or 'Golden Globe' (the actual award vs. the event).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "book",
+    "real_name": "book",
+    "sentences_as_example": [
+      {
+        "sentence": "In 1990 , he published the last Rabbit novel , Rabbit at Rest , which won the Pulitzer Prize and the National Book Critics Circle Award .",
+        "entities": [
+          "Rabbit at Rest"
+        ]
+      },
+      {
+        "sentence": "Gravity 's Rainbow shared the 1974 National Book Award with A Crown of Feathers and Other Stories by Isaac Bashevis Singer ( split award ) .",
+        "entities": [
+          "A Crown of Feathers and Other Stories",
+          "Gravity 's Rainbow"
+        ]
+      },
+      {
+        "sentence": "In Beyond Good and Evil and On the Genealogy of Morality , Nietzsche 's genealogical account of the development of modern moral systems occupies a central place .",
+        "entities": [
+          "Beyond Good and Evil",
+          "On the Genealogy of Morality"
+        ]
+      }
+    ],
+    "prompt_length": 516,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'book' refers to literary works, including novels, non-fiction books, collections of stories, and other written works that are published and available as physical or digital copies.\", \"Guidelines\": \"Avoid labeling generic terms like 'a book', 'newspaper', or 'magazine'. Exercise caution when identifying titles that may also function as common phrases or general concepts, such as 'The Sun Also Rises' (a title versus a description).\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "country",
+    "real_name": "country",
+    "sentences_as_example": [
+      {
+        "sentence": "Although not accessible for years within Germany to comply with a court order from S.",
+        "entities": [
+          "Germany"
+        ]
+      },
+      {
+        "sentence": "Under the succeeding Han dynasty and Tang dynasty dynasties , Confucian ideas gained even more widespread prominence .",
+        "entities": [
+          "Tang dynasty",
+          "Han dynasty"
+        ]
+      },
+      {
+        "sentence": "Sprague de Camp , in which an American academic travels to Italy at the time of the Byzantine invasion of the Ostrogoths .",
+        "entities": [
+          "Italy"
+        ]
+      }
+    ],
+    "prompt_length": 465,
+    "output_length": 89,
+    "gpt_answer": "{\"Definition\": \"'country' represents a sovereign state and should be labeled for names of specific countries and nation-states.\", \"Guidelines\": \"Avoid labeling regions or territories that are not independent countries, e.g., 'Bavaria', 'Scotland'. Exercise caution with historical or ambiguous references, such as 'Tang dynasty' (dynasty, not a country) or 'Georgia' (could refer to the U.S. state or the country in Eurasia).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "event",
+    "real_name": "event",
+    "sentences_as_example": [
+      {
+        "sentence": "At the 47th Berlin International Film Festival in 1997 , DiCaprio won the Silver Bear for Best Actor and Luhrmann won the Alfred Bauer Prize .",
+        "entities": [
+          "47th Berlin International Film Festival"
+        ]
+      },
+      {
+        "sentence": "The period around World War II also saw the publication of the time travel novel Lest Darkness Fall by L.",
+        "entities": [
+          "World War II"
+        ]
+      },
+      {
+        "sentence": "The film was presented at the Cannes Film Festival , won the Grand Prix Sp\u00e9cial du Jury and the FIPRESCI prize , and was nominated for the Palme d 'Or .",
+        "entities": [
+          "Cannes Film Festival"
+        ]
+      }
+    ],
+    "prompt_length": 496,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'event' refers to specific incidents, occurrences, or happenings that take place at a particular time and location, such as festivals, wars, conferences, and award ceremonies.\", \"Guidelines\": \"Avoid labeling general or ongoing occurrences, such as 'daily routine' or 'regular meetings'. Exercise caution with ambiguous terms like 'revolution' (can refer to a political event or a spinning motion) and 'strike' (can denote a labor event or a military action).\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "literarygenre",
+    "real_name": "literary genre",
+    "sentences_as_example": [
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "entities": [
+          "poem"
+        ]
+      },
+      {
+        "sentence": "Charles spent time outdoors , but also read voraciously , including the picaresque novel s of Tobias Smollett and Henry Fielding , as well as Robinson Crusoe and Gil Blas .",
+        "entities": [
+          "picaresque novel"
+        ]
+      },
+      {
+        "sentence": "The period around World War II also saw the publication of the time travel novel Lest Darkness Fall by L.",
+        "entities": [
+          "time travel novel"
+        ]
+      }
+    ],
+    "prompt_length": 520,
+    "output_length": 97,
+    "gpt_answer": "{\n  \"Definition\": \"'literary genre' refers to a category or type of literary composition characterized by a particular style, form, or content, such as novel, poetry, science fiction, or picaresque.\",\n  \"Guidelines\": \"Avoid labeling general literary terms like 'book' or 'writing'. Consider the specific stylistic, structural, or thematic elements that define a genre, and be mindful of overlapping genres, such as historical fiction or science fiction thriller.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "location",
+    "real_name": "location",
+    "sentences_as_example": [
+      {
+        "sentence": "After a 1995 staging at the La Jolla Playhouse , he retained David Mamet to help rework the book before its relaunch on the Chicago Goodman Theatre mainstage in 1996 .",
+        "entities": [
+          "La Jolla Playhouse",
+          "Chicago Goodman Theatre"
+        ]
+      },
+      {
+        "sentence": "He was influenced by the Marxist playwright Bertolt Brecht and was invited by Brecht to be his assistant at the East Berlin State Opera but turned down the offer .",
+        "entities": [
+          "East Berlin State Opera"
+        ]
+      },
+      {
+        "sentence": "Augustine was born in the year 354 AD in the municipium of Thagaste ( now Souk Ahras , Algeria ) in the Roman province of Numidia .",
+        "entities": [
+          "Thagaste",
+          "Souk Ahras",
+          "Roman province of Numidia"
+        ]
+      }
+    ],
+    "prompt_length": 532,
+    "output_length": 69,
+    "gpt_answer": "{\"Definition\": \"'location' denotes geographic entities, such as specific buildings, theaters, opera houses, and historical places, that represent specific physical locations on Earth.\", \"Guidelines\": \"Do not label ambiguous terms which might refer to both a location and a different entity. Exercise caution when labeling historical references, ensuring they specifically denote physical locations.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "magazine",
+    "real_name": "magazine",
+    "sentences_as_example": [
+      {
+        "sentence": "In an article for The Atlantic , film critic Ty Burr deemed The Birth of a Nation the most influential film in history while criticizing its portrayal of black men as savage .",
+        "entities": [
+          "The Atlantic"
+        ]
+      },
+      {
+        "sentence": "In 1952 , Capp and his characters graced the covers of both Life and TV Guide .",
+        "entities": [
+          "TV Guide",
+          "Life"
+        ]
+      },
+      {
+        "sentence": "In addition to writing for The New Yorker , he has written for The Atlantic Monthly and National Geographic .",
+        "entities": [
+          "National Geographic",
+          "The New Yorker",
+          "The Atlantic Monthly"
+        ]
+      }
+    ],
+    "prompt_length": 501,
+    "output_length": 94,
+    "gpt_answer": "{\"Definition\": \"'magazine' refers to publications consisting of articles, photographs, and advertisements, typically focused on a specific subject or area of interest.\", \"Guidelines\": \"Ensure entity refers to a publication and not a generic term for periodicals, journals, or any non-magazine related entities. Be careful not labeling fictional magazines and be careful with ambiguous references (e.g., 'Time', which could refer to the magazine, the concept of time, or a different entity altogether).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "misc",
+    "real_name": "miscellaneous",
+    "sentences_as_example": [
+      {
+        "sentence": "In an article for The Atlantic , film critic Ty Burr deemed The Birth of a Nation the most influential film in history while criticizing its portrayal of black men as savage .",
+        "entities": [
+          "The Birth of a Nation"
+        ]
+      },
+      {
+        "sentence": "In 1990 , he published the last Rabbit novel , Rabbit at Rest , which won the Pulitzer Prize and the National Book Critics Circle Award .",
+        "entities": [
+          "Rabbit novel"
+        ]
+      },
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "entities": [
+          "Australian"
+        ]
+      }
+    ],
+    "prompt_length": 554,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'miscellaneous' encompasses entities in the 'literature' context that do not fit into any other specific category, such as book, poem, writer, magazine, literary genre, location, person, organization, event.\", \"Guidelines\": \"If an entity is not readily categorized into any other specific literary entity type, and does not represent a location, person, organization, or event within the context of literature, it should be labeled as 'miscellaneous'. Be cautious with ambiguous terms.\"}",
+    "finish_reason": "length"
+  },
+  {
+    "named_entity": "organisation",
+    "real_name": "organization",
+    "sentences_as_example": [
+      {
+        "sentence": "Fischer Verlag regarding the works of Heinrich Mann , Thomas Mann and Alfred D\u00f6blin , Project Gutenberg is once more accessible .",
+        "entities": [
+          "Project Gutenberg"
+        ]
+      },
+      {
+        "sentence": "It was selected as one of the best science fiction short stories of the pre- Nebula Award period by the Science Fiction and Fantasy Writers of America .",
+        "entities": [
+          "Science Fiction and Fantasy Writers of America"
+        ]
+      },
+      {
+        "sentence": "Also in 2007 he provided consulting services to Silver Pictures on the film adaptation of Richard K.",
+        "entities": [
+          "Silver Pictures"
+        ]
+      }
+    ],
+    "prompt_length": 479,
+    "output_length": 87,
+    "gpt_answer": "{\"Definition\": \"'organization' refers to structured groups, institutions or companies, including but not limited to corporations, governments, non-profit organizations, and educational institutions.\", \"Guidelines\": \"Avoid labeling generic terms for business types, like 'restaurant' or 'store'. Exercise caution with ambiguous terms like 'Apple' (can refer to a company or a fruit) or 'Washington Post' (could be a location or an organization).\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "person",
+    "real_name": "person",
+    "sentences_as_example": [
+      {
+        "sentence": "In an article for The Atlantic , film critic Ty Burr deemed The Birth of a Nation the most influential film in history while criticizing its portrayal of black men as savage .",
+        "entities": [
+          "Ty Burr"
+        ]
+      },
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "entities": [
+          "Banjo Paterson"
+        ]
+      },
+      {
+        "sentence": "At the 47th Berlin International Film Festival in 1997 , DiCaprio won the Silver Bear for Best Actor and Luhrmann won the Alfred Bauer Prize .",
+        "entities": [
+          "Luhrmann",
+          "DiCaprio"
+        ]
+      }
+    ],
+    "prompt_length": 545,
+    "output_length": 97,
+    "gpt_answer": "{\"Definition\": \"'person' refers to individual human beings, including but not limited to real and fictional characters, public figures, and historical figures.\", \"Guidelines\": \"Do not label characters within literature or fictional works. If a person is working on literature (including writer, novelist, scriptwriter, poet, and etc), avoid labelling it as a 'person' entity.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "poem",
+    "real_name": "poem",
+    "sentences_as_example": [
+      {
+        "sentence": "A late ( 1890s ) reference to the urban legend of the murderous barber can be found in the poem by the Australian bush poet Banjo Paterson - The Man from Ironbark .",
+        "entities": [
+          "The Man from Ironbark"
+        ]
+      },
+      {
+        "sentence": "This uses the words of war poet Wilfred Owen ' s At a Calvary near the Ancre .",
+        "entities": [
+          "At a Calvary near the Ancre"
+        ]
+      },
+      {
+        "sentence": "The original Chanson d 'Antioche is lost , but it was edited in the 12th century by Graindor de Douai , who also edited the Chanson de J\u00e9rusalem , and possibly wrote the Chanson des Ch\u00e9tifs himself .",
+        "entities": [
+          "Chanson de J\u00e9rusalem",
+          "Chanson d 'Antioche",
+          "Chanson des Ch\u00e9tifs"
+        ]
+      }
+    ],
+    "prompt_length": 543,
+    "output_length": 79,
+    "gpt_answer": "{\"Definition\": \"'poem' refers to a literary composition characterized by expressive language and often rhythmic or metrical patterns, conveying an artistic and emotional expression.\", \"Guidelines\": \"Exercise caution with titles of song lyrics, personal notes, and official documents. Consider the context and style of writing to differentiate between a poem and other forms of written content, such as prose or a speech.\"}",
+    "finish_reason": "stop"
+  },
+  {
+    "named_entity": "writer",
+    "real_name": "writer",
+    "sentences_as_example": [
+      {
+        "sentence": "Fischer Verlag regarding the works of Heinrich Mann , Thomas Mann and Alfred D\u00f6blin , Project Gutenberg is once more accessible .",
+        "entities": [
+          "Thomas Mann",
+          "Alfred D\u00f6blin",
+          "Heinrich Mann"
+        ]
+      },
+      {
+        "sentence": "Gravity 's Rainbow shared the 1974 National Book Award with A Crown of Feathers and Other Stories by Isaac Bashevis Singer ( split award ) .",
+        "entities": [
+          "Isaac Bashevis Singer"
+        ]
+      },
+      {
+        "sentence": "This uses the words of war poet Wilfred Owen ' s At a Calvary near the Ancre .",
+        "entities": [
+          "Wilfred Owen"
+        ]
+      }
+    ],
+    "prompt_length": 497,
+    "output_length": 100,
+    "gpt_answer": "{\"Definition\": \"'writer' refers to individuals who have authored literary works, including novels, poems, essays, and other forms of written expression.\", \"Guidelines\": \"Do not label fictional characters. Exercise caution with ambiguous terms like 'John Adams' (could refer to the writer or the historical figure) or 'Michael Jackson' (a musician, but also a writer).\"}",
+    "finish_reason": "length"
+  }
+]

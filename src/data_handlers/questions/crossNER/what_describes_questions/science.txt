@@ -1,0 +1,33 @@
+academicjournal:What describes academic journal in the text?
+
+astronomicalobject:What describes astronomical object in the text?
+
+award:What describes award in the text?
+
+chemicalcompound:What describes chemical compound in the text?
+
+chemicalelement:What describes chemical element in the text?
+
+country:What describes country in the text?
+
+discipline:What describes discipline in the text?
+
+enzyme:What describes enzyme in the text?
+
+event:What describes event in the text?
+
+location:What describes location in the text?
+
+misc:What describes other relevant information in the text?
+
+organisation:What describes organization in the text?
+
+person:What describes person in the text?
+
+protein:What describes protein in the text?
+
+scientist:What describes scientist in the text?
+
+theory:What describes theory in the text?
+
+university:What describes university in the text?
