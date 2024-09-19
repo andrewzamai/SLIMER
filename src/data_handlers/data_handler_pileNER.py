@@ -228,7 +228,7 @@ def remove_bad_ne_types(dataset_MSEQA_format):
     by plotting the dendrogram of the word embeddings using plot_word_emb.ipynb we produce this mapping to a new list of NEs
     by removing some bad NE categories or merging some now the new list of NEs should be of length 423
     """
-    print("Filtering NE types...")
+    print("Keeping only a subset of NE types...")
     sys.stdout.flush()
     ne_types_list = get_ne_types_list(dataset_MSEQA_format, min_num_samples_per_ne_type=100)
 
@@ -562,6 +562,9 @@ def remove_MIT_CrossNER_NEs_from_train(datasetDict_QA):
     removing from train fold all NEs that are in MIT and CrossNER to have True Zero-shot setting in test
     Most common tags person, location, country, organization not removed
     """
+    print("Removing test sets named entities ...")
+    sys.stdout.flush()
+
     tagName_to_remove_list = ["actor", "character", "genre", "song", "year",  # MOVIE, title left because polysemous
                               "dish", "restaurant",  # RESTAURANT
                               "algorithm", "field", "metric", "product", "programming language", "task", "university",  # AI
