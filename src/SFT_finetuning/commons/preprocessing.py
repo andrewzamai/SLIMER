@@ -1,5 +1,3 @@
-
-
 def tokenize(tokenizer, prompt, max_seq_len, add_eos_token=True, add_special_tokens=True):
     # there's probably a way to do this with the tokenizer settings
     # but again, gotta move fast

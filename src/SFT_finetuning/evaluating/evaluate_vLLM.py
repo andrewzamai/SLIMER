@@ -36,7 +36,7 @@ import re
 import uniNER_official_eval_script
 
 # my libraries
-from MSEQA_4_NER.data_handlers import data_handler_pileNER, data_handler_BUSTER
+from src.data_handlers import data_handler_pileNER, data_handler_BUSTER
 from ..commons.initialization import get_HF_access_token
 from ..commons.preprocessing import truncate_input
 from ..commons.prompter import Prompter
