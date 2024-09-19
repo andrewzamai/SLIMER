@@ -303,9 +303,9 @@ def train(
 if __name__ == "__main__":
 
     # load HuggingFace access token with permissions to LLAMA2 repo
-    from huggingface_hub import login
-    HF_ACCESS_TOKEN = get_HF_access_token('./.env')
-    login(token=HF_ACCESS_TOKEN)
+    #from huggingface_hub import login
+    #HF_ACCESS_TOKEN = get_HF_access_token('./.env')
+    #login(token=HF_ACCESS_TOKEN)
 
     # with_guidelines, number_NEs, number_pos_samples_per_NE, number_neg_samples_per_NE
     # use number_NEs=391 or -1 for using top423NEs/MIT/crossNER labels
