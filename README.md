@@ -71,6 +71,8 @@ PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft.py 391 5 5 --w
 # 2) merge LORA weights
 PYTHONPATH=$(pwd) python src/SFT_finetuning/commons/merge_lora_weights.py 391 5 5 --with_guidelines
 
+# 3) evaluate SLIMER model on MIT/CrossNER/BUSTER
+PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py LLaMA2_7B_5pos_5neg_perNE_top391NEs_TrueDef --with_guidelines
 ```
 
 
