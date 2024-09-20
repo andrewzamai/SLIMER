@@ -49,8 +49,8 @@ if __name__ == "__main__":
     print("Merged Began")
     sys.stdout.flush()
 
-    HF_ACCESS_TOKEN = get_HF_access_token('./.env')
-    login(token=HF_ACCESS_TOKEN)
+    #HF_ACCESS_TOKEN = get_HF_access_token('./.env')
+    #login(token=HF_ACCESS_TOKEN)
 
     base_model = "meta-llama/Llama-2-7b-chat-hf"
     # as it is the code requires namespace/model_name format only, no more subfolders
@@ -63,8 +63,8 @@ if __name__ == "__main__":
     parser.add_argument('number_neg_samples_per_NE', type=int, help='Number of negative samples per NE')
     # parsing arguments
     args = parser.parse_args()
-    path_to_lora = f"./trained_models/llama2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
-    save_model_at = f"./merged_models/llama2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
+    path_to_lora = f"./trained_models/LLaMA2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
+    save_model_at = f"./merged_models/LLaMA2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
 
     merge_main(base_model, path_to_lora, save_model_at)
 
