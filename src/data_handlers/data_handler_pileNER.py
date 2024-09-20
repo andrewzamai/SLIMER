@@ -1,29 +1,30 @@
 """
 SLIMER data_handler for Pile-NER-type dataset
 
+Does not implement DataInterface
+
 - https://huggingface.co/datasets/Universal-NER/Pile-NER-type
 - https://universal-ner.github.io/
 
-
-Documents from PILE corpus annotated by GPT
-
-NB: MSEQA dataset only considers 455-top frequent NEs,
-and after some further deletions and NE mergings (lower casing + dict_of_merges)
---> we obtain a total of 423 different NEs
+Chunks of text from PILE corpus, synthetically annotated by ChatGPT (see UniNER paper)
+Original PileNER-type dataset comprises over 13K distinct NE classes
+To reduce overlap with test sets MIT/CrossNER in Zero-Shot NER evaluation on never-seen-before NEs
+    1) we only consider 455-top frequent NEs
+    2) after some further deletions and NE mergings (lower casing + dict_of_merges) --> 423 NEs
+    3) deleting those in MIT/CrossNER test --> 391 NEs
 """
 
 import os
 import re
 import ast
+import sys
 import json
 import math
 import random
 import string
-import sys
-
 import numpy as np
 from collections import OrderedDict, Counter
-from datasets import Dataset, DatasetDict, load_dataset, concatenate_datasets
+from datasets import Dataset, DatasetDict, load_dataset
 
 
 def extract_context_quests_answers(conversation):
@@ -450,7 +451,7 @@ def convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format, with_definiti
         dataset_GenQA = []
         for MSEQA_sample in dataset_MSEQA_format[split_name]:
             genQA_sample = {
-                "doc_question_pairID": MSEQA_sample['doc_question_pairID'],
+                "doc_tag_pairID": MSEQA_sample['doc_question_pairID'],
                 "tagName": MSEQA_sample['tagName'],
                 # new column names as finetune_sft.py requires
                 "input": MSEQA_sample['document_context'],
@@ -729,7 +730,7 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_da
             question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
 
         genQA_sample = {
-            "doc_question_pairID": uniNER_sample['id'],
+            "doc_tag_pairID": uniNER_sample['id'],
             "input": context,
             "tagName": ne_type,
             "instruction": question,
