@@ -75,6 +75,15 @@ PYTHONPATH=$(pwd) python src/SFT_finetuning/commons/merge_lora_weights.py 391 5 
 PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py LLaMA2_7B_5pos_5neg_perNE_top391NEs_TrueDef --with_guidelines
 ```
 
+## Run it on your NER data!
+
+Running SLIMER on your data is simple as:
+
+1) implement load_datasetdict_BIO (tell where and how to load your NER data), get_map_to_extended_NE_name (e.g. PER-->PERSON) of Data_Interface abstract class
+   
+2) provide your Definition and Guidelines for each NE class
+   
+3) run SLIMER!
 
 ## 📚 Citation
 
