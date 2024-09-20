@@ -63,9 +63,14 @@ pip install -r ./requirements.txt
 
 ## Running
 
-To train SLIMER on PileNER-subset with Definition and Guidelines:
+Train, merge, evaluate SLIMER:
 ```
+# 1) train on PileNER-subset with Definition and Guidelines, 391 NEs, 5 samples per NE
 PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft.py 391 5 5 --with_guidelines
+
+# 2) merge LORA weights
+PYTHONPATH=$(pwd) python src/SFT_finetuning/commons/merge_lora_weights.py 391 5 5 --with_guidelines
+
 ```
 
 
