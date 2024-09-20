@@ -16,7 +16,7 @@ Designed to work on:
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Out-Of-Domain inputs (e.g. news, science, politics, music ...)
 
-&nbsp;&nbsp;&nbsp;&nbsp;✅ Never-Seen-Before Named Entities (the model was not trained on that tag? It will tag it anyway!)
+&nbsp;&nbsp;&nbsp;&nbsp;✅ Never-Seen-Before Named Entities (the model was not trained on that entity type? It will tag it anyway!)
 
 <div align="center">
 <img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 275px;">
