@@ -35,7 +35,6 @@ import uniNER_official_eval_script
 
 # my libraries
 from src.data_handlers import data_handler_pileNER, data_handler_BUSTER
-#from src.SFT_finetuning.commons.initialization import get_HF_access_token
 from src.SFT_finetuning.commons.preprocessing import truncate_input
 from src.SFT_finetuning.commons.prompter import Prompter
 
