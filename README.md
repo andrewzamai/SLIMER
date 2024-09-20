@@ -61,11 +61,12 @@ pip install --upgrade pip
 pip install -r ./requirements.txt
 ```
 
-## Evaluate SLIMER w/ D&G on MIT/CrossNER/BUSTER
+## Running
+Evaluate SLIMER w/ D&G on MIT/CrossNER/BUSTER
 
 PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py expertai/SLIMER --with_guidelines
 
-## Train, merge, evaluate your SLIMER:
+Train, merge, evaluate your SLIMER:
 ```
 # 1) train on PileNER-subset with Definition and Guidelines, 391 NEs, 5 samples per NE
 PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft.py 391 5 5 --with_guidelines
