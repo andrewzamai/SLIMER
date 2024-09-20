@@ -35,9 +35,9 @@ import uniNER_official_eval_script
 
 # my libraries
 from src.data_handlers import data_handler_pileNER, data_handler_BUSTER
-from ..commons.initialization import get_HF_access_token
-from ..commons.preprocessing import truncate_input
-from ..commons.prompter import Prompter
+#from src.SFT_finetuning.commons.initialization import get_HF_access_token
+from src.SFT_finetuning.commons.preprocessing import truncate_input
+from src.SFT_finetuning.commons.prompter import Prompter
 
 
 def load_or_build_dataset_GenQA_format(datasets_cluster_name, subdataset_name, data_handler, with_definition):
