@@ -62,9 +62,11 @@ pip install -r ./requirements.txt
 ```
 
 ## Running
-Evaluate SLIMER w/ D&G on MIT/CrossNER/BUSTER
 
+Evaluate SLIMER w/ D&G on MIT/CrossNER/BUSTER
+```
 PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py expertai/SLIMER --with_guidelines
+```
 
 Train, merge, evaluate your SLIMER:
 ```
