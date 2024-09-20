@@ -180,7 +180,7 @@ if __name__ == '__main__':
                     instruction = sample['instruction']
                     chunks = chunk_document_w_sliding_window(document_input, window_size=900, overlap=15)
                     for chunk_input in chunks:
-                        chunks_per_sample[sample['doc_question_pairID']].append(chunk_id)
+                        chunks_per_sample[sample['doc_tag_pairID']].append(chunk_id)
                         batch_instruction_input_pairs.append((instruction, chunk_input))
                         chunk_id += 1
 
@@ -211,7 +211,7 @@ if __name__ == '__main__':
                 all_pred_answers_aggregated = []
                 # for sample_ID, chunks_indices in chunks_per_sample.items():
                 for sample in dataset_GenQA_format:
-                    sampleID = sample['doc_question_pairID']
+                    sampleID = sample['doc_tag_pairID']
                     chunks_indices = chunks_per_sample[sampleID]
                     document_level_preds = set()
                     for idx in chunks_indices:
