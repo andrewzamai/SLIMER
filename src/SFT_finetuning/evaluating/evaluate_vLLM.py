@@ -72,7 +72,7 @@ if __name__ == '__main__':
     parser.add_argument('--with_guidelines', action='store_true', help='Whether to use Def & Guidelines')
     args = parser.parse_args()
 
-    print("CrossNER/MIT/BUSTER ZERO-SHOT NER EVALUATIONS with UniNER official eval script:\n")
+    print("\nCrossNER/MIT/BUSTER ZERO-SHOT NER EVALUATIONS with UniNER official eval script:\n")
 
     to_eval_on = [
         # converting from uniNER eval datasets using function inside data_handler_pileNER
@@ -201,7 +201,7 @@ if __name__ == '__main__':
                 recall = round(eval_result["recall"] * 100, 2)
                 f1 = round(eval_result["f1"] * 100, 2)
                 print("{} --> Precision: {:.2f}, Recall: {:.2f}, F1: {:.2f}".format(tagName, precision, recall, f1))
-                print("------------------------------------------------------- ")
+                print("---------------------------------------------------------- ")
                 this_dataset_metrics[tagName] = {
                     'support': eval_result['support'],
                     'precision': precision,
