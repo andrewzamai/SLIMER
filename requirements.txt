@@ -1,10 +1,8 @@
 torch
-torchvision
-torchaudio
 transformers
 peft
 vllm
-huggingface-hub>=0.25.0
-datasets>=3.0.0
-numpy>=1.24.4
+huggingface-hub
+datasets
+numpy
 
