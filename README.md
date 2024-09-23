@@ -50,7 +50,7 @@ PROs:
 
 CONs:
 
-&nbsp;&nbsp;&nbsp;&nbsp;❌ does not scale well with increasing label set cardinality
+&nbsp;&nbsp;&nbsp;&nbsp;❌ does not scale well with increasing label set cardinality (future work: prefix-caching)
 
 
 ## Installation
