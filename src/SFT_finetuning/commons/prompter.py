@@ -94,10 +94,10 @@ class SLIMER_instruction_prompter(object):
 
 if __name__ == '__main__':
 
-    prompt = SLIMER_instruction_prompter("SLIMER_instruction_template", template_path="../templates").generate_prompt(ne_tag='person', definition='Questa è la definizione.', guidelines="Queste sono linee guida.")
-    print(prompt)
-    exit()
+    #prompt = SLIMER_instruction_prompter("SLIMER_instruction_template", template_path="../templates").generate_prompt(ne_tag='person', definition='Questa è la definizione.', guidelines="Queste sono linee guida.")
+    #print(prompt)
 
+    """
     from datasets import load_dataset
     path_to_dataset = "../../../data/pileNER/5pos_5neg_perNE_top391NEs_TrueDef/train.jsonl"
     data = load_dataset("json", data_files=path_to_dataset)
@@ -111,8 +111,7 @@ if __name__ == '__main__':
         path_to_NE_guidelines_json='../../data_handlers/questions/crossNER/gpt_guidelines/ai_NE_definitions.json',
         with_definition=True
     )
-    sample = data[1]
-    """
+    sample = data[9]
 
     prompt = Prompter("LLaMA2-chat", template_path="../templates").generate_prompt(
         instruction=sample['instruction'],
@@ -120,8 +119,8 @@ if __name__ == '__main__':
         label=sample['output']
     )
 
-    #print(json.dumps(prompt))
-    print(prompt)
+    print(json.dumps(prompt))
+    #print(prompt)
 
 
 

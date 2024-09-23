@@ -43,9 +43,9 @@ if __name__ == '__main__':
 
     print(BUSTER_handler.get_dataset_statistics())
 
-    print(BUSTER_handler.convert_dataset_for_SLIMER()['test'])
-    print(BUSTER_handler.convert_dataset_for_SLIMER()['test'][1]['instruction'])
-    print(BUSTER_handler.convert_dataset_for_SLIMER()['test'][1]['output'])
+    print(BUSTER_handler.dataset_dict_SLIMER['test'])
+    print(BUSTER_handler.dataset_dict_SLIMER['test'][1]['instruction'])
+    print(BUSTER_handler.dataset_dict_SLIMER['test'][1]['output'])
 
 
 
