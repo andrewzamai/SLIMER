@@ -96,6 +96,8 @@ A simple inference example is as follows:
 
 ```python
 from vllm import LLM, SamplingParams
+from src.SFT_finetuning.commons.prompter import SLIMER_instruction_prompter, Prompter
+
 
 vllm_model = LLM("expertai/SLIMER")
 # it is recommended to use a temperature of 0
