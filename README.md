@@ -95,8 +95,6 @@ Running SLIMER on your data is simple as:
 A simple inference example is as follows:
 
 ```python
-
-```
 from vllm import LLM, SamplingParams
 
 max_new_tokens = 128
@@ -109,7 +107,7 @@ prompts = [prompter.generate_prompt(instruction, input)]
 
 responses = vllm_model.generate(prompts, sampling_params)
 all_pred_answers = [output.outputs[0].text.strip() for output in responses]
-
+```
     
 ## 📚 Citation
 
