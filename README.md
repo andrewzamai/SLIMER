@@ -90,6 +90,27 @@ Running SLIMER on your data is simple as:
    
 3) run SLIMER!
 
+## Demo usage
+
+A simple inference example is as follows:
+
+```python
+
+```
+from vllm import LLM, SamplingParams
+
+max_new_tokens = 128
+vllm_model = LLM("expertai/SLIMER")
+sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=['</s>'])
+
+prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
+prompts = [prompter.generate_prompt(instruction, input)]
+"[INST] You are given a text chunk (delimited by triple quotes) and an instruction.\nRead the text and answer to the instruction in the end.\n\"\"\"\nTypical generative model approaches include naive Bayes classifier s , Gaussian mixture model s , variational autoencoders and others .\n\"\"\"\nInstruction: Extract the Named Entities of type ALGORITHM from the text chunk you have read. You are given a DEFINITION and some GUIDELINES.\nDEFINITION: ALGORITHM entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines.\nGUIDELINES: Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present.\n[/INST]\n[\"naive Bayes classifier\", \"Gaussian mixture model\", \"variational autoencoders\"]"
+
+responses = vllm_model.generate(prompts, sampling_params)
+all_pred_answers = [output.outputs[0].text.strip() for output in responses]
+
+    
 ## 📚 Citation
 
 If you find SLIMER useful in your work or research, please consider citing our paper:
