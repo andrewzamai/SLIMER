@@ -98,6 +98,7 @@ A simple inference example is as follows:
 from vllm import LLM, SamplingParams
 
 vllm_model = LLM("expertai/SLIMER")
+# using a temperature of 0 is recommended, max_new_tokens can be adjusted depending on expected entities length and number
 sampling_params = SamplingParams(temperature=0, max_tokens=128, stop=['</s>'])
 
 prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
