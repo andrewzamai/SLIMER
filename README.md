@@ -98,15 +98,24 @@ A simple inference example is as follows:
 from vllm import LLM, SamplingParams
 
 vllm_model = LLM("expertai/SLIMER")
-# using a temperature of 0 is recommended, max_new_tokens can be adjusted depending on expected entities length and number
+# it is recommended to use a temperature of 0
+# max_new_tokens can be adjusted depending on the expected length and number of entities (default 128)
 sampling_params = SamplingParams(temperature=0, max_tokens=128, stop=['</s>'])
 
-prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
+tag_to_extract = "algorithm"
+tag_definition = "ALGORITHM entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines."
+tag_guidelines = "Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'."
 
-input_text = "Typical generative model approaches include naive Bayes classifier s , Gaussian mixture model s , variational autoencoders and others ."
+slimer_prompter = SLIMER_instruction_prompter("SLIMER_instruction_template", template_path='./src/SFT_finetuning/templates')
+instruction = slimer_prompter.generate_prompt(ne_tag=tag_to_extract, definition=tag_definition, guidelines=tag_guidelines)
+print(instruction)
 instruction = "Extract the Named Entities of type ALGORITHM from the text chunk you have read. You are given a DEFINITION and some GUIDELINES.\nDEFINITION: ALGORITHM entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines.\nGUIDELINES: Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
 
-prompts = [prompter.generate_prompt(instruction, input_text)]
+llama2_prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
+
+input_text = "Typical generative model approaches include naive Bayes classifier s , Gaussian mixture model s , variational autoencoders and others ."
+
+prompts = [llama2_prompter.generate_prompt(instruction, input_text)]
 print(prompts[0])
 "[INST] You are given a text chunk (delimited by triple quotes) and an instruction.\nRead the text and answer to the instruction in the end.\n\"\"\"\nTypical generative model approaches include naive Bayes classifier s , Gaussian mixture model s , variational autoencoders and others .\n\"\"\"\nInstruction: Extract the Named Entities of type ALGORITHM from the text chunk you have read. You are given a DEFINITION and some GUIDELINES.\nDEFINITION: ALGORITHM entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines.\nGUIDELINES: Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present.\n[/INST]"
 
