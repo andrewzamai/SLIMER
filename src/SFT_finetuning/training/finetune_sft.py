@@ -1,7 +1,5 @@
 """ Supervised Fine-tuning Trainer (SFT) for generative LLMs """
 
-# __package__ = "SFT_finetuning.training"
-
 import os
 import sys
 import shutil
@@ -343,12 +341,12 @@ if __name__ == "__main__":
     )
 
     # now loading training config from yml and overriding some variables like dataset name and output_dir
-    path_to_training_config = './src/SFT_finetuning/training_config/llama2_4_NER_XDef_NsamplesPerNE.yml'
+    path_to_training_config = './src/SFT_finetuning/training_config/llama3_4_NER_XDef_NsamplesPerNE.yml'
     with open(path_to_training_config, 'rb') as f:
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
     configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"./trained_models/LLaMA2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
+    configs['output_dir'] = f"./trained_models/LLaMA3_70B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
 
     train(**configs)
 
