@@ -324,21 +324,22 @@ if __name__ == "__main__":
 
     dataset_name = f"{args.number_NEs}x{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_{args.with_guidelines}Def"
 
-    from src.data_handlers import data_handler_pileNER
+    if not os.path.exists(dataset_name):
+        from src.data_handlers import data_handler_pileNER
 
-    dataset_MSEQA_format_with_n_samples_per_NE_FalseDef = data_handler_pileNER.build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(
-        n_pos_samples_per_NE=args.number_pos_samples_per_NE,
-        n_neg_samples_per_NE=args.number_neg_samples_per_NE,
-        removeTestDatasetsNEs=True,
-        keep_only_top_tagNames=args.number_NEs
-    )
+        dataset_MSEQA_format_with_n_samples_per_NE_FalseDef = data_handler_pileNER.build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(
+            n_pos_samples_per_NE=args.number_pos_samples_per_NE,
+            n_neg_samples_per_NE=args.number_neg_samples_per_NE,
+            removeTestDatasetsNEs=True,
+            keep_only_top_tagNames=args.number_NEs
+        )
 
-    data_handler_pileNER.convert_MSEQA_dataset_to_GenQA_format_SI(
-        dataset_MSEQA_format=dataset_MSEQA_format_with_n_samples_per_NE_FalseDef,
-        with_definition=args.with_guidelines,
-        path_to_NE_guidelines_json="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
-        path_to_save_to=f'./data/pileNER/{dataset_name}'
-    )
+        data_handler_pileNER.convert_MSEQA_dataset_to_GenQA_format_SI(
+            dataset_MSEQA_format=dataset_MSEQA_format_with_n_samples_per_NE_FalseDef,
+            with_definition=args.with_guidelines,
+            path_to_NE_guidelines_json="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
+            path_to_save_to=f'./data/pileNER/{dataset_name}'
+        )
 
     # now loading training config from yml and overriding some variables like dataset name and output_dir
     path_to_training_config = './src/SFT_finetuning/training_config/llama3_4_NER_XDef_NsamplesPerNE.yml'
