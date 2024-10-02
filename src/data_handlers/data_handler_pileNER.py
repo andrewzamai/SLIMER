@@ -475,13 +475,13 @@ def convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format, with_definiti
                 instruction = f"Extract the Named Entities of type {ne_type.upper()} from the text chunk you have read. "
                 instruction += "You are given a DEFINITION and some GUIDELINES.\n"
                 instruction += "DEFINITION: " + this_ne_guidelines['Definition'] + "\nGUIDELINES: " + this_ne_guidelines['Guidelines']
-                instruction += f"\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+                instruction += f"\nReturn a JSON list of instances of this Named Entity type (for example [\"text_span_1\", \"text_span_2\"]. Return an empty list [] if no instances are present. Return only the JSON list, no further motivations or introduction to the answer."
 
                 genQA_sample['instruction'] = instruction
             else:
                 # same instruction but without Definition and Guidelines
                 instruction_wo_guidelines = f"Extract the Named Entities of type {MSEQA_sample['tagName'].upper()} from the text chunk you have read."
-                instruction_wo_guidelines += "\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+                instruction_wo_guidelines += "\nReturn a JSON list of instances of this Named Entity type (for example [\"text_span_1\", \"text_span_2\"]. Return an empty list [] if no instances are present. Return only the JSON list, no further motivations or introduction to the answer."
                 genQA_sample['instruction'] = instruction_wo_guidelines
 
             # sorting the text answers by ascending starting positions to give the LLM a pattern: extract the occurences in the order they appear in the passage of text
@@ -727,7 +727,7 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_da
             question += "DEFINITION: " + this_ne_guidelines['Definition'] + "\nGUIDELINES: " + this_ne_guidelines['Guidelines']
             question += f"\nReturn a JSON list of instances of this Named Entity type (for example [\"text_span_1\", \"text_span_2\"]. Return an empty list [] if no instances are present. Return only the JSON list, no further motivations or introduction to the answer."
         else:
-            question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type (for example [\"naive Bayes classifier\", \"Gaussian mixture model\"]. Return an empty list [] if no instances are present."
+            question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type (for example [\"text_span_1\", \"text_span_2\"]. Return an empty list [] if no instances are present. Return only the JSON list, no further motivations or introduction to the answer."
 
         genQA_sample = {
             "doc_tag_pairID": uniNER_sample['id'],
