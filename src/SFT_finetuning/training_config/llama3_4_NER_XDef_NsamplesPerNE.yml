@@ -46,4 +46,4 @@ load_4bit: True
 save_total_limit: 2
 use_flash_attention: False
 shuffle: True
-gradient_checkpointing: False
+gradient_checkpointing: True
