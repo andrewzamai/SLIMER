@@ -5,7 +5,7 @@ import random
 import torch
 from datasets import load_dataset
 from transformers import AutoTokenizer, TrainingArguments
-from trl.commands.cli_utils import  TrlParser
+from trl.commands.cli_utils import TrlParser
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -17,9 +17,6 @@ from trl import setup_chat_format
 from peft import LoraConfig
 
 from trl import SFTTrainer
-
-# Comment in if you want to use the Llama 3 instruct template but make sure to add modules_to_save
-LLAMA_3_CHAT_TEMPLATE="{% set loop_messages = messages %}{% for message in loop_messages %}{% set content = '<|start_header_id|>' + message['role'] + '<|end_header_id|>\n\n'+ message['content'] | trim + '<|eot_id|>' %}{% if loop.index0 == 0 %}{% set content = bos_token + content %}{% endif %}{{ content }}{% endfor %}{% if add_generation_prompt %}{{ '<|start_header_id|>assistant<|end_header_id|>\n\n' }}{% endif %}"
 
 # ACCELERATE_USE_FSDP=1 FSDP_CPU_RAM_EFFICIENT_LOADING=1 torchrun --nproc_per_node=4 ./scripts/run_fsdp_qlora.py --config llama_3_70b_fsdp_qlora.yaml
 
@@ -40,10 +37,7 @@ class ScriptArguments:
 
 
 def training_function(script_args, training_args):
-    ################
-    # Dataset
-    ################
-    
+
     train_dataset = load_dataset(
         "json",
         data_files=os.path.join(script_args.dataset_path, "train.jsonl"),
@@ -55,21 +49,22 @@ def training_function(script_args, training_args):
         split="train",
     )
 
-    ################
-    # Model & Tokenizer
-    ################
-
     # Tokenizer        
     tokenizer = AutoTokenizer.from_pretrained(script_args.model_id, use_fast=True)
     tokenizer.pad_token = tokenizer.eos_token
-    tokenizer.chat_template = LLAMA_3_CHAT_TEMPLATE
-    
-    # template dataset
-    def template_dataset(examples):
-        return{"text":  tokenizer.apply_chat_template(examples["messages"], tokenize=False)}
-    
-    train_dataset = train_dataset.map(template_dataset, remove_columns=["messages"])
-    test_dataset = test_dataset.map(template_dataset, remove_columns=["messages"])
+    #tokenizer.chat_template = LLAMA_3_CHAT_TEMPLATE
+
+    def format_chat_template(row):
+        system_message = "You are an expert in Named Entity Recognition designed to output JSON only."
+        user_provides_text_instruction = "You are given a text chunk (delimited by triple quotes) and an instruction. Read the text and answer to the instruction in the end.\n\"\"\"\n{input}\n\"\"\"\nInstruction: {instruction}"
+        row_json = [{"role": "system", "content": system_message},
+                    {"role": "user", "content": user_provides_text_instruction.format(input=row['input'], instruction=row['instruction'])},
+                    {"role": "assistant", "content": row['output']}]
+        row["text"] = tokenizer.apply_chat_template(row_json, tokenize=False)
+        return row
+
+    train_dataset = train_dataset.map(format_chat_template, remove_columns=["input", "instruction", "output"])
+    test_dataset = test_dataset.map(format_chat_template, remove_columns=["input", "instruction", "output"])
     
     # print random sample
     with training_args.main_process_first(
@@ -93,17 +88,13 @@ def training_function(script_args, training_args):
     model = AutoModelForCausalLM.from_pretrained(
         script_args.model_id,
         quantization_config=quantization_config,
-        attn_implementation="sdpa", # use sdpa, alternatively use "flash_attention_2"
+        attn_implementation="sdpa",  # use sdpa, alternatively use "flash_attention_2"
         torch_dtype=quant_storage_dtype,
         use_cache=False if training_args.gradient_checkpointing else True,  # this is needed for gradient checkpointing
     )
     
     if training_args.gradient_checkpointing:
         model.gradient_checkpointing_enable()
-
-    ################
-    # PEFT
-    ################
 
     # LoRA config based on QLoRA paper & Sebastian Raschka experiment
     peft_config = LoraConfig(
@@ -113,7 +104,7 @@ def training_function(script_args, training_args):
         bias="none",
         target_modules="all-linear",
         task_type="CAUSAL_LM",
-        modules_to_save = ["lm_head", "embed_tokens"]  # add if you want to use the Llama 3 instruct template
+        modules_to_save=["lm_head", "embed_tokens"]  # add if you want to use the Llama 3 instruct template
     )
 
     ################
