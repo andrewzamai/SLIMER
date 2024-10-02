@@ -1,7 +1,7 @@
 # script parameters
 model_id: "meta-llama/Llama-3.1-70B-Instruct" # Hugging Face model id
 dataset_path: "./data/pileNER/5pos_5neg_perNE_top391NEs_TrueDef"
-max_seq_len:  768 # 2048              # max sequence length for model and packing of the dataset
+max_seq_length: 768  # 2048              # max sequence length for model and packing of the dataset
 # training parameters
 output_dir: "./SLIMER-llama-3-70b"     # Temporary output directory for model checkpoints
 report_to: "tensorboard"               # report metrics to tensorboard
@@ -20,10 +20,11 @@ max_grad_norm: 0.3                     # max gradient norm
 warmup_ratio: 0.03                     # warmup ratio
 bf16: true                             # use bfloat16 precision
 tf32: true                             # use tf32 precision
-gradient_checkpointing: true           # use gradient checkpointing to save memory
+#gradient_checkpointing: true           # use gradient checkpointing to save memory
 # FSDP parameters: https://huggingface.co/docs/transformers/main/en/fsdp
 fsdp: "full_shard auto_wrap offload" # remove offload if enough GPU memory
 fsdp_config:
   backward_prefetch: "backward_pre"
   forward_prefetch: "false"
   use_orig_params: "false"
+  activation_checkpointing: "true"
