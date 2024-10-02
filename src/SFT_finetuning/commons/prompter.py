@@ -94,9 +94,9 @@ class SLIMER_instruction_prompter(object):
 
 if __name__ == '__main__':
 
-    prompt = SLIMER_instruction_prompter("SLIMER_instruction_template", template_path="../templates").generate_prompt(ne_tag='person', definition='Questa è la definizione.', guidelines="Queste sono linee guida.")
-    print(json.dumps(prompt))
-    print(prompt)
+    #prompt = SLIMER_instruction_prompter("SLIMER_instruction_template", template_path="../templates").generate_prompt(ne_tag='person', definition='Questa è la definizione.', guidelines="Queste sono linee guida.")
+    #print(json.dumps(prompt))
+    #print(prompt)
 
     """
     from datasets import load_dataset
@@ -114,7 +114,7 @@ if __name__ == '__main__':
     )
     sample = data[9]
 
-    prompt = Prompter("LLaMA2-chat", template_path="../templates").generate_prompt(
+    prompt = Prompter("LLaMA3-chat", template_path="../templates").generate_prompt(
         instruction=sample['instruction'],
         input=sample['input'],
         label=sample['output']

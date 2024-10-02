@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     vllm_model = LLM(
         model=args.merged_model_name,
-        max_model_len= cutoff_len + max_new_tokens,
+        max_model_len=cutoff_len + max_new_tokens,
         tensor_parallel_size=4,
         enable_prefix_caching=True
     )
@@ -122,6 +122,8 @@ if __name__ == '__main__':
             print(dataset_SLIMER_format)
             print(dataset_SLIMER_format[0])
             sys.stdout.flush()
+
+            dataset_SLIMER_format = Dataset.from_list(dataset_SLIMER_format.to_list()[0:100])
 
             # 2) for each tagName save the indices of the associated samples
             indices_per_tagName = defaultdict(list)

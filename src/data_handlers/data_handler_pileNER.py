@@ -725,9 +725,9 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_da
             question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read. "
             question += "You are given a DEFINITION and some GUIDELINES.\n"
             question += "DEFINITION: " + this_ne_guidelines['Definition'] + "\nGUIDELINES: " + this_ne_guidelines['Guidelines']
-            question += f"\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+            question += f"\nReturn a JSON list of instances of this Named Entity type (for example [\"text_span_1\", \"text_span_2\"]. Return an empty list [] if no instances are present. Return only the JSON list, no further motivations or introduction to the answer."
         else:
-            question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+            question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type (for example [\"naive Bayes classifier\", \"Gaussian mixture model\"]. Return an empty list [] if no instances are present."
 
         genQA_sample = {
             "doc_tag_pairID": uniNER_sample['id'],
