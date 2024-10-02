@@ -14,7 +14,7 @@ gradient_accumulation_steps: 2         # number of steps before performing a bac
 optim: adamw_torch                     # use torch adamw optimizer
 logging_steps: 10                      # log every 10 steps
 save_strategy: epoch                   # save checkpoint every epoch
-evaluation_strategy: steps             # evaluate every epoch
+eval_strategy: steps                   # evaluate every epoch
 eval_steps: 200
 max_grad_norm: 0.3                     # max gradient norm
 warmup_ratio: 0.03                     # warmup ratio
