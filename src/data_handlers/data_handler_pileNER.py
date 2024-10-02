@@ -762,9 +762,9 @@ if __name__ == "__main__":
 
     convert_MSEQA_dataset_to_GenQA_format_SI(
         dataset_MSEQA_format=dataset_MSEQA_format_with_n_samples_per_NE_FalseDef,
-        with_definition=True,
+        with_definition=False,
         path_to_NE_guidelines_json="./questions/pileNER/top391NEs_definitions.json",
-        path_to_save_to='../../data/pileNER/5pos_5neg_perNE_top391NEs_TrueDef'
+        path_to_save_to='../../data/pileNER/5pos_5neg_perNE_top391NEs_FalseDef'
     )
 
     path_to_dataset = "../../data/pileNER/5pos_5neg_perNE_top391NEs_TrueDef/train.jsonl"
