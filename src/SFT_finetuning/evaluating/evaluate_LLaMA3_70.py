@@ -98,14 +98,14 @@ if __name__ == '__main__':
     vllm_model = LLM(
         model=args.merged_model_name,
         max_model_len= cutoff_len + max_new_tokens,
-        tensor_parallel_size=4
+        tensor_parallel_size=4,
+        enable_prefix_caching=True
     )
     tokenizer = vllm_model.get_tokenizer()
 
     sampling_params = SamplingParams(
         temperature=0,
-        max_tokens=max_new_tokens,
-        enable_prefix_caching=True
+        max_tokens=max_new_tokens
     )
     print(sampling_params)
 
