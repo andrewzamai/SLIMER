@@ -2,7 +2,7 @@ import argparse
 import torch
 import sys
 
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
 if __name__ == "__main__":
@@ -13,12 +13,15 @@ if __name__ == "__main__":
     parser.add_argument('path_to_save_to', type=str, help='path_to_save_to')
     args = parser.parse_args()
 
-    llama_model = AutoModel.from_pretrained(args.base_model, device_map={"": "cpu"}, torch_dtype=torch.bfloat16)
+    base_model = AutoModelForCausalLM.from_pretrained(args.base_model, device_map={"": "cpu"}, torch_dtype=torch.bfloat16)
 
-    model = PeftModel.from_pretrained(llama_model, args.path_to_LORA, torch_dtype=torch.bfloat16, device_map={"": "cpu"})
+    model = PeftModel.from_pretrained(base_model, args.path_to_LORA, torch_dtype=torch.bfloat16, device_map={"": "cpu"})
 
     print("merge and unload...")
     model = model.merge_and_unload()
+
+    print("lm_head" in model.state_dict().keys())  # Should return True
+    print("embed_tokens" in model.state_dict().keys())  # Should return True
 
     print("saving...")
     model.save_pretrained(args.path_to_save_to)
