@@ -1,5 +1,7 @@
 """ Supervised Fine-tuning Trainer (SFT) for generative LLMs """
 
+# __package__ = "SFT_finetuning.training"
+
 import os
 import sys
 import shutil
@@ -324,8 +326,9 @@ if __name__ == "__main__":
 
     dataset_name = f"{args.number_NEs}x{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_{args.with_guidelines}Def"
 
-    if not os.path.exists(dataset_name):
-        from src.data_handlers import data_handler_pileNER
+    from src.data_handlers import data_handler_pileNER
+
+    if not os.path.exists(f"./data/pileNER/{dataset_name}"):
 
         dataset_MSEQA_format_with_n_samples_per_NE_FalseDef = data_handler_pileNER.build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(
             n_pos_samples_per_NE=args.number_pos_samples_per_NE,
@@ -347,7 +350,7 @@ if __name__ == "__main__":
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
     configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"./trained_models/LLaMA3_70B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
+    configs['output_dir'] = f"./trained_models/LLaMA3_8B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
 
     train(**configs)
 

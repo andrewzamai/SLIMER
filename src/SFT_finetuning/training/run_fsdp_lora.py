@@ -20,7 +20,7 @@ from trl import SFTTrainer
 
 
 # 1) accelerate config and follow https://huggingface.co/blog/ram-efficient-pytorch-fsdp
-# 2) accelerate launch ./src/SFT_finetuning/training/run_fsdp_qlora.py --config ./src/SFT_finetuning/training_config/LLaMA3.yaml
+# 2) accelerate launch ./src/SFT_finetuning/training/run_fsdp_lora.py --config ./src/SFT_finetuning/training_config/LLaMA3.yaml
 
 @dataclass
 class ScriptArguments:
@@ -54,7 +54,6 @@ def training_function(script_args, training_args):
     # Tokenizer        
     tokenizer = AutoTokenizer.from_pretrained(script_args.model_id, use_fast=True)
     tokenizer.pad_token = tokenizer.eos_token
-    #tokenizer.chat_template = LLAMA_3_CHAT_TEMPLATE
 
     def format_chat_template(row):
         system_message = "You are an expert in Named Entity Recognition designed to output JSON only."
@@ -79,19 +78,21 @@ def training_function(script_args, training_args):
     torch_dtype = torch.bfloat16
     quant_storage_dtype = torch.bfloat16
 
+    """
     quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_use_double_quant=True,
             bnb_4bit_quant_type="nf4",
             bnb_4bit_compute_dtype=torch_dtype,
             bnb_4bit_quant_storage=quant_storage_dtype,
-        )
+    )
+    """
 
     model = AutoModelForCausalLM.from_pretrained(
         script_args.model_id,
-        quantization_config=quantization_config,
+        # quantization_config=quantization_config,
         attn_implementation="sdpa",  # use sdpa, alternatively use "flash_attention_2"
-        torch_dtype=quant_storage_dtype,
+        torch_dtype=torch_dtype,
         use_cache=True  # this is needed for gradient checkpointing
     )
     
@@ -121,7 +122,7 @@ def training_function(script_args, training_args):
         peft_config=peft_config,
         max_seq_length=script_args.max_seq_length,
         tokenizer=tokenizer,
-        packing=True,  # True
+        packing=False,
         dataset_kwargs={
             "add_special_tokens": False,  # We template with special tokens
             "append_concat_token": False,  # No need to add additional separator token
