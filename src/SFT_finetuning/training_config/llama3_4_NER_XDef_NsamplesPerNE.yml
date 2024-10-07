@@ -1,6 +1,6 @@
 # fine-tuning Llama-3-70b-chat on PileNER-subset with topNE NEs and N samples per NE (N positive + N negative)
 
-base_model: meta-llama/Llama-3.1-70B-Instruct
+base_model: meta-llama/Llama-3.1-8B-Instruct
 # NB: this Huggingface repository requires to login with an account with granted access
 prompt_template_name: LLaMA3-chat
 # using dataset GenQA format (instruction, input, output) columns
