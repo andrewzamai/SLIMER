@@ -33,7 +33,7 @@ from src.SFT_finetuning.commons.prompter import Prompter
 from src.SFT_finetuning.evaluating.eval_utils import chunk_document_with_sliding_window, aggregate_preds_from_chunks
 
 
-def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, data_handler, with_definition):
+def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, data_handler, with_definition, SLIMER_prompter_name):
     """
     universal-ner github provides the crossNER and MIT NER-datasets already in a conversation-QA format (eval_dataset_uniNER folder);
     here we convert the dataset to our usual features and replace "instruction" with the NE D&G if with_definition=True
@@ -45,19 +45,19 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
         path_to_eval_dataset_uniNER = f"./data/eval_data_UniNER/test_data/CrossNER_{subdataset_name}.json"
         path_to_guidelines_folder = f"./src/data_handlers/questions/{datasets_cluster_name}/gpt_guidelines"
         path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder, subdataset_name + '_NE_definitions.json')
-        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_inference(subdataset_name, path_to_eval_dataset_uniNER, with_definition, path_to_subdataset_guidelines)
+        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_inference(subdataset_name, path_to_eval_dataset_uniNER, with_definition, path_to_subdataset_guidelines, SLIMER_prompter_name)
 
     elif datasets_cluster_name == 'MIT':
         path_to_eval_dataset_uniNER = f"./data/eval_data_UniNER/test_data/mit-{subdataset_name}.json"
         path_to_guidelines_folder = f"./src/data_handlers/questions/{datasets_cluster_name}/gpt_guidelines"
         path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder, subdataset_name + '_NE_definitions.json')
-        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_inference(subdataset_name, path_to_eval_dataset_uniNER, with_definition, path_to_subdataset_guidelines)
+        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_inference(subdataset_name, path_to_eval_dataset_uniNER, with_definition, path_to_subdataset_guidelines, SLIMER_prompter_name)
 
     elif datasets_cluster_name == 'BUSTER':
         BUSTER_handler = data_handler_BUSTER.BUSTER(
             "expertai/BUSTER",
             path_to_templates='./src/SFT_finetuning/templates',
-            SLIMER_prompter_name='SLIMER_instruction_template',
+            SLIMER_prompter_name=SLIMER_prompter_name,
             path_to_DeG='./src/data_handlers/questions/BUSTER/gpt_guidelines/BUSTER_NE_definitions.json'
         )
         return BUSTER_handler.dataset_dict_SLIMER['test']
@@ -125,7 +125,8 @@ if __name__ == '__main__':
             print(f"\n\nEvaluating model on '{subdataset_name}' test fold...\n")
 
             # 1) Load dataset and convert it to SLIMER format
-            dataset_SLIMER_format = load_or_build_dataset_SLIMER_format(data['datasets_cluster_name'], subdataset_name, data['data_handler'], args.with_guidelines)
+            SLIMER_prompter_name = 'SLIMER_instruction_template' if "LLaMA2" in args.template_name else "SLIMER3_instruction_template"
+            dataset_SLIMER_format = load_or_build_dataset_SLIMER_format(data['datasets_cluster_name'], subdataset_name, data['data_handler'], args.with_guidelines, SLIMER_prompter_name)
             print(dataset_SLIMER_format)
             print(dataset_SLIMER_format[0])
             sys.stdout.flush()
