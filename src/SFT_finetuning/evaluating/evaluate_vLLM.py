@@ -69,6 +69,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='''Evaluate SLIMER's Zero-Shot NER performance''')
     parser.add_argument('merged_model_name', type=str, help='path_to_merged_model')
+    parser.add_argument('template_name', type=str, help='template name')
     parser.add_argument('--with_guidelines', action='store_true', help='Whether to use Def & Guidelines')
     args = parser.parse_args()
 
@@ -94,13 +95,28 @@ if __name__ == '__main__':
     max_new_tokens = 128
     print(f"\nmax_new_tokens: {max_new_tokens}\n")
 
-    vllm_model = LLM(model=args.merged_model_name)
+    vllm_model = LLM(
+        model=args.merged_model_name,
+        max_model_len=cutoff_len + max_new_tokens,
+        tensor_parallel_size=1,
+        enable_prefix_caching=True
+    )
     tokenizer = vllm_model.get_tokenizer()
 
-    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=['</s>'])
+    if args.template_name == "LLaMA2-chat":
+        sampling_params = SamplingParams(
+            temperature=0,
+            max_tokens=max_new_tokens,
+            stop=['</s>']
+        )
+    else:
+        sampling_params = SamplingParams(
+            temperature=0,
+            max_tokens=max_new_tokens
+        )
     print(sampling_params)
 
-    prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
+    prompter = Prompter(args.template_name, template_path='./src/SFT_finetuning/templates', eos_text='')
 
     for data in to_eval_on:
 
@@ -113,6 +129,8 @@ if __name__ == '__main__':
             print(dataset_SLIMER_format)
             print(dataset_SLIMER_format[0])
             sys.stdout.flush()
+
+            # dataset_SLIMER_format = Dataset.from_list(dataset_SLIMER_format.to_list()[0:100])
 
             # 2) for each tagName save the indices of the associated samples
             indices_per_tagName = defaultdict(list)
