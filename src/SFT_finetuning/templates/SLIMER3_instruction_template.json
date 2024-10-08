@@ -1,5 +1,5 @@
 {
     "description": "SLIMER instruction template w or w/o D&G",
     "with_DeG": "Extract the Named Entities of type {ne_tag} from the text chunk you have read. You are given a DEFINITION and some GUIDELINES.\nDEFINITION: {definition}\nGUIDELINES: {guidelines}\nReturn a JSON list of instances of this Named Entity type (for example [\"text_span_1\", \"text_span_2\"]. Return an empty list [] if no instances are present. Return only the JSON list, no further motivations or introduction to the answer.",
-    "without_DeG": "Extract the Named Entities of type {ne_tag} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+    "without_DeG": "Extract the Named Entities of type {ne_tag} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type (for example [\"text_span_1\", \"text_span_2\"]. Return an empty list [] if no instances are present. Return only the JSON list, no further motivations or introduction to the answer."
 }
