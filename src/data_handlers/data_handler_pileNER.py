@@ -441,7 +441,7 @@ def get_n_sentences_per_ne_type(dataset_MSEQA_format, ne_types_list, n_sentences
 
 def convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format, with_definition, path_to_NE_guidelines_json=None, path_to_save_to='./unk_dataset_GenQA', SLIMER_prompter_name='SLIMER_instruction_template'):
 
-    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, '../SFT_finetuning/templates')
+    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
 
     print("Converting to SLIMER format, adding Definition and Guidelines if specified ...")
     sys.stdout.flush()
@@ -632,7 +632,7 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_da
         ValueError: If the dataset name is invalid or not supported.
     """
 
-    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, '../SFT_finetuning/templates')
+    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
 
     try:
         with open(path_to_dataset, 'r') as fh:
