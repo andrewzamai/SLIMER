@@ -65,7 +65,9 @@ pip install -r ./requirements.txt
 
 Evaluate SLIMER w/ D&G on MIT/CrossNER/BUSTER
 ```
-PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py expertai/SLIMER --with_guidelines
+PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py expertai/SLIMER LLaMA2-chat --with_guidelines
+
+PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py expertai/SLIMER-LLaMA3 LLaMA3-chat --with_guidelines
 ```
 
 Train, merge, evaluate your SLIMER:
@@ -77,7 +79,7 @@ PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft.py 391 5 5 --w
 PYTHONPATH=$(pwd) python src/SFT_finetuning/commons/merge_lora_weights.py 391 5 5 --with_guidelines
 
 # 3) evaluate SLIMER model on MIT/CrossNER/BUSTER
-PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py LLaMA2_7B_5pos_5neg_perNE_top391NEs_TrueDef --with_guidelines
+PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py LLaMA2_7B_5pos_5neg_perNE_top391NEs_TrueDef LLaMA2-chat --with_guidelines
 ```
 
 ## Run it on your NER data!
