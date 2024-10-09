@@ -2,18 +2,17 @@ set -x
 
 port=$(shuf -i25000-30000 -n1)
 
-MODEL_NAME_OR_PATH=meta-llama/Llama-2-7b-chat-hf
+MODEL_NAME_OR_PATH=meta-llama/Llama-3.1-8B-Instruct
 DATA_DIR=data
-TRAIN_JSON_DIR=data/pile-ner.json
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
-OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA2-7B-chat
+OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA3-8B-Instruct
 PATH_TO_DeG=../data_handlers/questions/pileNER/top391NEs_definitions.json
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
-RUN_NAME=GNER-wDeG-LLaMA2-7B-chat-v1
+RUN_NAME=GNER-wDeG-LLaMA3-8B-Instruct-v1
 
-deepspeed --include="localhost:0" --master_port $port src/run.py \
+deepspeed --include="localhost:1" --master_port $port src/run.py \
     --bf16 True --tf32 True \
     --do_train \
     --predict_with_generate \
