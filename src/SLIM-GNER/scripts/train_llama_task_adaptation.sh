@@ -7,7 +7,7 @@ DATA_DIR=data
 TRAIN_JSON_DIR=data/pile-ner.json
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
-OUTPUT_DIR=output/GNER-wDeG-LLaMA2-7B-chat
+OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA2-7B-chat
 PATH_TO_DeG=../data_handlers/questions/pileNER/top391NEs_definitions.json
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
