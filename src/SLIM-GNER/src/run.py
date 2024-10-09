@@ -315,30 +315,45 @@ def main():
                     add_special_tokens=True,
                 )['input_ids']
         else:
-            prompt = f"[INST] {example['instance']['instruction_inputs']} [/INST]"
-            full_instruction = f"{prompt} {example['instance']['prompt_labels']}"
+            # DECODER based LLMs
+            # prepare conversation
+            system_message = "You are an expert in Named Entity Recognition."
+            conversation = [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": example['instance']['instruction_inputs']},  # the input_text + instruction
+                {"role": "assistant", "content": example['instance']['prompt_labels']}   # the gold sequence to generate as answer
+            ]
+            #prompt = f"[INST] {example['instance']['instruction_inputs']} [/INST]"
+            #full_instruction = f"{prompt} {example['instance']['prompt_labels']}"
             max_length = data_args.max_source_length + data_args.max_target_length
+
+            # Inference Mode: Start the assistant's text, but do not complete it (no EOS token, but assistant header yes)
             if inference:
-                model_inputs = tokenizer(
-                    text=prompt,
-                    max_length=max_length,
+                model_inputs = tokenizer.apply_chat_template(
+                    conversation=conversation[:-1],  # exclude last assistant message
+                    tokenize=True,
                     truncation=True,
                     padding=False,
-                    return_tensors=None,
-                    add_special_tokens=True,
+                    max_length=max_length,
+                    add_generation_prompt=True,  # start the assistant response for continuation
+                    return_tensors=None
                 )
-                # Remove the last token if it is an eos token
+                # Ensure no EOS token is appended at the end
                 if model_inputs["input_ids"][-1] == tokenizer.eos_token_id:
                     model_inputs["input_ids"] = model_inputs["input_ids"][:-1]
                     model_inputs["attention_mask"] = model_inputs["attention_mask"][:-1]
+
+            # Training Mode: Tokenize the entire conversation, ensuring EOS and masking the prompt part
             else:
-                model_inputs = tokenizer(
-                    text=full_instruction,
-                    max_length=max_length,
+                # Apply chat template for the full conversation
+                model_inputs = tokenizer.apply_chat_template(
+                    conversation=conversation,  # Use full conversation for training
+                    tokenize=True,
                     truncation=True,
                     padding=False,
-                    return_tensors=None,
-                    add_special_tokens=True,
+                    max_length=max_length,
+                    add_generation_prompt=False,  # Do not add generation prompt
+                    return_tensors=None  # Return as plain token IDs
                 )
 
                 # ensure EOS token id
@@ -349,13 +364,14 @@ def main():
                 model_inputs["labels"] = model_inputs["input_ids"].copy()
 
                 # Find the prompt length
-                prompt = tokenizer(
-                    text=prompt,
-                    max_length=max_length,
+                prompt = tokenizer.apply_chat_template(
+                    conversation=conversation[:-1],  # exclude last assistant message
+                    tokenize=True,
                     truncation=True,
                     padding=False,
-                    return_tensors=None,
-                    add_special_tokens=True,
+                    max_length=max_length,
+                    add_generation_prompt=True,  # start the assistant response for continuation
+                    return_tensors=None
                 )["input_ids"]
 
                 # Remove the last token if it is an eos token
@@ -462,7 +478,12 @@ def main():
         preds = np.where(preds != -100, preds, tokenizer.pad_token_id)
         decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
         if not is_encoder_decoder:
-            match_pattern = "[/INST]"
+            if model_args.model_name_or_path == "meta-llama/Llama-2-7b-chat-hf":
+                match_pattern = "[/INST]"
+            elif model_args.model_name_or_path == "meta-llama/Llama-3.1-8B-Instruct":
+                match_pattern = "<|start_header_id|>assistant<|end_header_id|>"
+            else:
+                raise Exception(f"Unknown match_pattern for model {model_args.model_name_or_path}")
             for i, preds in enumerate(decoded_preds):
                 decoded_preds[i] = preds[preds.find(match_pattern) + len(match_pattern):].strip()
 

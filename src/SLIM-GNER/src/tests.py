@@ -24,11 +24,15 @@ if __name__ == '__main__':
 
     from transformers import AutoTokenizer
 
-    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf")
+    #tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf")
+    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B-Instruct")
+
+    chat_template = tokenizer.get_chat_template()
+    print(chat_template)
 
     system_message = "You are an expert in Named Entity Recognition."
     row_json = [{"role": "system", "content": system_message},
                 {"role": "user", "content": raw_datasets['validation'][0]['instance']['instruction_inputs']},
                 {"role": "assistant", "content": raw_datasets['validation'][0]['instance']['prompt_labels']}]
-    formatted_input = tokenizer.apply_chat_template(row_json, tokenize=False)
+    formatted_input = tokenizer.apply_chat_template(row_json, tokenize=False) #, add_generation_prompt=True)
     print(formatted_input)
