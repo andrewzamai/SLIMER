@@ -9,6 +9,7 @@ if __name__ == '__main__':
                 instruction_file='../configs/instruction_configs/instruction.json',
                 data_config_dir='../configs/dataset_configs/task_adaptation_configs',
                 add_dataset_name=False,
+                trust_remote_code=True,
                 path_to_DeG="../../data_handlers/questions/pileNER/top391NEs_definitions.json"
     )
     print(raw_datasets)
@@ -20,3 +21,14 @@ if __name__ == '__main__':
     #data = load_dataset("json", data_files=f'../data/MultinerdIT/test_GNER_format.json')['train']
     #print(data)
     #print(data[0])
+
+    from transformers import AutoTokenizer
+
+    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf")
+
+    system_message = "You are an expert in Named Entity Recognition."
+    row_json = [{"role": "system", "content": system_message},
+                {"role": "user", "content": raw_datasets['validation'][0]['instance']['instruction_inputs']},
+                {"role": "assistant", "content": raw_datasets['validation'][0]['instance']['prompt_labels']}]
+    formatted_input = tokenizer.apply_chat_template(row_json, tokenize=False)
+    print(formatted_input)

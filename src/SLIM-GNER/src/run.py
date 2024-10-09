@@ -1,13 +1,14 @@
+""" Trainer adapted from GNER https://github.com/yyDing1/GNER """
+
 from dataclasses import dataclass, field
+from datasets import load_dataset
 from typing import Optional
+import numpy as np
+import datasets
 import logging
 import json
 import sys
 import os
-
-import datasets
-import numpy as np
-from datasets import load_dataset
 
 import transformers
 from transformers import (
@@ -20,6 +21,7 @@ from transformers import (
     DataCollatorForSeq2Seq,
     set_seed,
 )
+
 from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version, is_offline_mode, send_example_telemetry
 from transformers.utils.versions import require_version
@@ -28,10 +30,9 @@ from gner_trainer import GNERTrainer
 from gner_collator import DataCollatorForGNER
 from gner_evaluator import compute_metrics
 
-from src.SFT_finetuning.commons.initialization import init_model, wrap_model_for_peft, get_HF_access_token
+from src.SFT_finetuning.commons.initialization import init_model, wrap_model_for_peft
 
-# off wandb
-os.environ['WANDB_DISABLED'] = "True"
+os.environ['WANDB_DISABLED'] = "True"  # off wandb
 logger = logging.getLogger(__name__)
 CURRENT_DIR = os.path.dirname(__file__)
 
@@ -233,10 +234,6 @@ def main():
         raw_datasets = {}
 
     # Load pretrained model and tokenizer
-    #
-    # Distributed training:
-    # The .from_pretrained methods guarantee that only one local process can concurrently
-    # download model & vocab.
     """
     config = AutoConfig.from_pretrained(
         model_args.config_name if model_args.config_name else model_args.model_name_or_path,
@@ -268,17 +265,14 @@ def main():
     )
     """
 
+    # Decoder-based Models
     is_encoder_decoder = False
-
-    #from huggingface_hub import login
-    #HF_ACCESS_TOKEN = get_HF_access_token('./.env')
-    #login(token=HF_ACCESS_TOKEN)
 
     tokenizer, model = init_model(
         model_args.model_name_or_path,
         load_8bit=False,
         load_4bit=False,
-        cutoff_len=data_args.max_source_length,
+        cutoff_len=data_args.max_source_length + data_args.max_target_length,
         device_map="auto",
         use_flash_attention=True,
         padding_side="left"
@@ -297,7 +291,7 @@ def main():
             lora_target_modules=["q_proj", "v_proj", "k_proj"],
             lora_dropout=0.05
         )
-        model.print_trainable_parameters()  # Be more transparent about the % of trainable params.
+        model.print_trainable_parameters()
 
     def preprocess_function(example):
         # remove pairs where at least one record is None
@@ -347,6 +341,7 @@ def main():
                     add_special_tokens=True,
                 )
 
+                # ensure EOS token id
                 if model_inputs["input_ids"][-1] != tokenizer.eos_token_id:
                     model_inputs["input_ids"].append(tokenizer.eos_token_id)
                     model_inputs["attention_mask"].append(1)
@@ -373,6 +368,7 @@ def main():
                         f" {model_inputs['input_ids']}"
                     )
 
+                # labels -100 on prompt
                 for i in range(len(prompt)):
                     model_inputs["labels"][i] = -100
 

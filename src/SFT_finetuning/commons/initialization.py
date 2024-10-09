@@ -1,5 +1,3 @@
-__package__ = "SFT_finetuning.commons"
-
 import logging
 import sys
 import torch
@@ -31,7 +29,7 @@ def init_model(base_model, **kwargs):
     device_map = kwargs.get("device_map", "auto")
     use_flash_attention = kwargs.get("use_flash_attention", False)
     lora_weights = kwargs.get("lora_weights", '')
-    padding_side = kwargs.get("padding_side", "right")
+    padding_side = kwargs.get("padding_side", "left")
 
     # added cache_dir
     # added padding_side
@@ -55,13 +53,10 @@ def init_model(base_model, **kwargs):
         load_in_4bit=load_4bit,
         torch_dtype=torch.bfloat16,
         device_map=device_map,
-        trust_remote_code=True,
-        # use_flash_attention_2=use_flash_attention
+        trust_remote_code=True
     )
 
-    tokenizer.pad_token_id = (
-        0  # unk. we want this to be different from the eos token
-    )
+    tokenizer.pad_token_id = 0
 
     # todo add here fixes for other kind of models, if any
 

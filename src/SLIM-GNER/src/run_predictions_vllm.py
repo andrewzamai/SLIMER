@@ -221,7 +221,7 @@ def main():
     HF_ACCESS_TOKEN = get_HF_access_token('./.env')
     login(token=HF_ACCESS_TOKEN)
 
-    vllm_model = LLM(model=model_args.model_name_or_path, download_dir='./hf_cache_dir')
+    vllm_model = LLM(model=model_args.model_name_or_path)
     max_new_tokens = 640  # as they require
     sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=['</s>'])
 
@@ -245,8 +245,8 @@ def main():
 
     test_set = Dataset.from_list(test_set)
 
-    #test_set.to_json(f'./predictions/{model_args.model_name_or_path}/MIT-CrossNER-predictions.jsonl')
-    test_set.to_json(f'/nfsd/VFdisk/zamaiandre/ZeroShotNER/predictions/GNER-391x100-2ep-MIT-CrossNER-predictions.jsonl')
+    test_set.to_json(f'./predictions/{model_args.model_name_or_path}/MIT-CrossNER-predictions.jsonl')
+    #test_set.to_json(f'/nfsd/VFdisk/zamaiandre/ZeroShotNER/predictions/GNER-391x100-2ep-MIT-CrossNER-predictions.jsonl')
 
 if __name__ == "__main__":
     main()
