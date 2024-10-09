@@ -38,6 +38,7 @@ def init_model(base_model, **kwargs):
     config = AutoConfig.from_pretrained(base_model, trust_remote_code=True)
     config.update({"max_seq_len": cutoff_len})
 
+    """
     if "llama" in base_model and use_flash_attention:
         from src.SFT_finetuning.commons.patch_models.modeling_flash_llama import LlamaForCausalLM as LlamaForCausalLMFlash
         logging.warning("Using Flash Attention for LLaMA model.")
@@ -45,7 +46,7 @@ def init_model(base_model, **kwargs):
     else:
         logging.warning("Unable to use Flash Attention.")
         load_fn = AutoModelForCausalLM
-
+    
     model = load_fn.from_pretrained(
         base_model,
         config=config,
@@ -54,6 +55,18 @@ def init_model(base_model, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map=device_map,
         trust_remote_code=True
+    )
+    """
+
+    model = AutoModelForCausalLM.from_pretrained(
+        base_model,
+        config=config,
+        load_in_8bit=load_8bit,
+        load_in_4bit=load_4bit,
+        torch_dtype=torch.bfloat16,
+        device_map=device_map,
+        trust_remote_code=True,
+        attn_implementation="flash_attention_2" if use_flash_attention else "sdpa"
     )
 
     tokenizer.pad_token_id = 0
