@@ -334,7 +334,7 @@ def main():
                     tokenize=True,
                     truncation=True,
                     padding=False,
-                    max_length=max_length,
+                    max_length=data_args.max_source_length,
                     add_generation_prompt=True,  # start the assistant response for continuation
                     return_tensors=None,
                     return_dict=True
