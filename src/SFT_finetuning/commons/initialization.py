@@ -1,5 +1,6 @@
 __package__ = "SFT_finetuning.commons"
 
+import logging
 import sys
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, T5ForConditionalGeneration
@@ -32,13 +33,6 @@ def init_model(base_model, **kwargs):
     lora_weights = kwargs.get("lora_weights", '')
     padding_side = kwargs.get("padding_side", "right")
 
-    # assert not use_flash_attention or "llama" in base_model, "Cannot use flash attention in a non llama architecture"
-
-    # if use_flash_attention and torch.cuda.get_device_capability()[0] >= 8:
-    #     from elmi.commons.llama_patch import replace_attn_with_flash_attn
-    #     print("Using flash attention")
-    #     replace_attn_with_flash_attn()
-
     # added cache_dir
     # added padding_side
     tokenizer = AutoTokenizer.from_pretrained(base_model, padding_side=padding_side, trust_remote_code=True)
@@ -46,7 +40,15 @@ def init_model(base_model, **kwargs):
     config = AutoConfig.from_pretrained(base_model, trust_remote_code=True)
     config.update({"max_seq_len": cutoff_len})
 
-    model = AutoModelForCausalLM.from_pretrained(
+    if "llama" in base_model and use_flash_attention:
+        from src.SFT_finetuning.commons.patch_models.modeling_flash_llama import LlamaForCausalLM as LlamaForCausalLMFlash
+        logging.warning("Using Flash Attention for LLaMA model.")
+        load_fn = LlamaForCausalLMFlash
+    else:
+        logging.warning("Unable to use Flash Attention.")
+        load_fn = AutoModelForCausalLM
+
+    model = load_fn.from_pretrained(
         base_model,
         config=config,
         load_in_8bit=load_8bit,
@@ -54,13 +56,8 @@ def init_model(base_model, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map=device_map,
         trust_remote_code=True,
-        use_flash_attention_2=use_flash_attention
+        # use_flash_attention_2=use_flash_attention
     )
-
-    # if use_flash_attention:
-    #     from elmi.commons.llama_patch import forward
-    #     assert model.model.layers[
-    #                0].self_attn.forward.__doc__ == forward.__doc__, "Model is not using flash attention"
 
     tokenizer.pad_token_id = (
         0  # unk. we want this to be different from the eos token
@@ -117,10 +114,6 @@ def wrap_model_for_peft(model, **kwargs):
         task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, config)
-
-    # if use_flash_attention:
-    #     from elmi.commons.llama_patch import upcast_layer_for_flash_attention
-    #     model = upcast_layer_for_flash_attention(model, torch_dtype=torch.bfloat16)
 
     return model
 
