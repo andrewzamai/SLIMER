@@ -8,6 +8,7 @@ TRAIN_JSON_DIR=data/pile-ner.json
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
 OUTPUT_DIR=output/GNER-wDeG-LLaMA2-7B-chat
+PATH_TO_DeG=../data_handlers/questions/pileNER/top391NEs_definitions.json
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
 RUN_NAME=GNER-wDeG-LLaMA2-7B-chat-v1
@@ -18,6 +19,7 @@ deepspeed --include="localhost:0" --master_port $port src/run.py \
     --predict_with_generate \
     --model_name_or_path $MODEL_NAME_OR_PATH \
     --data_dir $DATA_DIR \
+    --path_to_DeG $PATH_TO_DeG
     --preprocessing_num_workers 4 \
     --load_best_model_at_end True \
     --metric_for_best_model "eval_average_f1" \
