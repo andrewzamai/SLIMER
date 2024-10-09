@@ -336,7 +336,8 @@ def main():
                     padding=False,
                     max_length=max_length,
                     add_generation_prompt=True,  # start the assistant response for continuation
-                    return_tensors=None
+                    return_tensors=None,
+                    return_dict=True
                 )
                 # Ensure no EOS token is appended at the end
                 if model_inputs["input_ids"][-1] == tokenizer.eos_token_id:
@@ -353,7 +354,8 @@ def main():
                     padding=False,
                     max_length=max_length,
                     add_generation_prompt=False,  # Do not add generation prompt
-                    return_tensors=None  # Return as plain token IDs
+                    return_tensors=None,  # Return as plain token IDs
+                    return_dict=True
                 )
 
                 # ensure EOS token id
@@ -371,7 +373,8 @@ def main():
                     padding=False,
                     max_length=max_length,
                     add_generation_prompt=True,  # start the assistant response for continuation
-                    return_tensors=None
+                    return_tensors=None,
+                    return_dict=True
                 )["input_ids"]
 
                 # Remove the last token if it is an eos token
