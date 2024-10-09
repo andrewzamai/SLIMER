@@ -92,6 +92,9 @@ class DataTrainingArguments:
     data_dir: str = field(
         default=None, metadata={"help": "The directory for saving the train/dev/test splits and labels."}
     )
+    path_to_DeG: str = field(
+        default=None, metadata={"help": "Path to DeG file containing additional data."}
+    )
     no_load_gner_customized_datasets: bool = field(
         default=False, metadata={"help": "Whether to load GNER datasets. If False, you should provide json files"}
     )
