@@ -22,6 +22,7 @@ deepspeed --include="localhost:1" --master_port $port src/run.py \
     --preprocessing_num_workers 4 \
     --load_best_model_at_end True \
     --metric_for_best_model "eval_average_f1" \
+    --max_eval_samples 250 \
     --greater_is_better True \
     --data_config_dir $DATA_CONFIG_DIR \
     --instruction_file $INSTRUCTION_FILE \

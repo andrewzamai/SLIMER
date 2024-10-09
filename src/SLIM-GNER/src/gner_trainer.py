@@ -104,8 +104,8 @@ class GNERTrainer(Seq2SeqTrainer):
             main_input_name = getattr(self.model, "main_input_name", "input_ids")
             inputs_decode = self._prepare_input(inputs[main_input_name]) if args.include_inputs_for_metrics else None
 
-            if is_torch_tpu_available():
-                xm.mark_step()
+            #if is_torch_tpu_available():
+            #    xm.mark_step()
 
             # Update containers on host
             if loss is not None:
