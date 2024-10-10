@@ -1,6 +1,8 @@
 [
-  {
-        "dataset name": "391x100pos_100neg_BIO",
-        "sampling strategy": "full"
-  }
+    {
+          "dataset name": "391x50pos_50neg_BIO",
+          "sampling strategy": "full",
+          "labels_per_prompt": 5,
+          "path_to_DeG": "../../data_handlers/questions/pileNER/top391NEs_definitions.json"
+    }
 ]

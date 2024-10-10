@@ -23,7 +23,6 @@ class GNERConfig(datasets.BuilderConfig):
         instruction_file=None,
         data_config_dir=None,
         add_dataset_name=None,
-        path_to_DeG=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -31,7 +30,6 @@ class GNERConfig(datasets.BuilderConfig):
         self.instructions = self._parse_instruction(instruction_file)
         self.data_configs = self._parse_data_config(data_config_dir)
         self.add_dataset_name = add_dataset_name
-        self.path_to_DeG = path_to_DeG
 
     def _parse_instruction(self, instruction_file):
         """
@@ -154,8 +152,7 @@ class GNERDataset(datasets.GeneratorBasedBuilder):
 
     # read conll-style dataset
     def _load_dataset(self, dataset_path, labels_path):
-        data_df = pd.read_csv(dataset_path, delimiter='\t', quoting=csv.QUOTE_NONE, 
-                            skip_blank_lines=False, header=None, keep_default_na=False, na_values=[''], low_memory=False)
+        data_df = pd.read_csv(dataset_path, delimiter='\t', quoting=csv.QUOTE_NONE, skip_blank_lines=False, header=None, keep_default_na=False, na_values=[''], low_memory=False)
 
         with open(labels_path, "r") as f:
             labels_list = f.read().splitlines()
@@ -198,13 +195,13 @@ class GNERDataset(datasets.GeneratorBasedBuilder):
                 instances.extend(origin_instances)
         return instances
 
-    def load_DeG_per_NEs(self):
+    def load_DeG_per_NEs(self, path_to_DeG):
         """ load json and eval to dictionary the D&G for each NE """
-        if not self.config.path_to_DeG:
+        if not path_to_DeG:
             raise Exception("Path to Def & Guidelines not provided")
-        if not os.path.exists(self.config.path_to_DeG):
-            raise ValueError(f"Can't find or read D&G at {self.config.path_to_DeG}")
-        with open(self.config.path_to_DeG) as fp:
+        if not os.path.exists(path_to_DeG):
+            raise ValueError(f"Can't find or read D&G at {path_to_DeG}")
+        with open(path_to_DeG) as fp:
             DeG_per_NEs_raw = json.load(fp)
         # converting list to dict for fast access
         if DeG_per_NEs_raw and isinstance(DeG_per_NEs_raw, list):
@@ -249,10 +246,10 @@ class GNERDataset(datasets.GeneratorBasedBuilder):
                 words, labels = instance["words"], instance["labels"]
                 instruction = self._get_instruction()
 
-                # TODO: changed for pileNER training
-                sample_size = 10
-                # sample 10 labels from the top 391
-                sampled_labels = random.sample(label_list, sample_size)
+                # SAMPLE labels_per_prompt:int to extract per prompt
+                labels_per_prompt = dataset.get("labels_per_prompt", 5)
+                # sample N labels from the top 391
+                sampled_labels = random.sample(label_list, labels_per_prompt)
                 labels_in_instance = list(set([label.split('-')[-1] for label in instance["labels"] if label != "O"]))
                 # if not all O we need to replace one of the sampled labels with the positive occurrence for this instance
                 if labels_in_instance:
@@ -266,23 +263,28 @@ class GNERDataset(datasets.GeneratorBasedBuilder):
 
                 instruction += f"\nUse the specific entity tags: {', '.join(sampled_labels)} and O.\n"
 
-                instruction += "To help you, here are dedicated DEFINITION and GUIDELINES for each entity tag.\n"
-                if self.config.path_to_DeG:
-                    DeG_per_NEs = self.load_DeG_per_NEs()
+                # it the path to DeG is provided, append the Def and Guidelines for each NE
+                path_to_DeG = dataset.get("path_to_DeG", "")
+                if path_to_DeG:
+                    DeG_per_NEs = self.load_DeG_per_NEs(path_to_DeG)
+                    instruction += "To help you, here are dedicated DEFINITION and GUIDELINES for each entity tag.\n"
 
-                sampled_labels_DeG = {}
-                for ne_tag in sampled_labels:
-                    #definition = DeG_per_NEs[ne_tag]['gpt_answer']['Definition']
-                    #guidelines = DeG_per_NEs[ne_tag]['gpt_answer']['Guidelines']
-                    sampled_labels_DeG[ne_tag] = DeG_per_NEs[ne_tag]['gpt_answer']
-                    #instruction += f"{ne_tag} --> " + json.dumps(DeG_per_NEs[ne_tag]['gpt_answer']) + "\n"
-                instruction += json.dumps(sampled_labels_DeG, indent=2)
-                instruction += '\n'
+                    sampled_labels_DeG = {}
+                    for ne_tag in sampled_labels:
+                        #definition = DeG_per_NEs[ne_tag]['gpt_answer']['Definition']
+                        #guidelines = DeG_per_NEs[ne_tag]['gpt_answer']['Guidelines']
+                        sampled_labels_DeG[ne_tag] = DeG_per_NEs[ne_tag]['gpt_answer']
+                        #instruction += f"{ne_tag} --> " + json.dumps(DeG_per_NEs[ne_tag]['gpt_answer']) + "\n"
+                    instruction += json.dumps(sampled_labels_DeG, indent=2)
+                    instruction += '\n'
 
                 if add_dataset_name:
                     instruction += f"Dataset: {dataset_name}.\n"
+
                 instruction += "Sentence: " + " ".join(words)
+
                 label_text = self._generate_labeled_string(words, labels)
+
                 yield f"{dataset_name}##{idx}", {
                     "dataset": dataset_name,
                     "split": split,

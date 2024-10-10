@@ -234,8 +234,7 @@ def main():
             instruction_file=data_args.instruction_file,
             data_config_dir=data_args.data_config_dir,
             add_dataset_name=data_args.add_dataset_name,
-            trust_remote_code=True,
-            path_to_DeG=data_args.path_to_DeG
+            trust_remote_code=True
         )
         raw_datasets.cleanup_cache_files()
     else:
@@ -305,8 +304,8 @@ def main():
         )
         model = get_peft_model(model, config)
         model.print_trainable_parameters()
-
     """
+
     if training_args.do_train:
         model = wrap_model_for_peft(
             model,
