@@ -37,7 +37,7 @@ deepspeed --include="localhost:1" --master_port $port src/run.py \
     --lr_scheduler_type "cosine" \
     --deepspeed $DEEPSPEED_CONFIG \
     --run_name $RUN_NAME \
-    --max_source_length 3072 \
+    --max_source_length 2048 \
     --max_target_length 1024 \
     --overwrite_output_dir \
     --overwrite_cache \
