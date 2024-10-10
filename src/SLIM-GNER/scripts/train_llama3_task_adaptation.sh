@@ -10,7 +10,7 @@ OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA3-8B-Instruct-v2
 PATH_TO_DeG=../data_handlers/questions/pileNER/top391NEs_definitions.json
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
-RUN_NAME=GNER-wDeG-LLaMA3-8B-Instruct-v1
+RUN_NAME=GNER-wDeG-LLaMA3-8B-Instruct-v2
 
 deepspeed --include="localhost:1" --master_port $port src/run.py \
     --bf16 True --tf32 True \

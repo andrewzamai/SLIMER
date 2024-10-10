@@ -1,6 +1,8 @@
 """ Trainer adapted from GNER https://github.com/yyDing1/GNER """
 
 from dataclasses import dataclass, field
+
+import torch
 from datasets import load_dataset
 from typing import Optional
 import numpy as np
@@ -239,6 +241,7 @@ def main():
     else:
         raw_datasets = {}
 
+    """
     # Load pretrained model and tokenizer
     config = AutoConfig.from_pretrained(
         model_args.config_name if model_args.config_name else model_args.model_name_or_path,
@@ -256,8 +259,10 @@ def main():
         #token=model_args.token,
         trust_remote_code=model_args.trust_remote_code,
     )
+
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.unk_token
+
     MODEL_CLASS = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
     model = MODEL_CLASS.from_pretrained(
         model_args.model_name_or_path,
@@ -266,6 +271,7 @@ def main():
         #cache_dir=model_args.cache_dir,
         #revision=model_args.model_revision,
         #token=model_args.token,
+        torch_dtype=torch.bfloat16,
         trust_remote_code=model_args.trust_remote_code,
         attn_implementation="flash_attention_2" if "llama" in model_args.model_name_or_path.lower() else "sdpa"
     )
@@ -286,8 +292,8 @@ def main():
 
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.unk_token
-    """
 
+    """
     if training_args.do_train:
         config = LoraConfig(
             r=8,
@@ -312,7 +318,6 @@ def main():
             lora_dropout=0.05
         )
         model.print_trainable_parameters()   
-    """
 
     def preprocess_function(example):
         # remove pairs where at least one record is None
