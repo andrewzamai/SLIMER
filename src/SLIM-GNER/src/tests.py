@@ -36,3 +36,15 @@ if __name__ == '__main__':
                 {"role": "assistant", "content": raw_datasets['validation'][0]['instance']['prompt_labels']}]
     formatted_input = tokenizer.apply_chat_template(row_json, tokenize=False) #, add_generation_prompt=True)
     print(formatted_input)
+
+    model_inputs = tokenizer.apply_chat_template(
+        conversation=row_json[:-1],  # exclude last assistant message
+        tokenize=False,
+        truncation=True,
+        padding=False,
+        max_length=1024,
+        add_generation_prompt=True,  # start the assistant response for continuation
+        return_tensors=None,
+        return_dict=False
+    )
+    print(model_inputs)

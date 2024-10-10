@@ -99,7 +99,7 @@ class GNERTrainer(Seq2SeqTrainer):
                     batch_size = observed_batch_size
 
             # Prediction step
-            gen_kwargs = {"max_new_tokens": 1024}
+            gen_kwargs = {"max_new_tokens": 2048}
             loss, logits, labels = self.prediction_step(model, inputs, prediction_loss_only, ignore_keys=ignore_keys, **gen_kwargs)
             main_input_name = getattr(self.model, "main_input_name", "input_ids")
             inputs_decode = self._prepare_input(inputs[main_input_name]) if args.include_inputs_for_metrics else None

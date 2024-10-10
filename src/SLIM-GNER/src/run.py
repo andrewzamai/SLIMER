@@ -22,6 +22,12 @@ from transformers import (
     set_seed,
 )
 
+from peft import (
+    LoraConfig,
+    get_peft_model,
+    prepare_model_for_kbit_training
+)
+
 from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version, is_offline_mode, send_example_telemetry
 from transformers.utils.versions import require_version
@@ -234,21 +240,20 @@ def main():
         raw_datasets = {}
 
     # Load pretrained model and tokenizer
-    """
     config = AutoConfig.from_pretrained(
         model_args.config_name if model_args.config_name else model_args.model_name_or_path,
-        cache_dir=model_args.cache_dir,
-        revision=model_args.model_revision,
-        token=model_args.token,
+        #cache_dir=model_args.cache_dir,
+        #revision=model_args.model_revision,
+        #token=model_args.token,
         trust_remote_code=model_args.trust_remote_code,
     )
     is_encoder_decoder = config.is_encoder_decoder
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
-        cache_dir=model_args.cache_dir,
+        #cache_dir=model_args.cache_dir,
         use_fast=model_args.use_fast_tokenizer,
-        revision=model_args.model_revision,
-        token=model_args.token,
+        #revision=model_args.model_revision,
+        #token=model_args.token,
         trust_remote_code=model_args.trust_remote_code,
     )
     if tokenizer.pad_token is None:
@@ -258,10 +263,11 @@ def main():
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
-        cache_dir=model_args.cache_dir,
-        revision=model_args.model_revision,
-        token=model_args.token,
+        #cache_dir=model_args.cache_dir,
+        #revision=model_args.model_revision,
+        #token=model_args.token,
         trust_remote_code=model_args.trust_remote_code,
+        attn_implementation="flash_attention_2" if "llama" in model_args.model_name_or_path.lower() else "sdpa"
     )
     """
 
@@ -280,7 +286,21 @@ def main():
 
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.unk_token
+    """
 
+    if training_args.do_train:
+        config = LoraConfig(
+            r=8,
+            lora_alpha=16,
+            target_modules=["q_proj", "v_proj", "k_proj"],
+            lora_dropout=0.05,
+            bias="none",
+            task_type="CAUSAL_LM",
+        )
+        model = get_peft_model(model, config)
+        model.print_trainable_parameters()
+
+    """
     if training_args.do_train:
         model = wrap_model_for_peft(
             model,
@@ -291,7 +311,8 @@ def main():
             lora_target_modules=["q_proj", "v_proj", "k_proj"],
             lora_dropout=0.05
         )
-        model.print_trainable_parameters()
+        model.print_trainable_parameters()   
+    """
 
     def preprocess_function(example):
         # remove pairs where at least one record is None
@@ -344,7 +365,7 @@ def main():
                     model_inputs["input_ids"] = model_inputs["input_ids"][:-1]
                     model_inputs["attention_mask"] = model_inputs["attention_mask"][:-1]
 
-            # Training Mode: Tokenize the entire conversation, ensuring EOS and masking the prompt part
+            # if decoder training: Tokenize the entire conversation, ensuring EOS and masking the prompt part
             else:
                 # Apply chat template for the full conversation
                 model_inputs = tokenizer.apply_chat_template(
@@ -465,7 +486,7 @@ def main():
     # Construct Data collator
     label_pad_token_id = -100 if data_args.ignore_pad_token_for_loss else tokenizer.pad_token_id
     data_collator = DataCollatorForGNER(
-        tokenizer,
+        tokenizer=tokenizer,
         model=model,
         padding=True,
         pad_to_multiple_of=8 if training_args.fp16 else None,

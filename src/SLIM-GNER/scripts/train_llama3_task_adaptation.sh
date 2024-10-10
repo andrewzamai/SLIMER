@@ -6,7 +6,7 @@ MODEL_NAME_OR_PATH=meta-llama/Llama-3.1-8B-Instruct
 DATA_DIR=data
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
-OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA3-8B-Instruct
+OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA3-8B-Instruct-v2
 PATH_TO_DeG=../data_handlers/questions/pileNER/top391NEs_definitions.json
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
@@ -45,7 +45,7 @@ deepspeed --include="localhost:1" --master_port $port src/run.py \
     --logging_strategy "steps" \
     --logging_steps 10 \
     --evaluation_strategy "steps" \
-    --eval_steps 100 \
+    --eval_steps 200 \
     --save_strategy "steps" \
-    --save_steps 100 \
+    --save_steps 200 \
     --seed 1234
