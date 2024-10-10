@@ -10,7 +10,7 @@ OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA2-7B-chat-v2
 PATH_TO_DeG=../data_handlers/questions/pileNER/top391NEs_definitions.json
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
-RUN_NAME=GNER-wDeG-LLaMA2-7B-chat-v1
+RUN_NAME=GNER-wDeG-LLaMA2-7B-chat-v2
 
 deepspeed --include="localhost:0" --master_port $port src/run.py \
     --bf16 True --tf32 True \
@@ -37,9 +37,8 @@ deepspeed --include="localhost:0" --master_port $port src/run.py \
     --lr_scheduler_type "cosine" \
     --deepspeed $DEEPSPEED_CONFIG \
     --run_name $RUN_NAME \
-    --max_source_length 1024 \
+    --max_source_length 3072 \
     --max_target_length 1024 \
-    --generation_max_length 1024 \
     --overwrite_output_dir \
     --overwrite_cache \
     --logging_strategy "steps" \
