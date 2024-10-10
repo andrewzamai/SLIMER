@@ -79,6 +79,7 @@ def init_model(base_model, **kwargs):
         model.config.eos_token_id = 2
     elif "Llama-3" in base_model:
         model.config.pad_token_id = tokenizer.pad_token_id = tokenizer.eos_token_id
+        model.generation_config.pad_token_id = tokenizer.pad_token_id
         #model.config.bos_token_id = tokenizer.bos_token_id
         #model.config.eos_token_id = tokenizer.eos_token_id
 
