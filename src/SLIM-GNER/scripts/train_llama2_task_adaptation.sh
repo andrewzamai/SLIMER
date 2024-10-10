@@ -18,7 +18,6 @@ deepspeed --include="localhost:0" --master_port $port src/run.py \
     --predict_with_generate \
     --model_name_or_path $MODEL_NAME_OR_PATH \
     --data_dir $DATA_DIR \
-    --path_to_DeG $PATH_TO_DeG \
     --preprocessing_num_workers 4 \
     --load_best_model_at_end True \
     --metric_for_best_model "eval_average_f1" \
