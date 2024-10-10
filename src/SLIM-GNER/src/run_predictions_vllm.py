@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 import sys
@@ -188,40 +189,12 @@ class DataTrainingArguments:
 
 
 def main():
-    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, Seq2SeqTrainingArguments))
-    if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
-        # If we pass only one argument to the script and it's the path to a json file,
-        # let's parse it to get our arguments.
-        model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
-    else:
-        model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+    parser = argparse.ArgumentParser(description='''Evaluate SLIM-GNER Zero-Shot NER performance''')
+    parser.add_argument('merged_model_name', type=str, help='path_to_merged_model')
+    parser.add_argument('--with_guidelines', action='store_true', help='Whether to use Def & Guidelines')
+    args = parser.parse_args()
 
-    # Setup logging
-    logging.basicConfig(
-        format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
-        datefmt="%m/%d/%Y %H:%M:%S",
-        handlers=[logging.StreamHandler(sys.stdout)],
-    )
-    transformers.utils.logging.set_verbosity_info()
-    log_level = training_args.get_process_log_level()
-    logger.setLevel(log_level)
-    datasets.utils.logging.set_verbosity(log_level)
-    transformers.utils.logging.set_verbosity(log_level)
-    transformers.utils.logging.enable_default_handler()
-    transformers.utils.logging.enable_explicit_format()
-
-    # Log on each process the small summary:
-    logger.warning(
-        f"Process rank: {training_args.local_rank}, device: {training_args.device}, n_gpu: {training_args.n_gpu}"
-        + f"distributed training: {training_args.parallel_mode.value == 'distributed'}, 16-bits training: {training_args.fp16 or training_args.bf16}"
-    )
-    logger.info(f"Training/evaluation parameters {training_args}")
-
-    from huggingface_hub import login
-    HF_ACCESS_TOKEN = get_HF_access_token('./.env')
-    login(token=HF_ACCESS_TOKEN)
-
-    vllm_model = LLM(model=model_args.model_name_or_path)
+    vllm_model = LLM(model=args.merged_model_name)
     max_new_tokens = 640  # as they require
     sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=['</s>'])
 
@@ -247,6 +220,7 @@ def main():
 
     test_set.to_json(f'./predictions/{model_args.model_name_or_path}/MIT-CrossNER-predictions.jsonl')
     #test_set.to_json(f'/nfsd/VFdisk/zamaiandre/ZeroShotNER/predictions/GNER-391x100-2ep-MIT-CrossNER-predictions.jsonl')
+
 
 if __name__ == "__main__":
     main()

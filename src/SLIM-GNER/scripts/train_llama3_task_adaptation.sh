@@ -6,7 +6,7 @@ MODEL_NAME_OR_PATH=meta-llama/Llama-3.1-8B-Instruct
 DATA_DIR=data
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
-OUTPUT_DIR=output/GNER-391x100-wDeG-LLaMA3-8B-Instruct-v2
+OUTPUT_DIR=output/GNER-391x50-wDeG-LLaMA3-8B-Instruct-v2
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
 RUN_NAME=GNER-wDeG-LLaMA3-8B-Instruct-v2
@@ -20,7 +20,7 @@ deepspeed --include="localhost:1" --master_port $port src/run.py \
     --preprocessing_num_workers 4 \
     --load_best_model_at_end True \
     --metric_for_best_model "eval_average_f1" \
-    --max_eval_samples 250 \
+    --max_eval_samples 100 \
     --greater_is_better True \
     --data_config_dir $DATA_CONFIG_DIR \
     --instruction_file $INSTRUCTION_FILE \
@@ -31,7 +31,7 @@ deepspeed --include="localhost:1" --master_port $port src/run.py \
     --learning_rate 3e-04 \
     --weight_decay 0.01 \
     --warmup_ratio 0.04 \
-    --num_train_epochs 3 \
+    --num_train_epochs 2 \
     --lr_scheduler_type "cosine" \
     --deepspeed $DEEPSPEED_CONFIG \
     --run_name $RUN_NAME \
