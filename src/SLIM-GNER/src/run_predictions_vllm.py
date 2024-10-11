@@ -190,14 +190,24 @@ class DataTrainingArguments:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='''Evaluate SLIM-GNER Zero-Shot NER performance on MIT-CrossNER''')
-    parser.add_argument('merged_model_name', type=str, help='path_to_merged_model')
-    parser.add_argument('json_test_file', type=str, help='path_to_json_test_file')
-    parser.add_argument('max_source_length', type=int, help='max_source_length')
-    parser.add_argument('max_new_tokens', type=int, help='max_generation_new_tokens')
-    parser.add_argument('temperature', type=float, help='generation_temperature')
-    parser.add_argument('stop_token', type=list, help='stop_token')
+    # Argument Parsing
+    parser = argparse.ArgumentParser(description='Evaluate SLIM-GNER Zero-Shot NER performance on MIT-CrossNER')
+    parser.add_argument('--merged_model_name', type=str, required=True, help='path_to_merged_model')
+    parser.add_argument('--json_test_file', type=str, required=True, help='path_to_json_test_file')
+    parser.add_argument('--max_source_length', type=int, required=True, help='max_source_length')
+    parser.add_argument('--max_new_tokens', type=int, required=True, help='max_generation_new_tokens')
+    parser.add_argument('--temperature', type=float, required=True, help='generation_temperature')
+    parser.add_argument('--stop_token', type=str, required=True, help='stop_token')  # Changed to str
+
     args = parser.parse_args()
+
+    # Example Output
+    print(f"Evaluating model {args.merged_model_name} with the following settings:")
+    print(f"Test file: {args.json_test_file}")
+    print(f"Max source length: {args.max_source_length}")
+    print(f"Max new tokens: {args.max_new_tokens}")
+    print(f"Temperature: {args.temperature}")
+    print(f"Stop token: {args.stop_token}")
 
     vllm_model = LLM(model=args.merged_model_name)
     sampling_params = SamplingParams(temperature=args.temperature, max_tokens=args.max_new_tokens, stop=[args.stop_token])
