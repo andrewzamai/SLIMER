@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 import json
+from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -189,22 +190,44 @@ class DataTrainingArguments:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='''Evaluate SLIM-GNER Zero-Shot NER performance''')
+    parser = argparse.ArgumentParser(description='''Evaluate SLIM-GNER Zero-Shot NER performance on MIT-CrossNER''')
     parser.add_argument('merged_model_name', type=str, help='path_to_merged_model')
-    parser.add_argument('--with_guidelines', action='store_true', help='Whether to use Def & Guidelines')
+    parser.add_argument('json_test_file', type=str, help='path_to_json_test_file')
+    parser.add_argument('max_source_length', type=int, help='max_source_length')
+    parser.add_argument('max_new_tokens', type=int, help='max_generation_new_tokens')
+    parser.add_argument('temperature', type=float, help='generation_temperature')
+    parser.add_argument('stop_token', type=list, help='stop_token')
     args = parser.parse_args()
 
     vllm_model = LLM(model=args.merged_model_name)
-    max_new_tokens = 640  # as they require
-    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=['</s>'])
+    sampling_params = SamplingParams(temperature=args.temperature, max_tokens=args.max_new_tokens, stop=[args.stop_token])
 
-    test_set = load_dataset("json", data_files=f'/nfsd/VFdisk/zamaiandre/ZeroShotNER/src/GNER/data/zero-shot-test.jsonl')['train']
+    test_set = load_dataset("json", data_files=args.json_test_file, split='train')
     test_set = test_set.to_list()
+
+    tokenizer = vllm_model.get_tokenizer()
     inputs = []
     for sample_GNER in test_set:
+        system_message = "You are an expert in Named Entity Recognition."
+        conversation = [
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": sample_GNER['instance']['instruction_inputs']}  # the input_text + instruction
+        ]
+
+        model_inputs = tokenizer.apply_chat_template(
+            conversation=conversation,
+            tokenize=False,
+            truncation=True,
+            padding=False,
+            max_length=args.max_source_length,
+            add_generation_prompt=True,  # start the assistant response for continuation
+            return_tensors=None,
+            return_dict=False
+        )
+
         # For LLaMA Model, instruction part are wrapped with [INST] tag
-        input_texts = f"[INST] {sample_GNER['instance']['instruction_inputs']} [/INST]"
-        inputs.append(input_texts)
+        # input_texts = f"[INST] {sample_GNER['instance']['instruction_inputs']} [/INST]"
+        inputs.append(model_inputs)
 
     responses = vllm_model.generate(inputs, sampling_params)
     for i, response in enumerate(responses):
@@ -218,8 +241,27 @@ def main():
 
     test_set = Dataset.from_list(test_set)
 
-    test_set.to_json(f'./predictions/{model_args.model_name_or_path}/MIT-CrossNER-predictions.jsonl')
-    #test_set.to_json(f'/nfsd/VFdisk/zamaiandre/ZeroShotNER/predictions/GNER-391x100-2ep-MIT-CrossNER-predictions.jsonl')
+    path_to_save_to = f"./model_predictions/{args.merged_model_name.split('/')[-1]}/{args.json_test_file.split('/')[-1]}"
+    test_set.to_json(path_to_save_to)
+
+    from gner_evaluator import NEREvaluator
+    # load tokenizer and prediction data
+    # tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path)
+    all_examples = defaultdict(list)
+    with open(path_to_save_to, 'r') as fh:
+        for line in fh.readlines():
+            line_data = json.loads(line)
+            all_examples[line_data['dataset']].append(line_data)
+
+    # evaluate
+    tot_f1, tot_dataset = 0, 0
+    for dataset in all_examples:
+        eval_result = NEREvaluator().evaluate(all_examples[dataset], tokenizer=tokenizer)
+        print(
+            f'\nDataset: {dataset}, F1: {eval_result["f1"]}, Precision: {eval_result["precision"]}, Recall: {eval_result["recall"]}')
+        tot_f1 += eval_result["f1"]
+        tot_dataset += 1
+    print(f'avg_f1: {tot_f1 / tot_dataset}')
 
 
 if __name__ == "__main__":
