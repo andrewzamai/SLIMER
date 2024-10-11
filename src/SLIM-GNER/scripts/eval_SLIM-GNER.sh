@@ -1,5 +1,5 @@
-MODEL_NAME_OR_PATH=meta-llama/Llama-2-7b-chat-hf
-JSON_TEST_FILE=data/zero-shot-test-wDeG.json
+MODEL_NAME_OR_PATH=merged_models/GNER_wDeG_391x50-LLaMA3
+JSON_TEST_FILE=data/zero-shot-test-wDeG-5NEperPrompt.jsonl
 
 python src/run_prediction_vllm.py \
 --merged_model_name $MODEL_NAME_OR_PATH \
