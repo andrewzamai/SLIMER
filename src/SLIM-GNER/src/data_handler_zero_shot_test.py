@@ -87,6 +87,7 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
         sampled_labels_DeG = {}
 
         for ne_tag in label_sublist:
+            orig_tag = ne_tag
             ne_tag = ne_tag.lower()
 
             special_maps = {
@@ -94,10 +95,11 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
                 "metric": "metrics"
             }
 
+
             if ne_tag in special_maps:
                 ne_tag = special_maps[ne_tag]
 
-            sampled_labels_DeG[ne_tag] = all_datasets_DeG[gner_sample['dataset']][ne_tag]['gpt_answer']
+            sampled_labels_DeG[orig_tag] = all_datasets_DeG[gner_sample['dataset']][ne_tag]['gpt_answer']
 
         instruction += json.dumps(sampled_labels_DeG, indent=2)
         instruction += '\n'
