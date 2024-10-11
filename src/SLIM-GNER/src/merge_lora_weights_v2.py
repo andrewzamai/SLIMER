@@ -20,9 +20,6 @@ if __name__ == "__main__":
     print("merge and unload...")
     model = model.merge_and_unload()
 
-    print("lm_head" in model.state_dict().keys())  # Should return True
-    print("embed_tokens" in model.state_dict().keys())  # Should return True
-
     print("saving...")
     model.save_pretrained(args.path_to_save_to)
 
