@@ -95,7 +95,6 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
                 "metric": "metrics"
             }
 
-
             if ne_tag in special_maps:
                 ne_tag = special_maps[ne_tag]
 
