@@ -289,22 +289,8 @@ def main():
         padding_side="left"
     )
 
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.unk_token
-
-    """
-    if training_args.do_train:
-        config = LoraConfig(
-            r=8,
-            lora_alpha=16,
-            target_modules=["q_proj", "v_proj", "k_proj"],
-            lora_dropout=0.05,
-            bias="none",
-            task_type="CAUSAL_LM",
-        )
-        model = get_peft_model(model, config)
-        model.print_trainable_parameters()
-    """
+    #if tokenizer.pad_token is None:
+    #tokenizer.pad_token = tokenizer.unk_token
 
     if training_args.do_train:
         model = wrap_model_for_peft(
@@ -396,7 +382,7 @@ def main():
                     tokenize=True,
                     truncation=True,
                     padding=False,
-                    max_length=max_length,
+                    max_length=data_args.max_source_length,
                     add_generation_prompt=True,  # start the assistant response for continuation
                     return_tensors=None,
                     return_dict=True

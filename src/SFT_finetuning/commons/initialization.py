@@ -1,13 +1,19 @@
-import logging
-import sys
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, T5ForConditionalGeneration
-from peft import PeftModel
+from transformers import (
+    AutoTokenizer,
+    AutoModelForCausalLM,
+    AutoConfig,
+    T5ForConditionalGeneration
+)
 from peft import (
+    PeftModel,
     LoraConfig,
     get_peft_model,
     prepare_model_for_kbit_training
 )
+
+import logging
+import torch
+import sys
 
 
 def get_HF_access_token(path_to_env_file):
@@ -31,8 +37,8 @@ def init_model(base_model, **kwargs):
     lora_weights = kwargs.get("lora_weights", '')
     padding_side = kwargs.get("padding_side", "left")
 
-    # added cache_dir
     # added padding_side
+    # usually left for generative LLMs
     tokenizer = AutoTokenizer.from_pretrained(base_model, padding_side=padding_side, trust_remote_code=True)
 
     config = AutoConfig.from_pretrained(base_model, trust_remote_code=True)
@@ -69,19 +75,14 @@ def init_model(base_model, **kwargs):
         attn_implementation="flash_attention_2" if use_flash_attention else "sdpa"
     )
 
-    # tokenizer.pad_token_id = 0
-
-    # todo add here fixes for other kind of models, if any
-
     if "Llama-2" in base_model:
+        print("\nSetting LLaMA pad_token_id to <unk>")
         model.config.pad_token_id = tokenizer.pad_token_id = 0  # unk
         model.config.bos_token_id = 1
         model.config.eos_token_id = 2
     elif "Llama-3" in base_model:
         model.config.pad_token_id = tokenizer.pad_token_id = tokenizer.eos_token_id
         model.generation_config.pad_token_id = tokenizer.pad_token_id
-        #model.config.bos_token_id = tokenizer.bos_token_id
-        #model.config.eos_token_id = tokenizer.eos_token_id
 
     if lora_weights:
         print("\nLoading Lora weights...\n")
