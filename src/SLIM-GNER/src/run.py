@@ -36,7 +36,7 @@ from transformers.utils.versions import require_version
 
 from gner_trainer import GNERTrainer
 from gner_collator import DataCollatorForGNER
-from gner_evaluator import compute_metrics
+from slim_gner_evaluator import compute_metrics
 
 from src.SFT_finetuning.commons.initialization import init_model, wrap_model_for_peft
 
@@ -229,7 +229,7 @@ def main():
     set_seed(training_args.seed)
     if not data_args.no_load_gner_customized_datasets:
         raw_datasets = load_dataset(
-            os.path.join(CURRENT_DIR, "gner_dataset.py"),
+            os.path.join(CURRENT_DIR, "slim_gner_dataset.py"),
             data_dir=data_args.data_dir,
             instruction_file=data_args.instruction_file,
             data_config_dir=data_args.data_config_dir,
@@ -505,7 +505,7 @@ def main():
         for idx, decoded_pred in enumerate(decoded_preds):
             all_examples[idx]["prediction"] = decoded_pred
 
-        results = compute_metrics(all_examples, tokenizer=tokenizer)
+        results = compute_metrics(all_examples)
         if save_prefix is not None:
             with open(os.path.join(training_args.output_dir, f"{save_prefix}_text_generations.jsonl"), "w") as fout:
                 for example in all_examples:

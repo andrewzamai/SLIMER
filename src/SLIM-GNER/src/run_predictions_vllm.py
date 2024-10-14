@@ -28,7 +28,7 @@ from transformers.utils.versions import require_version
 
 from gner_trainer import GNERTrainer
 from gner_collator import DataCollatorForGNER
-from gner_evaluator import compute_metrics
+from slim_gner_evaluator import compute_metrics
 
 from src.SFT_finetuning.commons.initialization import init_model, wrap_model_for_peft, get_HF_access_token
 
@@ -254,7 +254,7 @@ def main():
     path_to_save_to = f"./model_predictions/{args.merged_model_name.split('/')[-1]}/{args.json_test_file.split('/')[-1]}"
     test_set.to_json(path_to_save_to)
 
-    from gner_evaluator import NEREvaluator
+    from slim_gner_evaluator import SLIMGNEREvaluator
     # load tokenizer and prediction data
     # tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path)
     all_examples = defaultdict(list)
@@ -266,7 +266,7 @@ def main():
     # evaluate
     tot_f1, tot_dataset = 0, 0
     for dataset in all_examples:
-        eval_result = NEREvaluator().evaluate(all_examples[dataset], tokenizer=tokenizer)
+        eval_result = SLIMGNEREvaluator().evaluate(all_examples[dataset], tokenizer=tokenizer)
         print(
             f'\nDataset: {dataset}, F1: {eval_result["f1"]}, Precision: {eval_result["precision"]}, Recall: {eval_result["recall"]}')
         tot_f1 += eval_result["f1"]

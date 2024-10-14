@@ -183,7 +183,7 @@ def main(
     golds = [example['conversations'][-1]['value'] for example in examples]
     outputs = inference(llm, examples)
 
-    eval_result = NEREvaluator().evaluate(outputs, golds)
+    eval_result = SLIMGNEREvaluator().evaluate(outputs, golds)
     print(f'Precision: {eval_result["precision"]}, Recall: {eval_result["recall"]}, F1: {eval_result["f1"]}')
 
 if __name__ == "__main__":
