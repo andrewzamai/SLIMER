@@ -3,3 +3,4 @@
 .env
 /venv/
 /data/NuNER
+/data/pileNER/391xALL_GenQA_FalseDef

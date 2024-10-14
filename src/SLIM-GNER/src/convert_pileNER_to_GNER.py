@@ -90,17 +90,17 @@ if __name__ == '__main__':
     #data_SLIMER_format = load_dataset("json", data_files=f'../../../datasets/pileNER/391x5pos_5neg_GenQA_FalseDef-SI/train.jsonl')['train']
     #data_SLIMER_format = load_dataset("json", data_files=f'../../../datasets/pileNER/391x50pos_50neg_GenQA_FalseDef/validation.jsonl')['train']
 
-    #from MSEQA_4_NER.data_handlers import data_handler_pileNER
-    #dataset_MSEQA_format_FalseDef = data_handler_pileNER.build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(n_pos_samples_per_NE=10, n_neg_samples_per_NE=10, removeTestDatasetsNEs=True, keep_only_top_tagNames=391)
-    #data_handler_pileNER.convert_MSEQA_dataset_to_GenQA_format(dataset_MSEQA_format_FalseDef, with_definition=False, path_to_save_to="../../../datasets/pileNER/391x10pos_10neg_GenQA_FalseDef")
+    from src.data_handlers import data_handler_pileNER
+    #dataset_MSEQA_format_FalseDef = data_handler_pileNER.build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(n_pos_samples_per_NE=-1, n_neg_samples_per_NE=-1, removeTestDatasetsNEs=True, keep_only_top_tagNames=391)
+    #data_handler_pileNER.convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format_FalseDef, with_definition=False, path_to_save_to='../../../data/pileNER/391xALL_GenQA_FalseDef')
 
-    data_SLIMER_format = load_dataset("json", data_files=f'../../../datasets/pileNER/391x50pos_50neg_GenQA_FalseDef/train.jsonl')['train']
-    print(data_SLIMER_format)
+    data_SLIMER_format = load_dataset("json", data_files=f'../../../data/pileNER/391xALL_GenQA_FalseDef/train.jsonl')['train']
+    #print(data_SLIMER_format)
 
     # HERE we group the SLIMER samples per docID and collect all the tagName-occurrences for a docID
 
     # count occurrences of each unique docID
-    id_list = [sample["doc_question_pairID"].split(':')[0] for sample in data_SLIMER_format]
+    id_list = [sample["doc_tag_pairID"].split(':')[0] for sample in data_SLIMER_format]
     from collections import Counter
     id_counts = Counter(id_list)
     # Sort the dictionary by count in descending order
@@ -110,14 +110,14 @@ if __name__ == '__main__':
     entities_per_docID = {docID: {} for docID in sorted_id_counts.keys()}
     unique_tagNames = set()
     for sample in data_SLIMER_format:
-        docID = sample["doc_question_pairID"].split(':')[0]
+        docID = sample["doc_tag_pairID"].split(':')[0]
         tagName = sample['tagName']
         unique_tagNames.add(tagName)
         entities = json.loads(sample['output'])
         entities_per_docID[docID][tagName] = entities
     #print(entities_per_docID)
 
-    inputs_per_docID = {sample["doc_question_pairID"].split(':')[0]: sample['input'] for sample in data_SLIMER_format}
+    inputs_per_docID = {sample["doc_tag_pairID"].split(':')[0]: sample['input'] for sample in data_SLIMER_format}
     # GENERATE the words, labels lists for each docID
     data_BIO_format = []
     # max_dataset_size = 3910
@@ -152,7 +152,7 @@ if __name__ == '__main__':
                 count_music_group += 1
     print(count_music_group)
 
-    #save_conll_format('../../../datasets/pileNER/PileNER-3910samples-GoLLIE/train.txt', [x[0] for x in data_BIO_format], [x[1] for x in data_BIO_format])
+    save_conll_format('../data/391xALL_BIO/train.txt', [x[0] for x in data_BIO_format], [x[1] for x in data_BIO_format])
     print(len(unique_tagNames))
     print(unique_tagNames)
 
@@ -172,8 +172,8 @@ if __name__ == '__main__':
 
 
     # Example usage
-    json_filename = '../../../datasets/pileNER/top_391_NamedEntities.json'
-    txt_filename = '../../../datasets/pileNER/391x5pos_5neg_BIO/label.txt'
+    json_filename = '../../../data/pileNER/top_391_NamedEntities.json'
+    txt_filename = '../data/391xALL_BIO/label.txt'
     #convert_labels_from_json_to_txt(json_filename, txt_filename)
 
     """

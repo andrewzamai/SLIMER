@@ -26,6 +26,9 @@ import numpy as np
 from collections import OrderedDict, Counter
 from datasets import Dataset, DatasetDict, load_dataset
 
+# SLIMER prompter to format a ne_tag, Def and Guidelines into a prompt for NER
+from src.SFT_finetuning.commons.prompter import SLIMER_instruction_prompter
+
 
 def extract_context_quests_answers(conversation):
     """
@@ -436,7 +439,9 @@ def get_n_sentences_per_ne_type(dataset_MSEQA_format, ne_types_list, n_sentences
     return sentences_per_ne_type
 
 
-def convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format, with_definition, path_to_NE_guidelines_json=None, path_to_save_to='./unk_dataset_GenQA'):
+def convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format, with_definition, path_to_NE_guidelines_json=None, path_to_save_to='./unk_dataset_GenQA', SLIMER_prompter_name='SLIMER_instruction_template'):
+
+    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, '/Users/andrew/ExpertAI/SLIMER/src/SFT_finetuning/templates')
 
     print("Converting to SLIMER format, adding Definition and Guidelines if specified ...")
     sys.stdout.flush()
@@ -472,16 +477,11 @@ def convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format, with_definiti
                 pattern = re.compile(rf'\'{re.escape(ne_type)}\'')
                 this_ne_guidelines = {k: pattern.sub(f'{ne_type.upper()}', v) for k, v in this_ne_guidelines.items()}
 
-                instruction = f"Extract the Named Entities of type {ne_type.upper()} from the text chunk you have read. "
-                instruction += "You are given a DEFINITION and some GUIDELINES.\n"
-                instruction += "DEFINITION: " + this_ne_guidelines['Definition'] + "\nGUIDELINES: " + this_ne_guidelines['Guidelines']
-                instruction += f"\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
-
+                instruction = slimer_prompter.generate_prompt(ne_tag=ne_type.upper(),definition=this_ne_guidelines['Definition'], guidelines=this_ne_guidelines['Guidelines'])
                 genQA_sample['instruction'] = instruction
             else:
                 # same instruction but without Definition and Guidelines
-                instruction_wo_guidelines = f"Extract the Named Entities of type {MSEQA_sample['tagName'].upper()} from the text chunk you have read."
-                instruction_wo_guidelines += "\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+                instruction_wo_guidelines = slimer_prompter.generate_prompt(ne_tag=MSEQA_sample['tagName'].upper(), definition="", guidelines="")
                 genQA_sample['instruction'] = instruction_wo_guidelines
 
             # sorting the text answers by ascending starting positions to give the LLM a pattern: extract the occurences in the order they appear in the passage of text
@@ -519,6 +519,9 @@ def build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(n_pos_samples_per_N
     # if keep_only_top_tagNames==391 or -1 we consider it already filtered with 391 NEs
     if keep_only_top_tagNames > -1 and keep_only_top_tagNames != 391:
         dataset_MSEQA_format = keep_only_top_N_tagNames(dataset_MSEQA_format, keep_only_top_tagNames)
+
+    if n_pos_samples_per_NE == -1:
+        return dataset_MSEQA_format
 
     print("Retaining N samples per NE ...")
     sys.stdout.flush()
@@ -605,7 +608,7 @@ def keep_only_top_N_tagNames(datasetDict_QA, top_N_tagNames):
     return datasetDict_QA
 
 
-def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_dataset, with_definition, path_to_NE_guidelines_json):
+def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_dataset, with_definition, path_to_NE_guidelines_json, SLIMER_prompter_name='SLIMER_instruction_template'):
     """
     Converts MIT/CrossNER test sets for SLIMER inference format.
 
@@ -631,6 +634,8 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_da
         FileNotFoundError: If the dataset or NE guidelines file cannot be found at the provided paths.
         ValueError: If the dataset name is invalid or not supported.
     """
+
+    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
 
     try:
         with open(path_to_dataset, 'r') as fh:
@@ -722,12 +727,9 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_da
         this_ne_guidelines = {k: pattern.sub(f'{ne_type_in_natural_language.upper()}', v) for k, v in this_ne_guidelines.items()}
 
         if with_definition:
-            question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read. "
-            question += "You are given a DEFINITION and some GUIDELINES.\n"
-            question += "DEFINITION: " + this_ne_guidelines['Definition'] + "\nGUIDELINES: " + this_ne_guidelines['Guidelines']
-            question += f"\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+            question = slimer_prompter.generate_prompt(ne_tag=ne_type_in_natural_language.upper(), definition=this_ne_guidelines['Definition'],guidelines=this_ne_guidelines['Guidelines'])
         else:
-            question = f"Extract the Named Entities of type {ne_type_in_natural_language.upper()} from the text chunk you have read.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+            question = slimer_prompter.generate_prompt(ne_tag=ne_type_in_natural_language.upper(), definition="", guidelines="")
 
         genQA_sample = {
             "doc_tag_pairID": uniNER_sample['id'],

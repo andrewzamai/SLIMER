@@ -6,10 +6,10 @@ MODEL_NAME_OR_PATH=meta-llama/Llama-3.1-8B-Instruct
 DATA_DIR=data
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
-OUTPUT_DIR=output/GNER-391x50-wDeG-LLaMA3-8B-Instruct-v3
+OUTPUT_DIR=output/GNER-391xALL-wDeG-LLaMA3-8B-Instruct
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
-RUN_NAME=GNER-wDeG-LLaMA3-8B-Instruct-v3
+RUN_NAME=GNER-wDeG-LLaMA3-8B-Instruct-ALL
 
 deepspeed --include="localhost:1" --master_port $port src/run.py \
     --bf16 True --tf32 True \
@@ -20,7 +20,7 @@ deepspeed --include="localhost:1" --master_port $port src/run.py \
     --preprocessing_num_workers 4 \
     --load_best_model_at_end True \
     --metric_for_best_model "eval_average_f1" \
-    --max_eval_samples 100 \
+    --max_eval_samples 250 \
     --greater_is_better True \
     --data_config_dir $DATA_CONFIG_DIR \
     --instruction_file $INSTRUCTION_FILE \
