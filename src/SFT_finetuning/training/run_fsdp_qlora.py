@@ -40,6 +40,23 @@ class ScriptArguments:
 
 def training_function(script_args, training_args):
 
+    from src.data_handlers import data_handler_pileNER
+
+    if not os.path.exists(script_args.dataset_path):
+        dataset_MSEQA_format_with_n_samples_per_NE_FalseDef = data_handler_pileNER.build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(
+            n_pos_samples_per_NE=10,
+            n_neg_samples_per_NE=10,
+            removeTestDatasetsNEs=True,
+            keep_only_top_tagNames=391
+        )
+
+        data_handler_pileNER.convert_MSEQA_dataset_to_GenQA_format_SI(
+            dataset_MSEQA_format=dataset_MSEQA_format_with_n_samples_per_NE_FalseDef,
+            with_definition=True,
+            path_to_NE_guidelines_json="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
+            path_to_save_to=f'./data/pileNER/{script_args.dataset_path}'
+        )
+
     train_dataset = load_dataset(
         "json",
         data_files=os.path.join(script_args.dataset_path, "train.jsonl"),
