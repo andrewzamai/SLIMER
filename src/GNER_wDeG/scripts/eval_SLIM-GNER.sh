@@ -1,5 +1,5 @@
-MODEL_NAME_OR_PATH=merged_models/GNER_wDeG_391x50-LLaMA3
-JSON_TEST_FILE=data/BUSTER_test_GNER_wDeG.jsonl
+MODEL_NAME_OR_PATH=merged_models/GNER-391xALL-wDeG-LLaMA3-8B-Instruct
+JSON_TEST_FILE=data/zero-shot-test-wDeG-5NEperPrompt.jsonl
 
 python src/run_predictions_vllm.py \
 --merged_model_name $MODEL_NAME_OR_PATH \
