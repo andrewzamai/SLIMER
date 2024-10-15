@@ -1,6 +1,6 @@
 # script parameters
 model_id: "meta-llama/Llama-3.1-70B-Instruct" # Hugging Face model id
-dataset_path: "./data/pileNER/5pos_5neg_perNE_top391NEs_TrueDef"
+dataset_path: "./data/pileNER/10pos_10neg_perNE_top391NEs_TrueDef"
 max_seq_length: 2048              # max sequence length for model and packing of the dataset
 # training parameters
 output_dir: "./SLIMER-LLaMA3-70B-LORAw-v3"     # Temporary output directory for model checkpoints
