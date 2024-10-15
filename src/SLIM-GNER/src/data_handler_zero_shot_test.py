@@ -1,6 +1,7 @@
 import copy
 import json
 import os
+import re
 
 from datasets import load_dataset, Dataset
 
@@ -25,9 +26,9 @@ def load_DeG_per_NEs(path_to_DeG):
 
         this_ne_guidelines = eval(gpt_definition)
         # replacing ne types occurrences between single quotes to their UPPERCASE
-        # ne_type_in_natural_language = values['real_name']
-        # pattern = re.compile(rf'\'{re.escape(ne_type_in_natural_language)}\'', re.IGNORECASE)
-        # this_ne_guidelines = {k: pattern.sub(f'{ne_type_in_natural_language.upper()}', v) for k, v in this_ne_guidelines.items()}
+        ne_type_in_natural_language = values['real_name']
+        pattern = re.compile(rf'\'{re.escape(ne_type_in_natural_language)}\'', re.IGNORECASE)
+        this_ne_guidelines = {k: pattern.sub(f'{ne_type_in_natural_language.upper()}', v) for k, v in this_ne_guidelines.items()}
         values['gpt_answer'] = this_ne_guidelines
 
     return DeG_per_NEs_raw
@@ -58,14 +59,57 @@ def filter_labels(labels, label_sublist):
             prefix, tagName = label.split("-")
             if tagName not in label_sublist:
                 labels[i] = "O"
+            else:
+                labels[i] = prefix + '-' + tagName.upper()
     return labels
 
-def _generate_labeled_string(words, labels):
-    label_text_list = []
-    for word, label in zip(words, labels):
-        label_text_list.append(f"{word}({label})")
 
-    return " ".join(label_text_list)
+def _generate_labeled_string(words, labels):
+    """
+    Generates a labeled string from words and BIO labels in span-based notation.
+
+    Args:
+    - words (list of str): The list of words in the sentence.
+    - labels (list of str): The list of BIO labels corresponding to the words.
+
+    Returns:
+    - str: The sentence with entities labeled in the desired format.
+    """
+    # Initialize variables
+    output = ""
+    current_entity = ""
+    current_entity_type = ""
+    is_entity_open = False
+
+    # Parse through labels and words
+    for label, word in zip(labels, words):
+        if label.startswith('B-'):
+            # If an entity is already open, close it first
+            if is_entity_open:
+                output += f"[{current_entity_type}] {current_entity} [/{current_entity_type}] "
+            # Start a new entity
+            current_entity_type = label[2:]  # Extract entity type (e.g., 'ORGANIZATION')
+            current_entity = word
+            is_entity_open = True
+        elif label.startswith('I-'):
+            # Continue the entity
+            current_entity += " " + word
+        else:  # label == 'O'
+            # Close the current entity if it was open
+            if is_entity_open:
+                output += f"[{current_entity_type}] {current_entity} [/{current_entity_type}] "
+                current_entity = ""
+                current_entity_type = ""
+                is_entity_open = False
+            # Add the regular word to the output
+            output += word + " "
+
+    # Close any remaining open entity at the end
+    if is_entity_open:
+        output += f"[{current_entity_type}] {current_entity} [/{current_entity_type}] "
+
+    # Return the final formatted string, stripping any trailing whitespace
+    return output.strip()
 
 def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_per_prompt=5):
     label_list = gner_sample['label_list']
@@ -73,20 +117,21 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
     # create samples with N labels per prompt extraction
     for label_sublist in chunk_labels(label_list, labels_per_prompt):
         new_gner_sample = copy.deepcopy(gner_sample)  # Use deep copy
-        new_gner_sample['label_list'] = label_sublist
         # copy gold labels but set to O the ones we are not extracting
+        # set to upper case
         gold_labels = new_gner_sample['instance']['labels']
         gold_labels = filter_labels(gold_labels, label_sublist)
         new_gner_sample['instance']['labels'] = gold_labels
 
+        new_gner_sample['label_list'] = [l.upper() for l in label_sublist]
+
         instruction = general_instruction
-        instruction += f"\nUse the specific entity tags: {', '.join(label_sublist)} and O.\n"
+        instruction += f"\nIdentify the named entities with these specific entity tags: {', '.join(new_gner_sample['label_list'])}.\n"
         # it the path to DeG is provided, append the Def and Guidelines for each NE
         instruction += "To help you, here are dedicated DEFINITION and GUIDELINES for each entity tag.\n"
 
         sampled_labels_DeG = {}
-
-        for ne_tag in label_sublist:
+        for ne_tag in new_gner_sample['label_list']:
             orig_tag = ne_tag
             ne_tag = ne_tag.lower()
 
@@ -115,6 +160,7 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
 
 
 if __name__ == '__main__':
+
     test_set = load_dataset("json", data_files=f'../data/zero-shot-test.jsonl', split='train')
     print(test_set[0]['instance'])
 
@@ -145,5 +191,5 @@ if __name__ == '__main__':
 
     print(len(zero_shot_datasets_N_labels_per_prompt))
     zero_shot_datasets_N_labels_per_prompt = Dataset.from_list(zero_shot_datasets_N_labels_per_prompt)
-    zero_shot_datasets_N_labels_per_prompt.to_json("../data/zero-shot-test-wDeG-5NEperPrompt.jsonl")
+    zero_shot_datasets_N_labels_per_prompt.to_json("../data/zero-shot-test-SLIM-GNER-wDeG-5NEperPrompt.jsonl")
 

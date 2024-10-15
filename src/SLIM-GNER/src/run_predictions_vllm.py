@@ -266,7 +266,7 @@ def main():
     # evaluate
     tot_f1, tot_dataset = 0, 0
     for dataset in all_examples:
-        eval_result = SLIMGNEREvaluator().evaluate(all_examples[dataset], tokenizer=tokenizer)
+        eval_result = SLIMGNEREvaluator().evaluate(all_examples[dataset])
         print(
             f'\nDataset: {dataset}, F1: {eval_result["f1"]}, Precision: {eval_result["precision"]}, Recall: {eval_result["recall"]}')
         tot_f1 += eval_result["f1"]
