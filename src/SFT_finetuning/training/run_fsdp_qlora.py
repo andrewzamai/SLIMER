@@ -57,7 +57,7 @@ def training_function(script_args, training_args):
                 dataset_MSEQA_format=dataset_MSEQA_format_with_n_samples_per_NE_FalseDef,
                 with_definition=True,
                 path_to_NE_guidelines_json="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
-                path_to_save_to=f'./data/pileNER/{script_args.dataset_path}'
+                path_to_save_to=script_args.dataset_path
             )
 
     train_dataset = load_dataset(
