@@ -1,4 +1,4 @@
-MODEL_NAME_OR_PATH=merged_models/SLIM_GNER_wDeG_391xALL-LLaMA3
+MODEL_NAME_OR_PATH=merged_models/SLIMGNER-391xALL-wDeG-LLaMA3-8B-Instruct
 JSON_TEST_FILE=data/zero-shot-test-SLIM-GNER-wDeG-5NEperPrompt.jsonl
 
 python src/run_predictions_vllm.py \
