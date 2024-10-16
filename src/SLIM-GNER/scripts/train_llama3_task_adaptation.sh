@@ -6,10 +6,10 @@ MODEL_NAME_OR_PATH=meta-llama/Llama-3.1-8B-Instruct
 DATA_DIR=data
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
-OUTPUT_DIR=output/SLIMGNER-391xALL-wDeG-LLaMA3-8B-Instruct
+OUTPUT_DIR=output/SLIMGNER-391xALL-wDeG-LLaMA3-8B-Instruct-v2
 
 DEEPSPEED_CONFIG=configs/deepspeed_configs/deepspeed_zero1_llama.json
-RUN_NAME=SLIMGNER-391xALL-wDeG-LLaMA3-8B-Instruct
+RUN_NAME=SLIMGNER-391xALL-wDeG-LLaMA3-8B-Instruct-v2
 
 deepspeed --include="localhost:1" --master_port $port src/run.py \
     --bf16 True --tf32 True \

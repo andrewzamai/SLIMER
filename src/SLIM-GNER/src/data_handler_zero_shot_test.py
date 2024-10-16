@@ -127,8 +127,10 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
 
         instruction = general_instruction
         instruction += f"\nIdentify the named entities with these specific entity tags: {', '.join(new_gner_sample['label_list'])}.\n"
+        instruction += "Be aware that not all of these tags are necessarily present.\n"
+
         # it the path to DeG is provided, append the Def and Guidelines for each NE
-        instruction += "To help you, here are dedicated DEFINITION and GUIDELINES for each entity tag.\n"
+        instruction += "To help you, here are dedicated Definition and Guidelines for each entity tag.\n"
 
         sampled_labels_DeG = {}
         for ne_tag in new_gner_sample['label_list']:

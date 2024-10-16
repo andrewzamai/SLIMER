@@ -283,18 +283,23 @@ class SLIMGNERDataset(datasets.GeneratorBasedBuilder):
 
                 # define the number of labels to extract per prompt
                 labels_per_prompt = dataset.get("labels_per_prompt", 5)
-                # extract unique labels from the instance, excluding "O"
+                # extract labels set from this sample, excluding "O"
                 labels_in_instance = set(label.split('-')[-1] for label in labels if label != "O")
-                # sample N-1 labels from labels_in_instance, allowing for repetition
+
+                # number positive labels
+                nr_pos_labels = random.randint(0, labels_per_prompt)
+                nr_pos_labels = min(nr_pos_labels, len(labels_in_instance))
+                nr_neg_labels = labels_per_prompt - nr_pos_labels
+                # sample nr_pos_labels from labels_in_instance, allowing for repetition
                 sampled_labels = []
                 if labels_in_instance:
-                    sampled_labels = random.choices(list(labels_in_instance), k=labels_per_prompt - 1)
-                # Sample 1 label that is not in labels_in_instance from label_list
-                available_labels = [label for label in label_list if label not in labels_in_instance]
+                    sampled_labels = random.choices(list(labels_in_instance), k=nr_pos_labels)
+                # Sample nr_neg_labels that is not in labels_in_instance from label_list
+                available_neg_labels = [label for label in label_list if label not in labels_in_instance]
                 # Sample one label from available_labels, or default to "O" if none are available
-                if available_labels:
-                    new_label = random.choice(available_labels)
-                    sampled_labels.append(new_label)
+                if available_neg_labels:
+                    neg_labels = random.choices(available_neg_labels, k=nr_neg_labels)
+                    sampled_labels.extend(neg_labels)
 
                 # Set any label in instance['labels'] that is not in sampled_labels to "O"
                 for i in range(len(labels)):
@@ -310,12 +315,13 @@ class SLIMGNERDataset(datasets.GeneratorBasedBuilder):
                 sampled_labels = [l.upper() for l in sampled_labels]
 
                 instruction += f"\nIdentify the named entities with these specific entity tags: {', '.join(sampled_labels)}.\n"
+                instruction += "Be aware that not all of these tags are necessarily present.\n"
 
                 # it the path to DeG is provided, append the Def and Guidelines for each NE
                 path_to_DeG = dataset.get("path_to_DeG", "")
                 if path_to_DeG:
                     DeG_per_NEs = self.load_DeG_per_NEs(path_to_DeG)
-                    instruction += "To help you, here are dedicated DEFINITION and GUIDELINES for each entity tag.\n"
+                    instruction += "To help you, here are dedicated Definition and Guidelines for each entity tag:\n"
 
                     sampled_labels_DeG = {}
                     for ne_tag in sampled_labels:

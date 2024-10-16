@@ -13,12 +13,10 @@ if __name__ == '__main__':
     )
     print(raw_datasets)
 
-    print(raw_datasets['validation'][0]['instance']['instruction_inputs'])
+    #print(raw_datasets['validation'][0]['instance']['instruction_inputs'])
     raw_datasets['validation'].to_json('../data/SLIMGNER_pileNER_wD&G_validation.json')
 
     #data = load_dataset("json", data_files=f'../data/MultinerdIT/test_GNER_format.json')['train']
-    #print(data)
-    #print(data[0])
 
     from transformers import AutoTokenizer
 
@@ -35,6 +33,7 @@ if __name__ == '__main__':
     formatted_input = tokenizer.apply_chat_template(row_json, tokenize=False) #, add_generation_prompt=True)
     print(formatted_input)
 
+    """
     model_inputs = tokenizer.apply_chat_template(
         conversation=row_json[:-1],  # exclude last assistant message
         tokenize=True,
@@ -48,6 +47,8 @@ if __name__ == '__main__':
     print(len(model_inputs))
     print(model_inputs)
     print(tokenizer.decode(model_inputs))
+    
+    """
 
     #print(tokenizer.tokenize("<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n\n"))
 
