@@ -111,11 +111,14 @@ class SLIMER_PARALLEL_instruction_prompter(object):
         self,
         ne_tags: str,
         def_and_guidelines: Union[None, str] = None,
+        expected_json_format: Union[None, str] = None
     ) -> str:
         if def_and_guidelines:
             res = self.template["with_DeG"].replace(
                 "{ne_tags}", ne_tags).replace(
-                "{Def_and_Guidelines}", def_and_guidelines)
+                "{Def_and_Guidelines}", def_and_guidelines).replace(
+                "{expected_json_format}", expected_json_format
+            )
         else:
             res = self.template["without_DeG"].format(
                 ne_tags=ne_tags

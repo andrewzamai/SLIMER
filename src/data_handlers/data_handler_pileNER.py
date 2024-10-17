@@ -950,7 +950,9 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
                 def_and_guidelines[l] = values_indexed_bytag[l]['def_and_guidelines']
                 json_output[l] = values_indexed_bytag[l]['this_tagName_output']
 
-            instruction = slimer_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels), def_and_guidelines=json.dumps(def_and_guidelines, indent=2))
+            instruction = slimer_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels),
+                                                          def_and_guidelines=json.dumps(def_and_guidelines, indent=2),
+                                                          expected_json_format=json.dumps({k: [] for k in json_output.keys()}, indent=2))
             test_set.append({
                 "input": input,
                 "instruction": instruction,
