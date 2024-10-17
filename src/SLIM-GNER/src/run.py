@@ -383,7 +383,7 @@ def main():
                     truncation=True,
                     padding=False,
                     max_length=data_args.max_source_length,
-                    add_generation_prompt=False,  # start the assistant response for continuation
+                    add_generation_prompt=True,  # start the assistant response for continuation
                     return_tensors=None,
                     return_dict=True
                 )["input_ids"]
