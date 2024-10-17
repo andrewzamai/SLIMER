@@ -31,7 +31,7 @@ deepspeed --include="localhost:0" --master_port $port src/run.py \
     --learning_rate 3e-04 \
     --weight_decay 0.01 \
     --warmup_ratio 0.04 \
-    --num_train_epochs 3 \
+    --num_train_epochs 2 \
     --lr_scheduler_type "cosine" \
     --deepspeed $DEEPSPEED_CONFIG \
     --run_name $RUN_NAME \
