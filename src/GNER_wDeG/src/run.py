@@ -490,7 +490,7 @@ def main():
 
     def compute_ner_metrics(dataset, preds, save_prefix=None):
         preds = np.where(preds != -100, preds, tokenizer.pad_token_id)
-        decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
+        decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=False)  # it was set to TRUE
         if not is_encoder_decoder:
             if model_args.model_name_or_path == "meta-llama/Llama-2-7b-chat-hf":
                 match_pattern = "[/INST]"
