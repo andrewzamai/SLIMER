@@ -27,7 +27,7 @@ from collections import OrderedDict, Counter
 from datasets import Dataset, DatasetDict, load_dataset
 
 # SLIMER prompter to format a ne_tag, Def and Guidelines into a prompt for NER
-from src.SFT_finetuning.commons.prompter import SLIMER_instruction_prompter
+from src.SFT_finetuning.commons.prompter import SLIMER_instruction_prompter, SLIMER_PARALLEL_instruction_prompter
 
 
 def extract_context_quests_answers(conversation):
@@ -743,7 +743,132 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_inference(dataset_name, path_to_da
     return Dataset.from_list(dataset_GenQA)
 
 
+def load_DeG_per_NEs(path_to_DeG):
+    """ load json and eval to dictionary the D&G for each NE """
+    if not path_to_DeG:
+        raise Exception("Path to Def & Guidelines not provided")
+    if not os.path.exists(path_to_DeG):
+        raise ValueError(f"Can't find or read D&G at {path_to_DeG}")
+    with open(path_to_DeG) as fp:
+        DeG_per_NEs_raw = json.load(fp)
+    # converting list to dict for fast access
+    if DeG_per_NEs_raw and isinstance(DeG_per_NEs_raw, list):
+        DeG_per_NEs_raw = {x['named_entity']: x for x in DeG_per_NEs_raw}
+    for ne_tag, values in DeG_per_NEs_raw.items():
+        gpt_definition = values['gpt_answer']
+        if not gpt_definition.endswith("}"):
+            if not gpt_definition.endswith("\""):
+                gpt_definition += "\""
+            gpt_definition += "}"
+
+        this_ne_guidelines = eval(gpt_definition)
+        # replacing ne types occurrences between single quotes to their UPPERCASE
+        ne_type_in_natural_language = ne_tag
+        pattern = re.compile(rf'\'{re.escape(ne_type_in_natural_language)}\'', re.IGNORECASE)
+        this_ne_guidelines = {k: pattern.sub(f'{ne_type_in_natural_language.upper()}', v) for k, v in this_ne_guidelines.items()}
+        values['gpt_answer'] = this_ne_guidelines
+
+    return DeG_per_NEs_raw
+
+def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prompt=5, path_to_DeG=""):
+    print("Downloading PileNER dataset from HF...")
+    sys.stdout.flush()
+    # downloading raw dataset from huggingface repo (has only "train" partition)
+    raw_dataset = load_dataset("Universal-NER/Pile-NER-type")
+
+    tagName_to_remove_list = ["actor", "character", "genre", "song", "year",  # MOVIE, title left because polysemous
+                              "dish", "restaurant",  # RESTAURANT
+                              "algorithm", "field", "metric", "product", "programming language", "task", "university",  # AI
+                              "award", "book", "event", "genre", "magazine",  # LITERATURE
+                              "album", "award", "band", "artist", "instrument", "musical instrument", "music genre",
+                              "genre", "song",  # MUSIC
+                              "event", "political party",  # POLITICS
+                              "journal", "object", "chemical compound", "chemical", "element", "enzyme", "event",  # SCIENCE
+                              "company", "legal"]  # BUSTER
+    tagName_to_remove_list = list(set(tagName_to_remove_list))
+
+    if path_to_DeG:
+        DeG_per_NEs = load_DeG_per_NEs(path_to_DeG)
+    slimer_parallel_prompter = SLIMER_PARALLEL_instruction_prompter("SLIMER_PARALLEL_instruction_template", '../SFT_finetuning/templates')
+
+    samples = []
+    samples_progressiveID = 0
+    for raw_sample in raw_dataset['train']['conversations']:
+        # extract context and list of question-goldAnswers associated to each context
+        context, questions_answers_list = extract_context_quests_answers(raw_sample).values()
+
+        answers_per_tagName_dict = {}
+        at_least_one_positive = False
+        for q_a in questions_answers_list:
+            tagName = q_a["ne_type"]
+            if tagName in top_391_NEs_list and tagName not in tagName_to_remove_list:
+                if len(answers_per_tagName_dict.keys()) < max_tagNames_per_prompt:
+                    answers_per_tagName_dict[tagName.upper()] = list(set(q_a["answers"]['text']))
+                    if q_a["answers"]['text']:
+                        at_least_one_positive = True
+
+        tagNames_DeG = ""
+        if path_to_DeG:
+            tagNames_DeG = {}
+            for ne_tag in answers_per_tagName_dict.keys():
+                tagNames_DeG[ne_tag] = DeG_per_NEs[ne_tag.lower()]['gpt_answer']
+            tagNames_DeG = json.dumps(tagNames_DeG, indent=2)
+
+        instruction = slimer_parallel_prompter.generate_prompt(ne_tags=", ".join(answers_per_tagName_dict.keys()), def_and_guidelines=tagNames_DeG)
+
+        # add the sample only if there are some tagNames and are not all []
+        if at_least_one_positive:
+            samples.append({
+                "id": samples_progressiveID,
+                "input": context,
+                "instruction": instruction,
+                "output": json.dumps(answers_per_tagName_dict, indent=2)
+            })
+            samples_progressiveID += 1
+
+    train_ratio = 0.9
+    num_samples = len(samples)
+    num_train = int(train_ratio * num_samples)
+    train_fold = samples[:num_train]
+    val_test_fold = samples[num_train:]
+
+    val_fold = val_test_fold[:math.floor(len(val_test_fold) / 2.0)]
+    test_fold = val_test_fold[math.floor(len(val_test_fold) / 2.0):]
+
+    random.seed(42)
+    random.shuffle(train_fold)
+    random.shuffle(val_fold)
+    random.shuffle(test_fold)
+
+    train_dataset = Dataset.from_list(train_fold)
+    validation_dataset = Dataset.from_list(val_fold)
+    test_dataset = Dataset.from_list(test_fold)
+
+    return DatasetDict({
+        "train": train_dataset,
+        "validation": validation_dataset,
+        "test": test_dataset
+    })
+
+
 if __name__ == "__main__":
+
+    from src.SFT_finetuning.commons.basic_utils import load_json
+    top_391_NEs_list = list(load_json("./questions/pileNER/top391NEs_definitions.json").keys())
+    print(top_391_NEs_list)
+
+    datasetDict_SLIMER_PARALLEL_format = build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prompt=5, path_to_DeG="./questions/pileNER/top391NEs_definitions.json")
+    print(datasetDict_SLIMER_PARALLEL_format)
+    print(datasetDict_SLIMER_PARALLEL_format['train'])
+    print(datasetDict_SLIMER_PARALLEL_format['train'][0])
+    print(datasetDict_SLIMER_PARALLEL_format['train'][1])
+    print(datasetDict_SLIMER_PARALLEL_format['train'][11]['instruction'])
+    print(datasetDict_SLIMER_PARALLEL_format['train'][11]['input'])
+    print(datasetDict_SLIMER_PARALLEL_format['train'][11]['output'])
+
+    datasetDict_SLIMER_PARALLEL_format['train'].to_json("../../data/pileNER/pileNER_SLIMER_PARALLEL_format_train.jsonl")
+
+    """
 
     dataset_MSEQA_format_with_n_samples_per_NE_FalseDef = build_dataset_MSEQA_format_with_n_samples_per_NE_pos_neg(
         n_pos_samples_per_NE=5,
@@ -773,6 +898,8 @@ if __name__ == "__main__":
     pileNER_subset_train = load_dataset("json", data_files=path_to_dataset)
     print(pileNER_subset_train)
     print(pileNER_subset_train['train'][0])
+    
+    """
 
     """
     crossNER_test_Dataset = convert_MIT_CrossNER_test_sets_for_SLIMER_inference(

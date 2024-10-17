@@ -30,7 +30,6 @@ def generate_and_tokenize_prompt(data_point, tokenizer, prompter, cutoff_len, tr
             data_point["output"],
         )
         tokenized_full_prompt = tokenize(tokenizer, full_prompt, cutoff_len)
-
     else:
         truncated_input = ''
         if "input" in data_point and data_point["input"]:

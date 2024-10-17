@@ -91,6 +91,37 @@ class SLIMER_instruction_prompter(object):
             )
         return res
 
+class SLIMER_PARALLEL_instruction_prompter(object):
+
+    __slots__ = ("template", "template_path", "_verbose")
+
+    def __init__(self, template_name: str = "", template_path: str = "templates", verbose: bool = True):
+        self._verbose = verbose
+        if not template_name:
+            template_name = "SLIMER_PARALLEL_instruction_template"
+        file_name = osp.join(template_path, f"{template_name}.json")
+        if not osp.exists(file_name):
+            raise ValueError(f"Can't read {file_name}")
+        with open(file_name) as fp:
+            self.template = json.load(fp)
+        if self._verbose:
+            print(f"Using prompt template {template_name}: {self.template['description']}\n")
+
+    def generate_prompt(
+        self,
+        ne_tags: str,
+        def_and_guidelines: Union[None, str] = None,
+    ) -> str:
+        if def_and_guidelines:
+            res = self.template["with_DeG"].replace(
+                "{ne_tags}", ne_tags).replace(
+                "{Def_and_Guidelines}", def_and_guidelines)
+        else:
+            res = self.template["without_DeG"].format(
+                ne_tags=ne_tags
+            )
+        return res
+
 
 if __name__ == '__main__':
 
