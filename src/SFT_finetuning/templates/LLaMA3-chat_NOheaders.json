@@ -1,0 +1,6 @@
+{
+    "description": "SLIMER LLaMA3 Instruct Template NO HEADERS",
+    "prompt_input": "You are given a text chunk (delimited by triple quotes) and an instruction.\nRead the text and answer to the instruction in the end.\n\"\"\"\n{input}\n\"\"\"\nInstruction: {instruction}",
+    "prompt_no_input": "Instruction: {instruction}",
+    "response_split": "<|eot_id|>"
+}

@@ -23,7 +23,7 @@ import math
 import random
 import string
 import numpy as np
-from collections import OrderedDict, Counter
+from collections import OrderedDict, Counter, defaultdict
 from datasets import Dataset, DatasetDict, load_dataset
 
 # SLIMER prompter to format a ne_tag, Def and Guidelines into a prompt for NER
@@ -850,9 +850,137 @@ def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prom
         "test": test_dataset
     })
 
+def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, path_to_dataset, with_definition, path_to_NE_guidelines_json, max_tagNames_per_prompt=5, SLIMER_prompter_name='SLIMER_PARALLEL_instruction_template'):
+    """
+    Converts MIT/CrossNER test sets for SLIMER inference format.
+    """
+    try:
+        with open(path_to_dataset, 'r') as fh:
+            uniNER_eval_samples = json.load(fh)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"{dataset_name} json file not found at {path_to_dataset}")
+
+    # we load guidelines also if with_def False to make NE mapping to canonical names (uniNER eval NEs are different)
+    try:
+        all_NEs_guidelines = load_DeG_per_NEs(path_to_NE_guidelines_json)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Definition and Guidelines file not found at {path_to_NE_guidelines_json}, required also if D&G set to False")
+
+    samples_grouped_by_input = defaultdict(list)
+    for uniNER_sample in uniNER_eval_samples:
+
+        context, questions_answers_list = extract_context_quests_answers(uniNER_sample['conversations']).values()
+
+        if len(questions_answers_list) > 1:
+            raise ValueError("Expected only 1 question")
+
+        question, ne_type, answers = questions_answers_list[0].values()
+
+        # some uniNER NEs are different from the original NEs
+        try:
+            gpt_definition = all_NEs_guidelines[ne_type]['gpt_answer']
+            # NE name in natural languange form, e.g. ORG --> organization
+            real_name_ne = all_NEs_guidelines[ne_type]['real_name']
+        except KeyError:
+            if dataset_name in ['ai', 'literature', 'science', 'politics', 'music']:
+                ne_mapping = {
+                    'organization': 'organisation',
+                    'program language': 'programlang',
+                    'literary genre': 'literarygenre',
+                    'astronomical object': 'astronomicalobject',
+                    'chemical element': 'chemicalelement',
+                    'chemical compound': 'chemicalcompound',
+                    'academic journal': 'academicjournal',
+                    'political party': 'politicalparty',
+                    'musical artist': 'musicalartist',
+                    'musical instrument': 'musicalinstrument',
+                    'music genre': 'musicgenre',
+                }
+            elif dataset_name == 'movie':
+                ne_mapping = {
+                    'character': 'CHARACTER',
+                    'plot': 'PLOT',
+                    'year': 'YEAR',
+                    'director': 'DIRECTOR',
+                    'rating': 'RATING',
+                    'average ratings': 'RATINGS_AVERAGE',
+                    'actor': 'ACTOR',
+                    'genre': 'GENRE',
+                    'song': 'SONG',
+                    'trailer': 'TRAILER',
+                    'review': 'REVIEW',
+                    'title': 'TITLE'
+                }
+            elif dataset_name == 'restaurant':
+                ne_mapping = {
+                    'amenity': 'Amenity',
+                    'location': 'Location',
+                    'cuisine': 'Cuisine',
+                    'restaurant name': 'Restaurant_Name',
+                    'rating': 'Rating',
+                    'hours': 'Hours',
+                    'price': 'Price',
+                    'dish': 'Dish'
+                }
+            ne_type = ne_mapping[ne_type]
+            gpt_definition = all_NEs_guidelines[ne_type]['gpt_answer']
+            real_name_ne = all_NEs_guidelines[ne_type]['real_name']
+
+        samples_grouped_by_input[context].append({
+            "tagName": real_name_ne.upper(),
+            "this_tagName_output": list(set(answers['text'])),
+            "def_and_guidelines": gpt_definition
+        })
+
+    # samples_grouped_by_input = {i: (key, values) for i, (key, values) in enumerate(samples_grouped_by_input.items())}
+
+    slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, '../../src/SFT_finetuning/templates')
+    test_set = []
+    for input, values in samples_grouped_by_input.items():
+
+        values_indexed_bytag = {v['tagName']: v for v in values}
+        full_tagNames_list = list(values_indexed_bytag.keys())
+
+        for this_sample_labels in chunk_labels(full_tagNames_list, max_tagNames_per_prompt):
+            json_output = {}
+            tagNames_list = []
+            def_and_guidelines = {}
+            for l in this_sample_labels:
+                tagNames_list.append(l)
+                def_and_guidelines[l] = values_indexed_bytag[l]['def_and_guidelines']
+                json_output[l] = values_indexed_bytag[l]['this_tagName_output']
+
+            instruction = slimer_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels), def_and_guidelines=json.dumps(def_and_guidelines, indent=2))
+            test_set.append({
+                "input": input,
+                "instruction": instruction,
+                "output": json.dumps(json_output, indent=2)
+            })
+
+    return test_set
+
+def chunk_labels(lst, N):
+    """Yield successive N-sized labels from lst."""
+    for i in range(0, len(lst), N):
+        yield lst[i:i + N]
+
 
 if __name__ == "__main__":
 
+    ai_test_set = convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
+        dataset_name='ai',
+        path_to_dataset="../../data/eval_data_UniNER/test_data/CrossNER_AI.json",
+        with_definition=True,
+        path_to_NE_guidelines_json="./questions/crossNER/gpt_guidelines/ai_NE_definitions.json",
+        SLIMER_prompter_name='SLIMER_PARALLEL_instruction_template'
+    )
+    print(ai_test_set)
+    print("\n\n")
+    print(ai_test_set[0])
+    print(ai_test_set[1])
+    print(ai_test_set[2])
+
+    """
     from src.SFT_finetuning.commons.basic_utils import load_json
     top_391_NEs_list = list(load_json("./questions/pileNER/top391NEs_definitions.json").keys())
     print(top_391_NEs_list)
@@ -867,6 +995,8 @@ if __name__ == "__main__":
     print(datasetDict_SLIMER_PARALLEL_format['train'][11]['output'])
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json("../../data/pileNER/pileNER_SLIMER_PARALLEL_format_train.jsonl")
+    """
+
 
     """
 

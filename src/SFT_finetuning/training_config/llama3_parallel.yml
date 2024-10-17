@@ -1,9 +1,9 @@
-# fine-tuning Llama-2-7b-chat on PileNER-subset with topNE NEs and N samples per NE (N positive + N negative)
-
 base_model: meta-llama/Llama-3.1-8B-Instruct
-# NB: this Huggingface repository requires to login with an account with granted access
-prompt_template_name: LLaMA3-chat
-# using dataset GenQA format (instruction, input, output) columns
+# NB: this HF repo requires to login with an account with granted access
+
+# prompt_template_name: LLaMA3-chat # deprecated
+# dataset (instruction, input, output) columns
+system_message: You are a helpful NER assistant designed to output JSON.
 data_path: None
 val_data_path: None
 select_train_portion: -1

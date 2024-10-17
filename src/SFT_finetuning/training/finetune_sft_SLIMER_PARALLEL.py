@@ -26,6 +26,7 @@ def train(
         val_data_path: str = "",
         output_dir: str = "./lora-alpaca",
         task_instruction: str = '',
+        system_message: str = 'You are a helpful assistant.',
         text_col: str = '',
         output_col: str = '',
         dataset_name: str = '',
@@ -42,7 +43,7 @@ def train(
         lora_r: int = 8,
         lora_alpha: int = 16,
         lora_dropout: float = 0.05,
-        lora_target_modules: List[str] = ("q_proj", "v_proj"),
+        lora_target_modules: List[str] = ("q_proj", "v_proj", "k_proj"),
         # llm hyperparams
         train_on_inputs: bool = False,  # if False, masks out inputs in loss
         group_by_length: bool = False,  # faster, but produces an odd training loss curve
@@ -71,6 +72,7 @@ def train(
             f"LoRA SFT training with params:\n"
             f"base_model: {base_model}\n"
             f"task instruction: {task_instruction}\n"
+            f"system message: {system_message}\n"
             f"text col: {text_col}\n"
             f"output col: {output_col}\n"
             f"load_8bit: {load_8bit}\n"
@@ -165,6 +167,12 @@ def train(
             example["instruction"] = task_instruction
             return example
         data = data.map(lambda x: add_instruction(x), desc="Adding instruction to examples")
+
+    if system_message:
+        def add_system_message(example):
+            example["system_message"] = system_message
+            return example
+        data = data.map(lambda x: add_system_message(x), desc="Adding system message to examples")
 
     if text_col:
         data = data.rename_column(text_col, "input")
