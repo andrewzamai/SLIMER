@@ -957,7 +957,7 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
                 "output": json.dumps(json_output, indent=2)
             })
 
-    return test_set
+    return Dataset.from_list(test_set)
 
 def chunk_labels(lst, N):
     """Yield successive N-sized labels from lst."""
