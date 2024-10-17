@@ -246,19 +246,31 @@ class GNERDataset(datasets.GeneratorBasedBuilder):
                 words, labels = instance["words"], instance["labels"]
                 instruction = self._get_instruction()
 
-                # SAMPLE labels_per_prompt:int to extract per prompt
+                # define the number of labels to extract per prompt
                 labels_per_prompt = dataset.get("labels_per_prompt", 5)
-                # sample N labels from the top 391
-                sampled_labels = random.sample(label_list, labels_per_prompt)
-                labels_in_instance = list(set([label.split('-')[-1] for label in instance["labels"] if label != "O"]))
-                # if not all O we need to replace one of the sampled labels with the positive occurrence for this instance
+                # extract labels set from this sample, excluding "O"
+                labels_in_instance = set(label.split('-')[-1] for label in labels if label != "O")
+
+                # number positive labels
+                nr_pos_labels = random.randint(0, labels_per_prompt)
+                nr_pos_labels = min(nr_pos_labels, len(labels_in_instance))
+                nr_neg_labels = labels_per_prompt - nr_pos_labels
+                # sample nr_pos_labels from labels_in_instance, allowing for repetition
+                sampled_labels = []
                 if labels_in_instance:
-                    for i, label in enumerate(labels_in_instance):
-                        #random_index = random.randint(0, len(sampled_labels) - 1)
-                        if i < len(sampled_labels):
-                            sampled_labels[i] = label
-                        else:
-                            sampled_labels.append(label)
+                    sampled_labels = random.choices(list(labels_in_instance), k=nr_pos_labels)
+                # Sample nr_neg_labels that is not in labels_in_instance from label_list
+                available_neg_labels = [label for label in label_list if label not in labels_in_instance]
+                # Sample one label from available_labels, or default to "O" if none are available
+                if available_neg_labels:
+                    neg_labels = random.choices(available_neg_labels, k=nr_neg_labels)
+                    sampled_labels.extend(neg_labels)
+
+                # Set any label in instance['labels'] that is not in sampled_labels to "O"
+                for i in range(len(labels)):
+                    if labels[i].split('-')[-1] not in sampled_labels:
+                        labels[i] = "O"  # Replace with "O" if not in sampled_labels
+
                 random.shuffle(sampled_labels)
 
                 instruction += f"\nUse the specific entity tags: {', '.join(sampled_labels)} and O.\n"

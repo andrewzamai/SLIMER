@@ -3,6 +3,6 @@
         "dataset name": "391xALL_BIO",
         "sampling strategy": "full",
         "labels_per_prompt": 5,
-        "path_to_DeG": "../data_handlers/questions/pileNER/top391NEs_definitions.json"
+        "path_to_DeG": ""
     }
 ]

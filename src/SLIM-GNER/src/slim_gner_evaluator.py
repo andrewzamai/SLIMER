@@ -136,7 +136,8 @@ def parser(words, labels):
 
 
 def main():
-    prediction_path = '../data/SLIMGNER_pileNER_wD&G_validation.json'
+    #prediction_path = '../data/SLIMGNER_pileNER_wD&G_validation.json'
+    prediction_path = '/Users/andrew/Desktop/SLIMGNER-391xALL-wDeG-LLaMA3-8B-Instruct-v2-CrossNER-MIT-wDeG-5NEperPrompt.jsonl'
     all_examples = defaultdict(list)
     with open(prediction_path, 'r') as fh:
         for line in fh.readlines():
