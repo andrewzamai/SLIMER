@@ -39,12 +39,16 @@ def normalize_answer(s):
 
 def parser(text):
     try:
-        match = re.match(r'\[(.*?)\]', text)
-        if match:
-            text = match.group()
+        if not isinstance(text, list):
+            match = re.match(r'\[(.*?)\]', text)
+            if match:
+                text = match.group()
+            else:
+                text = '[]'
+            items = json.loads(text)
         else:
-            text = '[]'
-        items = json.loads(text)
+            items = text
+
         formatted_items = []
         for item in items:
             if isinstance(item, list) or isinstance(item, tuple):
@@ -54,6 +58,7 @@ def parser(text):
             if item not in formatted_items:
                 formatted_items.append(item)
         return formatted_items
+
     except Exception:
         return []
 
