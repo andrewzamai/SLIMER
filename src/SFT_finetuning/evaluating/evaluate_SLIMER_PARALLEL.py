@@ -126,7 +126,7 @@ if __name__ == '__main__':
     partial_evaluate = False
     print(f"\npartial_evaluate: {partial_evaluate}")
 
-    cutoff_len = 2048
+    cutoff_len = 3096
     print(f"\ninput_cutoff_len: {cutoff_len}")
 
     max_new_tokens = 2048
