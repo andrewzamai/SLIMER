@@ -106,7 +106,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
 
 
 if __name__ == '__main__':
-
+    # CUDA_VISIBLE_DEVICES=2 python src/SFT_finetuning/evaluating/evaluate_SLIMER_PARALLEL.py meta-llama/Llama-3.1-8B-Instruct 5 --with_guidelines
     parser = argparse.ArgumentParser(description='''Evaluate SLIMER-PARALLEL Zero-Shot NER performance''')
     parser.add_argument('merged_model_name', type=str, help='path_to_merged_model')
     parser.add_argument('max_tagNames_per_prompt', type=int, help='max_tagNames_per_prompt')
@@ -198,8 +198,8 @@ if __name__ == '__main__':
                     all_gold_answers_per_type[tagName].append(this_tag_golds)
 
             # unpacking as list of lists
-            pred_answers_for_micro = [preds for tagName, preds in all_pred_answers_per_type]
-            gold_answers_for_micro = [golds for tagName, golds in all_gold_answers_per_type]
+            pred_answers_for_micro = [preds for tagName, preds in all_pred_answers_per_type.items()]
+            gold_answers_for_micro = [golds for tagName, golds in all_gold_answers_per_type.items()]
             if partial_evaluate:
                 eval_result = uniNER_official_eval_script.NEREvaluator().partial_evaluate(pred_answers_for_micro, gold_answers_for_micro)
             else:
