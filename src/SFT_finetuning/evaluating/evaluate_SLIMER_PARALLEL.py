@@ -32,8 +32,44 @@ from src.SFT_finetuning.commons.preprocessing import truncate_input
 from src.SFT_finetuning.commons.prompter import Prompter
 from src.SFT_finetuning.evaluating.eval_utils import chunk_document_with_sliding_window, aggregate_preds_from_chunks
 
+import json
 
-def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, data_handler, with_definition, max_tagNames_per_prompt):
+
+def parse_json_pred(sample, response):
+    try:
+        parsed_response = json.loads(response)
+    except json.JSONDecodeError:
+        parsed_response = {}
+    try:
+        parsed_gold_output = json.loads(sample['output'])
+    except json.JSONDecodeError:
+        parsed_gold_output = {}
+
+    # check for hallucinated types (unexpected keys)
+    expected_keys = set(parsed_gold_output.keys())
+    keys_in_response = set(parsed_response.keys())
+
+    # identify and remove unexpected (hallucinated) keys
+    unexpected_keys = keys_in_response - expected_keys
+    for key in unexpected_keys:
+        parsed_response.pop(key)
+
+    # check for missing keys or not parsable
+    for key in expected_keys:
+        # if missing set it to []
+        value = parsed_response.get(key, [])
+        if not isinstance(value, list):
+            parsed_response[key] = []
+        elif isinstance(value, list) and any(not isinstance(x, str) for x in value):
+            value = [x for x in value if isinstance(x, str)]
+            parsed_response[key] = value
+        else:
+            continue
+
+    return parsed_gold_output, parsed_response
+
+def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, data_handler, with_definition,
+                                        max_tagNames_per_prompt):
     """
     universal-ner github provides the crossNER and MIT NER-datasets already in a conversation-QA format (eval_dataset_uniNER folder);
     here we convert the dataset to our usual features and replace "instruction" with the NE D&G if with_definition=True
@@ -44,14 +80,24 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
     if datasets_cluster_name == 'crossNER':
         path_to_eval_dataset_uniNER = f"./data/eval_data_UniNER/test_data/CrossNER_{subdataset_name}.json"
         path_to_guidelines_folder = f"./src/data_handlers/questions/{datasets_cluster_name}/gpt_guidelines"
-        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder, subdataset_name + '_NE_definitions.json')
-        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(subdataset_name, path_to_eval_dataset_uniNER, with_definition, path_to_subdataset_guidelines, max_tagNames_per_prompt)
+        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder,
+                                                     subdataset_name + '_NE_definitions.json')
+        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(subdataset_name,
+                                                                                         path_to_eval_dataset_uniNER,
+                                                                                         with_definition,
+                                                                                         path_to_subdataset_guidelines,
+                                                                                         max_tagNames_per_prompt)
 
     elif datasets_cluster_name == 'MIT':
         path_to_eval_dataset_uniNER = f"./data/eval_data_UniNER/test_data/mit-{subdataset_name}.json"
         path_to_guidelines_folder = f"./src/data_handlers/questions/{datasets_cluster_name}/gpt_guidelines"
-        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder, subdataset_name + '_NE_definitions.json')
-        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(subdataset_name, path_to_eval_dataset_uniNER, with_definition, path_to_subdataset_guidelines, max_tagNames_per_prompt)
+        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder,
+                                                     subdataset_name + '_NE_definitions.json')
+        return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(subdataset_name,
+                                                                                         path_to_eval_dataset_uniNER,
+                                                                                         with_definition,
+                                                                                         path_to_subdataset_guidelines,
+                                                                                         max_tagNames_per_prompt)
 
     elif datasets_cluster_name == 'BUSTER':
         pass
@@ -72,8 +118,8 @@ if __name__ == '__main__':
     to_eval_on = [
         # converting from uniNER eval datasets using function inside data_handler_pileNER
         {'datasets_cluster_name': 'crossNER', 'data_handler': data_handler_pileNER, 'subdataset_names': ['ai', 'literature', 'music', 'politics', 'science']},
-        #{'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
-        #{'datasets_cluster_name': 'BUSTER', 'data_handler': data_handler_BUSTER, 'subdataset_names': ['BUSTER']},
+        # {'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
+        # {'datasets_cluster_name': 'BUSTER', 'data_handler': data_handler_BUSTER, 'subdataset_names': ['BUSTER']},
     ]
 
     print(f"\nLLM model: {args.merged_model_name}")
@@ -95,6 +141,7 @@ if __name__ == '__main__':
     sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
     print(sampling_params)
 
+    # prompter to prefix input to the instruction
     input_instruction_prompter = Prompter('LLaMA3-chat-NOheaders', template_path='./src/SFT_finetuning/templates')
 
     for data in to_eval_on:
@@ -104,22 +151,16 @@ if __name__ == '__main__':
             print(f"\n\nEvaluating model on '{subdataset_name}' test fold...\n")
 
             # 1) Load dataset and convert it to SLIMER-PARALLEL format
-            dataset_SLIMER_PARALLEL_format = load_or_build_dataset_SLIMER_format(data['datasets_cluster_name'], subdataset_name, data['data_handler'], args.with_guidelines, args.max_tagNames_per_prompt)
+            dataset_SLIMER_PARALLEL_format = load_or_build_dataset_SLIMER_format(
+                data['datasets_cluster_name'],
+                subdataset_name,
+                data['data_handler'],
+                args.with_guidelines,
+                args.max_tagNames_per_prompt
+            )
             print(dataset_SLIMER_PARALLEL_format)
             print(dataset_SLIMER_PARALLEL_format[0])
             sys.stdout.flush()
-
-            """ 
-            # 2) for each tagName save the indices of the associated samples
-            preds_per_tagName = defaultdict(list)
-
-            # 3) input, instructions and gold answers
-            gold_answers_per_tagName = defaultdict(list)
-            for sample in dataset_SLIMER_PARALLEL_format:
-                output = json.loads(dataset_SLIMER_PARALLEL_format['output'])
-                for tagName, ga in output.items():
-                    gold_answers_per_tagName[output].append(ga)
-            """
 
             def format_chat_template(row):
                 system_message = "You are a helpful NER assistant designed to output JSON."
@@ -134,12 +175,98 @@ if __name__ == '__main__':
             dataset_SLIMER_PARALLEL_format = dataset_SLIMER_PARALLEL_format.map(format_chat_template)
             prompts = dataset_SLIMER_PARALLEL_format['prompt']
             print(prompts[0])
+
             responses = vllm_model.generate(prompts, sampling_params)
 
             # 7) retrieve pred answers, aggregate them from chunks back to document level
             all_pred_answers = [output.outputs[0].text.strip() for output in responses]
 
             print(all_pred_answers[0:10])
+
+            all_pred_answers_per_type = defaultdict(list)
+            all_gold_answers_per_type = defaultdict(list)
+            for i, sample in enumerate(dataset_SLIMER_PARALLEL_format):
+                pred = all_pred_answers[i]
+                # parse gold and pred json, removing hallucinated types
+                # and checking that each pred is a list of str
+                parsed_gold_output, parsed_response = parse_json_pred(sample, pred)
+
+                for tagName, this_tag_preds in parsed_response.items():
+                    all_pred_answers_per_type[tagName].append(this_tag_preds)
+
+                for tagName, this_tag_golds in parsed_gold_output.items():
+                    all_gold_answers_per_type[tagName].append(this_tag_golds)
+
+            # unpacking as list of lists
+            pred_answers_for_micro = [preds for tagName, preds in all_pred_answers_per_type]
+            gold_answers_for_micro = [golds for tagName, golds in all_gold_answers_per_type]
+            if partial_evaluate:
+                eval_result = uniNER_official_eval_script.NEREvaluator().partial_evaluate(pred_answers_for_micro, gold_answers_for_micro)
+            else:
+                eval_result = uniNER_official_eval_script.NEREvaluator().evaluate(pred_answers_for_micro, gold_answers_for_micro)
+
+            precision = round(eval_result["precision"]*100, 2)
+            recall = round(eval_result["recall"]*100, 2)
+            f1 = round(eval_result["f1"]*100, 2)
+            print("\n{} ==> micro-Precision: {:.2f}, micro-Recall: {:.2f}, micro-F1: {:.2f}".format(subdataset_name, precision, recall, f1))
+
+            print("\nMetrics per NE category (100%):\n")
+            this_dataset_metrics = {}
+            for tagName in all_gold_answers_per_type.keys():
+                this_tagName_golds = all_gold_answers_per_type[tagName]
+                this_tagName_preds = all_pred_answers_per_type[tagName]
+                if partial_evaluate:
+                    eval_result = uniNER_official_eval_script.NEREvaluator().partial_evaluate(this_tagName_preds, this_tagName_golds)
+                else:
+                    eval_result = uniNER_official_eval_script.NEREvaluator().evaluate(this_tagName_preds, this_tagName_golds)
+
+                print("{} --> support: {}".format(tagName, eval_result['support']))
+                print("{} --> TP: {}, FN: {}, FP: {}, TN: {}".format(tagName, eval_result['TP'], eval_result['FN'], eval_result['FP'], -1))
+                precision = round(eval_result["precision"] * 100, 2)
+                recall = round(eval_result["recall"] * 100, 2)
+                f1 = round(eval_result["f1"] * 100, 2)
+                print("{} --> Precision: {:.2f}, Recall: {:.2f}, F1: {:.2f}".format(tagName, precision, recall, f1))
+                print("---------------------------------------------------------- ")
+                this_dataset_metrics[tagName] = {
+                    'support': eval_result['support'],
+                    'precision': precision,
+                    'recall': recall,
+                    'f1': f1
+                }
+
+            # computing MACRO scores
+            this_dataset_precisions = [this_dataset_metrics[tagName]['precision'] for tagName in this_dataset_metrics]
+            this_dataset_recalls = [this_dataset_metrics[tagName]['recall'] for tagName in this_dataset_metrics]
+            this_dataset_f1s = [this_dataset_metrics[tagName]['f1'] for tagName in this_dataset_metrics]
+            this_dataset_supports = [this_dataset_metrics[tagName]['support'] for tagName in this_dataset_metrics]
+            print(
+                "\n{} ==> MACRO-Precision: {:.2f} +- {:.2f}, MACRO-Recall: {:.2f} +- {:.2f}, MACRO-F1: {:.2f} +- {:.2f}".format(
+                    subdataset_name,
+                    np.average(this_dataset_precisions),
+                    np.std(this_dataset_precisions),
+                    np.average(this_dataset_recalls),
+                    np.std(this_dataset_recalls),
+                    np.average(this_dataset_f1s),
+                    np.std(this_dataset_f1s))
+            )
+
+            # computing WEIGHTED scores
+            this_dataset_supports_sum = sum(this_dataset_supports)
+            this_dataset_precisions_weighted = [this_dataset_metrics[tagName]['precision'] * (
+                        this_dataset_metrics[tagName]['support'] / this_dataset_supports_sum) for tagName in
+                                                this_dataset_metrics]
+            this_dataset_recalls_weighted = [this_dataset_metrics[tagName]['recall'] * (
+                        this_dataset_metrics[tagName]['support'] / this_dataset_supports_sum) for tagName in
+                                             this_dataset_metrics]
+            this_dataset_f1s_weighted = [this_dataset_metrics[tagName]['f1'] * (
+                        this_dataset_metrics[tagName]['support'] / this_dataset_supports_sum) for tagName in
+                                         this_dataset_metrics]
+            print("\n{} ==> Weighted-Precision: {:.2f}, Weighted-Recall: {:.2f}, Weighted-F1: {:.2f}".format(
+                subdataset_name,
+                np.sum(this_dataset_precisions_weighted),
+                np.sum(this_dataset_recalls_weighted),
+                np.sum(this_dataset_f1s_weighted))
+            )
 
             # Finally, save predictions
             preds_to_save = []
