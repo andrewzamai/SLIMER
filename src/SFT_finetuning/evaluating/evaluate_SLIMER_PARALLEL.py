@@ -198,12 +198,12 @@ if __name__ == '__main__':
                 for tagName, this_tag_golds in parsed_gold_output.items():
                     all_gold_answers_per_type[tagName].append(this_tag_golds)
 
-            # unpacking as list of lists
-            pred_answers_for_micro = [preds for tagName, preds in all_pred_answers_per_type.items()]
-            gold_answers_for_micro = [golds for tagName, golds in all_gold_answers_per_type.items()]
+            # Flatten the nested list of lists
+            pred_answers_for_micro = [pred for preds in all_pred_answers_per_type.values() for pred in preds]
+            gold_answers_for_micro = [gold for golds in all_gold_answers_per_type.values() for gold in golds]
 
-            print(pred_answers_for_micro[0:10])
-            print(gold_answers_for_micro[0:10])
+            #print(pred_answers_for_micro[0:10])
+            #print(gold_answers_for_micro[0:10])
             if partial_evaluate:
                 eval_result = uniNER_official_eval_script.NEREvaluator().partial_evaluate(pred_answers_for_micro, gold_answers_for_micro)
             else:
