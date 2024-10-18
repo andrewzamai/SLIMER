@@ -789,7 +789,7 @@ def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prom
 
     if path_to_DeG:
         DeG_per_NEs = load_DeG_per_NEs(path_to_DeG)
-    slimer_parallel_prompter = SLIMER_PARALLEL_instruction_prompter("SLIMER_PARALLEL_instruction_template", '../SFT_finetuning/templates')
+    slimer_parallel_prompter = SLIMER_PARALLEL_instruction_prompter("SLIMER_PARALLEL_instruction_template", './src/SFT_finetuning/templates')
 
     samples = []
     samples_progressiveID = 0
