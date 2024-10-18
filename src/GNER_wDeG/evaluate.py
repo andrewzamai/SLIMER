@@ -236,30 +236,7 @@ def main():
 
 
 if __name__ == "__main__":
-    #main()
-    from huggingface_hub import login
-    #HF_ACCESS_TOKEN = get_HF_access_token('./.env')
-    login(token='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')
-
-    # load tokenizer and prediction data
-    #tokenizer = AutoTokenizer.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B")
-    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf")
-    all_examples = defaultdict(list)
-    #with open("../SOTA_MODELS/GNER/BUSTER_GNER_test_w_preds.jsonl", 'r') as fh:
-    with open("./data/predictions/GNER-391x50-MIT-CrossNER-predictions.jsonl", 'r') as fh:
-        for line in fh.readlines():
-            line_data = json.loads(line)
-            all_examples[line_data['dataset']].append(line_data)
-
-    # evaluate
-    tot_f1, tot_dataset = 0, 0
-    for dataset in all_examples:
-        eval_result = NEREvaluator().evaluate(all_examples[dataset], tokenizer=tokenizer)
-        print(
-            f'Dataset: {dataset}, F1: {eval_result["f1"]}, Precision: {eval_result["precision"]}, Recall: {eval_result["recall"]}')
-        tot_f1 += eval_result["f1"]
-        tot_dataset += 1
-    print(f'avg_f1: {tot_f1 / tot_dataset}')
+    main()
 
 '''
 Example of predictions:

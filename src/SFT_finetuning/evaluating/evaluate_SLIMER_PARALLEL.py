@@ -78,8 +78,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
     if datasets_cluster_name == 'crossNER':
         path_to_eval_dataset_uniNER = f"./data/eval_data_UniNER/test_data/CrossNER_{subdataset_name}.json"
         path_to_guidelines_folder = f"./src/data_handlers/questions/{datasets_cluster_name}/gpt_guidelines"
-        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder,
-                                                     subdataset_name + '_NE_definitions.json')
+        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder, subdataset_name + '_NE_definitions.json')
         return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(subdataset_name,
                                                                                          path_to_eval_dataset_uniNER,
                                                                                          with_definition,
@@ -161,7 +160,8 @@ if __name__ == '__main__':
             sys.stdout.flush()
 
             def format_chat_template(row):
-                system_message = "You are a helpful NER assistant designed to output JSON."
+                #system_message = "You are a helpful NER assistant designed to output JSON."
+                system_message = "You are a helpful assistant."
                 conversation = [
                     {"role": "system", "content": system_message},
                     {"role": "user", "content": input_instruction_prompter.generate_prompt(input=row["input"], instruction=row["instruction"])},  # the input_text + instruction
