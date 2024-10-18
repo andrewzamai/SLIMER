@@ -60,11 +60,9 @@ def parse_json_pred(sample, response):
         value = parsed_response.get(key, [])
         if not isinstance(value, list):
             parsed_response[key] = []
-        elif isinstance(value, list) and any(not isinstance(x, str) for x in value):
+        else:
             value = [x for x in value if isinstance(x, str)]
             parsed_response[key] = value
-        else:
-            continue
 
     return parsed_gold_output, parsed_response
 
@@ -190,6 +188,9 @@ if __name__ == '__main__':
                 # parse gold and pred json, removing hallucinated types
                 # and checking that each pred is a list of str
                 parsed_gold_output, parsed_response = parse_json_pred(sample, pred)
+                print(parsed_gold_output)
+                print(parsed_response)
+                print("--------------------------------")
 
                 for tagName, this_tag_preds in parsed_response.items():
                     all_pred_answers_per_type[tagName].append(this_tag_preds)
