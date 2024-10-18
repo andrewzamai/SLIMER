@@ -1,4 +1,4 @@
-MODEL_NAME_OR_PATH=merged_models/GNER-391xALL-woDeG-LLaMA3-8B-Instruct
+MODEL_NAME_OR_PATH=merged_models/GNER-391xALL-woDeG-LLaMA2-7B-chat
 JSON_TEST_FILE=data/zero-shot-test-woDeG-5NEperPrompt.jsonl
 
 python src/run_predictions_vllm.py \
@@ -7,5 +7,5 @@ python src/run_predictions_vllm.py \
 --max_source_length 2048 \
 --max_new_tokens 2048 \
 --temperature 0 \
---stop_token "<|eot_id|>"
+--stop_token "</s>"
 

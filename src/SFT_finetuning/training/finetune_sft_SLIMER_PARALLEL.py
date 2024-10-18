@@ -319,7 +319,7 @@ if __name__ == "__main__":
     datasetDict_SLIMER_PARALLEL_format['validation'].to_json(f'./data/pileNER/{dataset_name}/validation.jsonl')
 
     # now loading training config from yml and overriding some variables like dataset name and output_dir
-    path_to_training_config = './src/SFT_finetuning/training_config/llama2_4_NER_XDef_NsamplesPerNE.yml'
+    path_to_training_config = './src/SFT_finetuning/training_config/llama3_parallel.yml'
     with open(path_to_training_config, 'rb') as f:
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
