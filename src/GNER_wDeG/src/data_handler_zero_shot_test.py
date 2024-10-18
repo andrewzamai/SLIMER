@@ -81,6 +81,8 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
 
         instruction = general_instruction
         instruction += f"\nUse the specific entity tags: {', '.join(label_sublist)} and O.\n"
+
+        """
         # it the path to DeG is provided, append the Def and Guidelines for each NE
         instruction += "To help you, here are dedicated DEFINITION and GUIDELINES for each entity tag.\n"
 
@@ -102,6 +104,7 @@ def process_sample(all_datasets_DeG, general_instruction, gner_sample, labels_pe
 
         instruction += json.dumps(sampled_labels_DeG, indent=2)
         instruction += '\n'
+        """
 
         instruction += "Sentence: " + " ".join(gner_sample['instance']['words'])
 
@@ -145,5 +148,5 @@ if __name__ == '__main__':
 
     print(len(zero_shot_datasets_N_labels_per_prompt))
     zero_shot_datasets_N_labels_per_prompt = Dataset.from_list(zero_shot_datasets_N_labels_per_prompt)
-    zero_shot_datasets_N_labels_per_prompt.to_json("../data/zero-shot-test-wDeG-5NEperPrompt.jsonl")
+    zero_shot_datasets_N_labels_per_prompt.to_json("../data/zero-shot-test-woDeG-5NEperPrompt.jsonl")
 
