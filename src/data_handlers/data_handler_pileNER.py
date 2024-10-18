@@ -814,7 +814,9 @@ def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prom
                 tagNames_DeG[ne_tag] = DeG_per_NEs[ne_tag.lower()]['gpt_answer']
             tagNames_DeG = json.dumps(tagNames_DeG, indent=2)
 
-        instruction = slimer_parallel_prompter.generate_prompt(ne_tags=", ".join(answers_per_tagName_dict.keys()), def_and_guidelines=tagNames_DeG)
+        instruction = slimer_parallel_prompter.generate_prompt(ne_tags=", ".join(answers_per_tagName_dict.keys()),
+                                                               def_and_guidelines=tagNames_DeG,
+                                                               expected_json_format=json.dumps({k: [] for k in answers_per_tagName_dict.keys()}, indent=2))
 
         # add the sample only if there are some tagNames and are not all []
         if at_least_one_positive:
