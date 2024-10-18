@@ -198,6 +198,7 @@ if __name__ == '__main__':
                 for tagName, this_tag_golds in parsed_gold_output.items():
                     all_gold_answers_per_type[tagName].append(this_tag_golds)
 
+            """
             # Flatten the nested list of lists
             pred_answers_for_micro = [pred for preds in all_pred_answers_per_type.values() for pred in preds]
             gold_answers_for_micro = [gold for golds in all_gold_answers_per_type.values() for gold in golds]
@@ -213,6 +214,8 @@ if __name__ == '__main__':
             recall = round(eval_result["recall"]*100, 2)
             f1 = round(eval_result["f1"]*100, 2)
             print("\n{} ==> micro-Precision: {:.2f}, micro-Recall: {:.2f}, micro-F1: {:.2f}".format(subdataset_name, precision, recall, f1))
+            
+            """
 
             print("\nMetrics per NE category (100%):\n")
             this_dataset_metrics = {}
@@ -235,8 +238,43 @@ if __name__ == '__main__':
                     'support': eval_result['support'],
                     'precision': precision,
                     'recall': recall,
-                    'f1': f1
+                    'f1': f1,
+                    'TP': eval_result['TP'],
+                    'FP': eval_result['FP'],
+                    'FN': eval_result['FN'],
                 }
+
+            # Initialize sums for TP, FP, and FN
+            micro_tp = 0
+            micro_fp = 0
+            micro_fn = 0
+
+            # Aggregate TP, FP, and FN from each NE category
+            for tagName, metrics in this_dataset_metrics.items():
+                micro_tp += metrics['TP']
+                micro_fp += metrics['FP']
+                micro_fn += metrics['FN']
+
+            # Calculate Micro Precision, Recall, and F1 Score
+            if micro_tp + micro_fp > 0:
+                micro_precision = (micro_tp / (micro_tp + micro_fp)) * 100
+            else:
+                micro_precision = 0.0  # Avoid division by zero
+
+            if micro_tp + micro_fn > 0:
+                micro_recall = (micro_tp / (micro_tp + micro_fn)) * 100
+            else:
+                micro_recall = 0.0  # Avoid division by zero
+
+            if micro_precision + micro_recall > 0:
+                micro_f1 = (2 * micro_precision * micro_recall) / (micro_precision + micro_recall)
+            else:
+                micro_f1 = 0.0  # Avoid division by zero
+
+            # Print Micro Metrics
+            print(f"Micro Precision: {micro_precision:.2f}%")
+            print(f"Micro Recall: {micro_recall:.2f}%")
+            print(f"Micro F1 Score: {micro_f1:.2f}%")
 
             # computing MACRO scores
             this_dataset_precisions = [this_dataset_metrics[tagName]['precision'] for tagName in this_dataset_metrics]
