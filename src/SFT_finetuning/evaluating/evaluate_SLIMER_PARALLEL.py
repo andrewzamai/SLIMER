@@ -202,8 +202,8 @@ if __name__ == '__main__':
             pred_answers_for_micro = [pred for preds in all_pred_answers_per_type.values() for pred in preds]
             gold_answers_for_micro = [gold for golds in all_gold_answers_per_type.values() for gold in golds]
 
-            #print(pred_answers_for_micro[0:10])
-            #print(gold_answers_for_micro[0:10])
+            print(pred_answers_for_micro[0:5])
+            print(gold_answers_for_micro[0:5])
             if partial_evaluate:
                 eval_result = uniNER_official_eval_script.NEREvaluator().partial_evaluate(pred_answers_for_micro, gold_answers_for_micro)
             else:
