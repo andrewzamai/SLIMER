@@ -36,6 +36,10 @@ import json
 
 
 def parse_json_pred(sample, response):
+    """
+    Evaluate json prediction to dictionary.
+    Removes hallucinated types and sets to empty list the non predicted entity types.
+    """
     try:
         parsed_response = json.loads(response)
     except json.JSONDecodeError:
@@ -61,10 +65,12 @@ def parse_json_pred(sample, response):
         if not isinstance(value, list):
             parsed_response[key] = []
         else:
+            # if not str pop it
             value = [x for x in value if isinstance(x, str)]
             parsed_response[key] = value
 
     return parsed_gold_output, parsed_response
+
 
 def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, data_handler, with_definition,
                                         max_tagNames_per_prompt):
@@ -97,7 +103,19 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
                                                                                          max_tagNames_per_prompt)
 
     elif datasets_cluster_name == 'BUSTER':
-        pass
+        BUSTER_handler = data_handler_BUSTER.BUSTER(
+            "expertai/BUSTER",
+            path_to_templates='./src/SFT_finetuning/templates',
+            SLIMER_prompter_name='SLIMER_instruction_template',
+            path_to_DeG='./src/data_handlers/questions/BUSTER/gpt_guidelines/BUSTER_NE_definitions.json'
+        )
+        SLIMER_PARALLEL_dataseDict = BUSTER_handler.convert_dataset_for_SLIMER_PARALLEL(
+            exclude_misc=True,
+            max_tagNames_per_prompt=3,
+            input_chunking_window=900,
+            chunking_overlap=15,
+        )
+        return SLIMER_PARALLEL_dataseDict['test']
     else:
         raise ValueError(f"{datasets_cluster_name} not in [crossNER, MIT, BUSTER] options")
 
@@ -114,9 +132,9 @@ if __name__ == '__main__':
 
     to_eval_on = [
         # converting from uniNER eval datasets using function inside data_handler_pileNER
-        {'datasets_cluster_name': 'crossNER', 'data_handler': data_handler_pileNER, 'subdataset_names': ['ai', 'literature', 'music', 'politics', 'science']},
-        {'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
-        # {'datasets_cluster_name': 'BUSTER', 'data_handler': data_handler_BUSTER, 'subdataset_names': ['BUSTER']},
+        #{'datasets_cluster_name': 'crossNER', 'data_handler': data_handler_pileNER, 'subdataset_names': ['ai', 'literature', 'music', 'politics', 'science']},
+        #{'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
+        {'datasets_cluster_name': 'BUSTER', 'data_handler': data_handler_BUSTER, 'subdataset_names': ['BUSTER']},
     ]
 
     print(f"\nLLM model: {args.merged_model_name}")

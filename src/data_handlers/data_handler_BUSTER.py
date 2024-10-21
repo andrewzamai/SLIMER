@@ -41,11 +41,22 @@ if __name__ == '__main__':
         path_to_DeG='./questions/BUSTER/gpt_guidelines/BUSTER_NE_definitions.json'
     )
 
-    print(BUSTER_handler.get_dataset_statistics())
+    #print(BUSTER_handler.get_dataset_statistics())
 
-    print(BUSTER_handler.dataset_dict_SLIMER['test'])
-    print(BUSTER_handler.dataset_dict_SLIMER['test'][1]['instruction'])
-    print(BUSTER_handler.dataset_dict_SLIMER['test'][1]['output'])
+    #print(BUSTER_handler.dataset_dict_SLIMER['test'])
+    #print(BUSTER_handler.dataset_dict_SLIMER['test'][1]['instruction'])
+    #print(BUSTER_handler.dataset_dict_SLIMER['test'][1]['output'])
+
+    SLIMER_PARALLEL_dataseDict = BUSTER_handler.convert_dataset_for_SLIMER_PARALLEL(
+        exclude_misc=True,
+        max_tagNames_per_prompt=3,
+        input_chunking_window=900,
+        chunking_overlap=15,
+    )
+
+    print(SLIMER_PARALLEL_dataseDict['test'])
+    print(SLIMER_PARALLEL_dataseDict['test'][0])
+    SLIMER_PARALLEL_dataseDict['test'].to_json("../../data/BUSTER_SLIMER_PARALLEL_test.jsonl")
 
 
 
