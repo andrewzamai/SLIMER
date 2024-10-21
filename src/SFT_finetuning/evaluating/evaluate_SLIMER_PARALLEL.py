@@ -73,6 +73,10 @@ def parse_json_pred(sample, response):
             value = [x for x in value if isinstance(x, str)]
             parsed_response[key] = value
 
+    # remove hallucinated text spans
+    for key, values in parsed_response.item():
+        parsed_response[key] = [text_span for text_span in values if text_span in sample['input']]
+
     return parsed_gold_output, parsed_response, all_good_parsing
 
 
