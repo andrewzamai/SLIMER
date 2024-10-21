@@ -40,13 +40,16 @@ def parse_json_pred(sample, response):
     Evaluate json prediction to dictionary.
     Removes hallucinated types and sets to empty list the non predicted entity types.
     """
+    all_good_parsing = True
     try:
         parsed_response = json.loads(response)
     except json.JSONDecodeError:
+        all_good_parsing = False
         parsed_response = {}
     try:
         parsed_gold_output = json.loads(sample['output'])
     except json.JSONDecodeError:
+        all_good_parsing = False
         parsed_gold_output = {}
 
     # check for hallucinated types (unexpected keys)
@@ -63,13 +66,15 @@ def parse_json_pred(sample, response):
         # if missing set it to []
         value = parsed_response.get(key, [])
         if not isinstance(value, list):
+            all_good_parsing = False
             parsed_response[key] = []
         else:
             # if not str pop it
             value = [x for x in value if isinstance(x, str)]
+            all_good_parsing = False
             parsed_response[key] = value
 
-    return parsed_gold_output, parsed_response
+    return parsed_gold_output, parsed_response, all_good_parsing
 
 
 def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, data_handler, with_definition,
@@ -132,8 +137,8 @@ if __name__ == '__main__':
 
     to_eval_on = [
         # converting from uniNER eval datasets using function inside data_handler_pileNER
-        #{'datasets_cluster_name': 'crossNER', 'data_handler': data_handler_pileNER, 'subdataset_names': ['ai', 'literature', 'music', 'politics', 'science']},
-        #{'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
+        {'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
+        {'datasets_cluster_name': 'crossNER', 'data_handler': data_handler_pileNER, 'subdataset_names': ['ai', 'literature', 'music', 'politics', 'science']},
         {'datasets_cluster_name': 'BUSTER', 'data_handler': data_handler_BUSTER, 'subdataset_names': ['BUSTER']},
     ]
 
@@ -158,6 +163,7 @@ if __name__ == '__main__':
         n=1,
         best_of=4,
         temperature=0.6,
+        top_p=0.9,
         max_tokens=max_new_tokens,
         stop=tokenizer.eos_token)
     print(sampling_params)
@@ -207,11 +213,14 @@ if __name__ == '__main__':
 
             all_pred_answers_per_type = defaultdict(list)
             all_gold_answers_per_type = defaultdict(list)
+            safely_parsed_preds_count = 0
             for i, sample in enumerate(dataset_SLIMER_PARALLEL_format):
                 pred = all_pred_answers[i]
                 # parse gold and pred json, removing hallucinated types
                 # and checking that each pred is a list of str
-                parsed_gold_output, parsed_response = parse_json_pred(sample, pred)
+                parsed_gold_output, parsed_response, all_good_parsing = parse_json_pred(sample, pred)
+                if all_good_parsing:
+                    safely_parsed_preds_count += 1
                 #print(parsed_gold_output)
                 #print(parsed_response)
                 #print("--------------------------------")
@@ -221,6 +230,8 @@ if __name__ == '__main__':
 
                 for tagName, this_tag_golds in parsed_gold_output.items():
                     all_gold_answers_per_type[tagName].append(this_tag_golds)
+
+            print(f"Safely parsed preds: {safely_parsed_preds_count/len(all_pred_answers)*100} %\n")
 
             """
             # Flatten the nested list of lists
