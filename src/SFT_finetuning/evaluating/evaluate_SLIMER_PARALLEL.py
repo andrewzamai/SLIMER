@@ -153,7 +153,13 @@ if __name__ == '__main__':
     vllm_model = LLM(model=args.merged_model_name)
     tokenizer = vllm_model.get_tokenizer()
 
-    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
+    #sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
+    sampling_params = SamplingParams(
+        n=1,
+        best_of=4,
+        temperature=0,
+        max_tokens=max_new_tokens,
+        stop=tokenizer.eos_token)
     print(sampling_params)
 
     # prompter to prefix input to the instruction
