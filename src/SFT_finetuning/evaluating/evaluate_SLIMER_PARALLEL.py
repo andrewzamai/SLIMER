@@ -155,10 +155,15 @@ if __name__ == '__main__':
     max_new_tokens = 2048
     print(f"\nmax_new_tokens: {max_new_tokens}\n")
 
-    vllm_model = LLM(model=args.merged_model_name)
+    vllm_model = LLM(
+        model=args.merged_model_name,
+        max_model_len=cutoff_len + max_new_tokens,
+        tensor_parallel_size=2
+    )
     tokenizer = vllm_model.get_tokenizer()
 
-    #sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
+    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
+    """
     sampling_params = SamplingParams(
         n=1,
         best_of=4,
@@ -166,6 +171,7 @@ if __name__ == '__main__':
         top_p=0.9,
         max_tokens=max_new_tokens,
         stop=tokenizer.eos_token)
+    """
     print(sampling_params)
 
     # prompter to prefix input to the instruction
