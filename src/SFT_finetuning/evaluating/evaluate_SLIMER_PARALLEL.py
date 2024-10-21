@@ -71,7 +71,6 @@ def parse_json_pred(sample, response):
         else:
             # if not str pop it
             value = [x for x in value if isinstance(x, str)]
-            all_good_parsing = False
             parsed_response[key] = value
 
     return parsed_gold_output, parsed_response, all_good_parsing
