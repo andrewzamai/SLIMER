@@ -831,7 +831,7 @@ def build_dataset_SLIMER_PARALLEL_format(
             # tagNames_DeG = json.dumps(tagNames_DeG, indent=2)
 
         # tagNames masking
-        this_sample_labels = list(answers_per_tagName_dict.keys())
+        this_sample_labels = sorted(answers_per_tagName_dict.keys())
         tag_to_LABEL_dict = {}
         label_ID = 0
         for l in this_sample_labels:
@@ -858,6 +858,10 @@ def build_dataset_SLIMER_PARALLEL_format(
         instruction = slimer_parallel_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels),
                                                                def_and_guidelines=tagNames_DeG,
                                                                expected_json_format=json.dumps({k: [] for k in this_sample_labels}, indent=2))
+
+        # sort output json as expected_json_format and this_sample_labels
+        # we leave tagNames_DeG unsorted on purpose!
+        answers_per_tagName_dict = dict(sorted(answers_per_tagName_dict.items()))
 
         # add the sample only if there are some tagNames and are not all []
         if at_least_one_positive:

@@ -173,6 +173,7 @@ def train(
         data = data.map(lambda x: add_instruction(x), desc="Adding instruction to examples")
 
     if system_message:
+        print(system_message)
         def add_system_message(example):
             example["system_message"] = system_message
             return example
