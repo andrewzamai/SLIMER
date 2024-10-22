@@ -221,6 +221,7 @@ def train(
         val_data = val_data["train"].select(list(range(min(val_set_size, len(val_data["train"])))))  # no more than val_set_size 5k examples
 
         print("Validation statistics: ")
+        val_data = val_data.map(lambda x: add_system_message(x), desc="Adding system message to validation examples")
         print(val_data)
 
         val_data = val_data.map(lambda x: generate_and_tokenize_prompt_v2(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
