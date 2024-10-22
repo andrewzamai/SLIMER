@@ -831,7 +831,7 @@ def build_dataset_SLIMER_PARALLEL_format(
             # tagNames_DeG = json.dumps(tagNames_DeG, indent=2)
 
         # tagNames masking
-        this_sample_labels = sorted(answers_per_tagName_dict.keys())
+        this_sample_labels = answers_per_tagName_dict.keys()
         tag_to_LABEL_dict = {}
         label_ID = 0
         for l in this_sample_labels:
@@ -842,6 +842,7 @@ def build_dataset_SLIMER_PARALLEL_format(
                 tag_to_LABEL_dict[l] = l
 
         this_sample_labels = [tag_to_LABEL_dict[l] if l in tag_to_LABEL_dict else l for l in this_sample_labels]
+        this_sample_labels = sorted(this_sample_labels)
         for original_tag, mask_word in tag_to_LABEL_dict.items():
             if original_tag != mask_word:
                 this_tag_DeG = tagNames_DeG.pop(original_tag)

@@ -190,6 +190,7 @@ def train(
 
     train_data = data["train"]
     print(train_data)
+    print(train_data['system_message'][0])
     print(train_data['instruction'][0])
     print(train_data['output'][0])
 
