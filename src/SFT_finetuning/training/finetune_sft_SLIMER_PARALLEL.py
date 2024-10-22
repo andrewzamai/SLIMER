@@ -15,8 +15,11 @@ from peft import set_peft_model_state_dict
 from transformers import EarlyStoppingCallback
 
 from src.SFT_finetuning.commons.initialization import init_model, wrap_model_for_peft, get_HF_access_token
-from src.SFT_finetuning.commons.preprocessing import generate_and_tokenize_prompt
+from src.SFT_finetuning.commons.preprocessing import generate_and_tokenize_prompt_v2
 from src.SFT_finetuning.commons.prompter import Prompter
+
+from src.data_handlers import data_handler_pileNER
+from src.SFT_finetuning.commons.basic_utils import load_json
 
 
 def train(
@@ -110,9 +113,10 @@ def train(
     assert (
         base_model
     ), "Please specify a --base_model, e.g. --base_model='mosaicml/mpt-7b-instruct'"
+
     gradient_accumulation_steps = batch_size // micro_batch_size
 
-    prompter = Prompter(prompt_template_name, template_path='./src/SFT_finetuning/templates', eos_text=eos_text)
+    prompter = Prompter(prompt_template_name, template_path='./src/SFT_finetuning/templates')
 
     device_map = "auto"
     world_size = int(os.environ.get("WORLD_SIZE", 1))
@@ -195,19 +199,19 @@ def train(
     if val_set_size > 0 and not val_data_path:
         train_val = train_data.train_test_split(test_size=val_set_size, shuffle=False)
         train_data = (
-            train_val["train"].map(lambda x: generate_and_tokenize_prompt(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
+            train_val["train"].map(lambda x: generate_and_tokenize_prompt_v2(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
         )
 
         train_data = train_data.filter(lambda x: len(x["input_ids"]) > 5)
 
         val_data = (
-            train_val["test"].map(lambda x: generate_and_tokenize_prompt(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
+            train_val["test"].map(lambda x: generate_and_tokenize_prompt_v2(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
         )
 
         val_data = val_data.filter(lambda x: len(x["input_ids"]) > 5)
 
     elif val_data_path:
-        train_data = data["train"].map(lambda x: generate_and_tokenize_prompt(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
+        train_data = data["train"].map(lambda x: generate_and_tokenize_prompt_v2(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
         val_data = load_dataset("json", data_files=val_data_path)
         # if -1 use all validation data
         if val_set_size == -1:
@@ -217,10 +221,10 @@ def train(
         print("Validation statistics: ")
         print(val_data)
 
-        val_data = val_data.map(lambda x: generate_and_tokenize_prompt(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
+        val_data = val_data.map(lambda x: generate_and_tokenize_prompt_v2(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
         val_set_size = len(val_data)
     else:
-        train_data = data["train"].map(lambda x: generate_and_tokenize_prompt(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
+        train_data = data["train"].map(lambda x: generate_and_tokenize_prompt_v2(x, tokenizer, prompter, cutoff_len, train_on_inputs), num_proc=30)
         if "validation" in data:
             print("Validation is in the dataset")
             val_data = data["validation"]
@@ -300,9 +304,6 @@ def train(
 
 if __name__ == "__main__":
 
-    from src.data_handlers import data_handler_pileNER
-    from src.SFT_finetuning.commons.basic_utils import load_json
-
     top_391_NEs_list = load_json("./src/data_handlers/questions/pileNER/top391NEs_definitions.json")
     top_391_NEs_list = list(top_391_NEs_list.keys())
 
@@ -310,10 +311,13 @@ if __name__ == "__main__":
     datasetDict_SLIMER_PARALLEL_format = data_handler_pileNER.build_dataset_SLIMER_PARALLEL_format(
         top_391_NEs_list,
         max_tagNames_per_prompt=max_tagNames_per_prompt,
-        path_to_DeG="./src/data_handlers/questions/pileNER/top391NEs_definitions.json"
+        path_to_DeG="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
+        template_path="./src/SFT_finetuning/templates",
+        template_name_SLIMER_PARALLEL="SLIMER_PARALLEL_instruction_template",
+        p_being_masked=0.3
     )
 
-    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG"
+    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_03pMask"
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json(f'./data/pileNER/{dataset_name}/train.jsonl')
     datasetDict_SLIMER_PARALLEL_format['validation'].to_json(f'./data/pileNER/{dataset_name}/validation.jsonl')
@@ -324,7 +328,7 @@ if __name__ == "__main__":
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
     configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA3-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG"
+    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA3-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_v2"
 
     train(**configs)
 

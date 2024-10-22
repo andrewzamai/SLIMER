@@ -2,5 +2,6 @@
 .idea
 .env
 /venv/
+/preds/
 /data/NuNER
 /data/pileNER/391xALL_GenQA_FalseDef

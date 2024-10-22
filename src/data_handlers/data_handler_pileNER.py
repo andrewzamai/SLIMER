@@ -22,6 +22,8 @@ import json
 import math
 import random
 import string
+from copy import deepcopy
+
 import numpy as np
 from collections import OrderedDict, Counter, defaultdict
 from datasets import Dataset, DatasetDict, load_dataset
@@ -770,12 +772,20 @@ def load_DeG_per_NEs(path_to_DeG):
 
     return DeG_per_NEs_raw
 
-def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prompt=5, path_to_DeG=""):
-    print("Downloading PileNER dataset from HF...")
+def build_dataset_SLIMER_PARALLEL_format(
+        top_391_NEs_list,
+        max_tagNames_per_prompt=5,
+        path_to_DeG="",
+        template_name_SLIMER_PARALLEL="SLIMER_PARALLEL_instruction_template",
+        template_path='./src/SFT_finetuning/templates',
+        p_being_masked=0.3
+):
+    print("Downloading PileNER-type dataset from HF...")
     sys.stdout.flush()
     # downloading raw dataset from huggingface repo (has only "train" partition)
     raw_dataset = load_dataset("Universal-NER/Pile-NER-type")
 
+    # do not include tags in MIT/CrossNER benchmarks except people, org, loc, country
     tagName_to_remove_list = ["actor", "character", "genre", "song", "year",  # MOVIE, title left because polysemous
                               "dish", "restaurant",  # RESTAURANT
                               "algorithm", "field", "metric", "product", "programming language", "task", "university",  # AI
@@ -787,9 +797,10 @@ def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prom
                               "company", "legal"]  # BUSTER
     tagName_to_remove_list = list(set(tagName_to_remove_list))
 
+    slimer_parallel_prompter = SLIMER_PARALLEL_instruction_prompter(template_name_SLIMER_PARALLEL, template_path)
+
     if path_to_DeG:
         DeG_per_NEs = load_DeG_per_NEs(path_to_DeG)
-    slimer_parallel_prompter = SLIMER_PARALLEL_instruction_prompter("SLIMER_PARALLEL_instruction_template", './src/SFT_finetuning/templates')
 
     samples = []
     samples_progressiveID = 0
@@ -798,12 +809,16 @@ def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prom
         context, questions_answers_list = extract_context_quests_answers(raw_sample).values()
 
         answers_per_tagName_dict = {}
+        # retain sample only if not all empty answers
         at_least_one_positive = False
         for q_a in questions_answers_list:
             tagName = q_a["ne_type"]
+            # retain tagName if in top_391_NEs_list and not in MIT/CrossNER benchmarks
             if tagName in top_391_NEs_list and tagName not in tagName_to_remove_list:
+                # append max_tagNames_per_prompt
                 if len(answers_per_tagName_dict.keys()) < max_tagNames_per_prompt:
-                    answers_per_tagName_dict[tagName.upper()] = list(set(q_a["answers"]['text']))
+                    # upper case the tagName, e.g. PERSON
+                    answers_per_tagName_dict[tagName.upper()] = list(set(q_a['answers']['text']))
                     if q_a["answers"]['text']:
                         at_least_one_positive = True
 
@@ -811,12 +826,38 @@ def build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prom
         if path_to_DeG:
             tagNames_DeG = {}
             for ne_tag in answers_per_tagName_dict.keys():
-                tagNames_DeG[ne_tag] = DeG_per_NEs[ne_tag.lower()]['gpt_answer']
-            tagNames_DeG = json.dumps(tagNames_DeG, indent=2)
+                # ensure DEEP copy for later modifications !
+                tagNames_DeG[ne_tag] = deepcopy(DeG_per_NEs[ne_tag.lower()]['gpt_answer'])
+            # tagNames_DeG = json.dumps(tagNames_DeG, indent=2)
 
-        instruction = slimer_parallel_prompter.generate_prompt(ne_tags=", ".join(answers_per_tagName_dict.keys()),
+        # tagNames masking
+        this_sample_labels = list(answers_per_tagName_dict.keys())
+        tag_to_LABEL_dict = {}
+        label_ID = 0
+        for l in this_sample_labels:
+            if random.random() < p_being_masked:
+                tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
+                label_ID += 1
+            else:
+                tag_to_LABEL_dict[l] = l
+
+        this_sample_labels = [tag_to_LABEL_dict[l] if l in tag_to_LABEL_dict else l for l in this_sample_labels]
+        for original_tag, mask_word in tag_to_LABEL_dict.items():
+            if original_tag != mask_word:
+                this_tag_DeG = tagNames_DeG.pop(original_tag)
+                # Use regex with word boundaries to ensure exact matches are replaced
+                this_tag_DeG['Definition'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word, this_tag_DeG['Definition'], flags=re.IGNORECASE)
+                this_tag_DeG['Guidelines'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word, this_tag_DeG['Guidelines'], flags=re.IGNORECASE)
+
+                tagNames_DeG[mask_word] = this_tag_DeG
+
+                answers_per_tagName_dict[mask_word] = answers_per_tagName_dict.pop(original_tag)
+
+        tagNames_DeG = json.dumps(tagNames_DeG, indent=2)
+
+        instruction = slimer_parallel_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels),
                                                                def_and_guidelines=tagNames_DeG,
-                                                               expected_json_format=json.dumps({k: [] for k in answers_per_tagName_dict.keys()}, indent=2))
+                                                               expected_json_format=json.dumps({k: [] for k in this_sample_labels}, indent=2))
 
         # add the sample only if there are some tagNames and are not all []
         if at_least_one_positive:
@@ -971,6 +1012,7 @@ def chunk_labels(lst, N):
 
 if __name__ == "__main__":
 
+    """
     ai_test_set = convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
         dataset_name='ai',
         path_to_dataset="../../data/eval_data_UniNER/test_data/CrossNER_AI.json",
@@ -989,7 +1031,14 @@ if __name__ == "__main__":
     top_391_NEs_list = list(load_json("./questions/pileNER/top391NEs_definitions.json").keys())
     print(top_391_NEs_list)
 
-    datasetDict_SLIMER_PARALLEL_format = build_dataset_SLIMER_PARALLEL_format(top_391_NEs_list, max_tagNames_per_prompt=5, path_to_DeG="./questions/pileNER/top391NEs_definitions.json")
+    datasetDict_SLIMER_PARALLEL_format = build_dataset_SLIMER_PARALLEL_format(
+        top_391_NEs_list,
+        max_tagNames_per_prompt=5,
+        path_to_DeG="./questions/pileNER/top391NEs_definitions.json",
+        template_path="../SFT_finetuning/templates",
+        template_name_SLIMER_PARALLEL="SLIMER_PARALLEL_instruction_template",
+        p_being_masked=0.3
+    )
     print(datasetDict_SLIMER_PARALLEL_format)
     print(datasetDict_SLIMER_PARALLEL_format['train'])
     print(datasetDict_SLIMER_PARALLEL_format['train'][0])
@@ -999,7 +1048,6 @@ if __name__ == "__main__":
     print(datasetDict_SLIMER_PARALLEL_format['train'][11]['output'])
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json("../../data/pileNER/pileNER_SLIMER_PARALLEL_format_train.jsonl")
-    """
 
 
     """
