@@ -199,8 +199,8 @@ if __name__ == '__main__':
             sys.stdout.flush()
 
             def format_chat_template(row):
-                #system_message = "You are a helpful NER assistant designed to output JSON."
-                system_message = "You are a helpful assistant."
+                system_message = "You are a helpful NER assistant designed to output JSON."
+                #system_message = "You are a helpful assistant."
                 conversation = [
                     {"role": "system", "content": system_message},
                     {"role": "user", "content": input_instruction_prompter.generate_prompt(input=row["input"], instruction=row["instruction"])},  # the input_text + instruction
