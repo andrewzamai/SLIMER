@@ -317,10 +317,10 @@ if __name__ == "__main__":
         path_to_DeG="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
         template_path="./src/SFT_finetuning/templates",
         template_name_SLIMER_PARALLEL="SLIMER_PARALLEL_instruction_template",
-        p_being_masked=0.3
+        p_being_masked=1.0
     )
 
-    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_03pMask"
+    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_1pMask"
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json(f'./data/pileNER/{dataset_name}/train.jsonl')
     datasetDict_SLIMER_PARALLEL_format['validation'].to_json(f'./data/pileNER/{dataset_name}/validation.jsonl')
@@ -331,7 +331,7 @@ if __name__ == "__main__":
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
     configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA3-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_v2"
+    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA3-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_pmask1"
 
     train(**configs)
 
