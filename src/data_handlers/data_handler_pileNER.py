@@ -982,11 +982,12 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
 
     # samples_grouped_by_input = {i: (key, values) for i, (key, values) in enumerate(samples_grouped_by_input.items())}
 
-    slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
+    #slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
+    slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, '../SFT_finetuning/templates')
     test_set = []
     for input, values in samples_grouped_by_input.items():
 
-        values_indexed_bytag = {v['tagName']: v for v in values}
+        values_indexed_bytag = {v['tagName']: deepcopy(v) for v in values}
         full_tagNames_list = list(values_indexed_bytag.keys())
 
         for this_sample_labels in chunk_labels(full_tagNames_list, max_tagNames_per_prompt):
@@ -997,6 +998,32 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
                 tagNames_list.append(l)
                 def_and_guidelines[l] = values_indexed_bytag[l]['def_and_guidelines']
                 json_output[l] = values_indexed_bytag[l]['this_tagName_output']
+
+            # tagNames masking
+            tag_to_LABEL_dict = {}
+            label_ID = 0
+            for l in this_sample_labels:
+                tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
+                label_ID += 1
+
+            this_sample_labels = [tag_to_LABEL_dict[l] for l in this_sample_labels]
+            this_sample_labels = sorted(this_sample_labels)
+            # print(tag_to_LABEL_dict)
+            for original_tag, mask_word in tag_to_LABEL_dict.items():
+                #print(def_and_guidelines)
+                if original_tag != mask_word:
+                    this_tag_DeG = def_and_guidelines.pop(original_tag)
+                    # Use regex with word boundaries to ensure exact matches are replaced
+                    this_tag_DeG['Definition'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word,
+                                                        this_tag_DeG['Definition'], flags=re.IGNORECASE)
+                    this_tag_DeG['Guidelines'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word,
+                                                        this_tag_DeG['Guidelines'], flags=re.IGNORECASE)
+
+                    def_and_guidelines[mask_word] = this_tag_DeG
+
+                    json_output[mask_word] = json_output.pop(original_tag)
+
+            json_output = dict(sorted(json_output.items()))
 
             instruction = slimer_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels),
                                                           def_and_guidelines=json.dumps(def_and_guidelines, indent=2),
@@ -1017,7 +1044,6 @@ def chunk_labels(lst, N):
 
 if __name__ == "__main__":
 
-    """
     ai_test_set = convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
         dataset_name='ai',
         path_to_dataset="../../data/eval_data_UniNER/test_data/CrossNER_AI.json",
@@ -1027,9 +1053,11 @@ if __name__ == "__main__":
     )
     print(ai_test_set)
     print("\n\n")
-    print(ai_test_set[0])
-    print(ai_test_set[1])
-    print(ai_test_set[2])
+    print(ai_test_set[100]['input'])
+    print(ai_test_set[100]['instruction'])
+    print(ai_test_set[100]['output'])
+    print(ai_test_set[101])
+    print(ai_test_set[200])
 
     """
     from src.SFT_finetuning.commons.basic_utils import load_json
@@ -1053,7 +1081,7 @@ if __name__ == "__main__":
     print(datasetDict_SLIMER_PARALLEL_format['train'][11]['output'])
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json("../../data/pileNER/pileNER_SLIMER_PARALLEL_format_train.jsonl")
-
+    """
 
     """
 
