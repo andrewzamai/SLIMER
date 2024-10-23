@@ -982,8 +982,8 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
 
     # samples_grouped_by_input = {i: (key, values) for i, (key, values) in enumerate(samples_grouped_by_input.items())}
 
-    #slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
-    slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, '../SFT_finetuning/templates')
+    slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
+    # slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, '../SFT_finetuning/templates')
     test_set = []
     for input, values in samples_grouped_by_input.items():
 
@@ -999,15 +999,14 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
                 def_and_guidelines[l] = values_indexed_bytag[l]['def_and_guidelines']
                 json_output[l] = values_indexed_bytag[l]['this_tagName_output']
 
-            # tagNames masking
+            # tagNames masking with LABEL-id
             tag_to_LABEL_dict = {}
             label_ID = 0
             for l in this_sample_labels:
                 tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
                 label_ID += 1
 
-            this_sample_labels = [tag_to_LABEL_dict[l] for l in this_sample_labels]
-            this_sample_labels = sorted(this_sample_labels)
+            this_sample_labels = sorted(tag_to_LABEL_dict.values())
             # print(tag_to_LABEL_dict)
             for original_tag, mask_word in tag_to_LABEL_dict.items():
                 #print(def_and_guidelines)
