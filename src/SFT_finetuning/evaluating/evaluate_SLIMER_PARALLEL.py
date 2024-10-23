@@ -161,7 +161,7 @@ if __name__ == '__main__':
     vllm_model = LLM(
         model=args.merged_model_name,
         max_model_len=cutoff_len + max_new_tokens,
-        tensor_parallel_size=1
+        tensor_parallel_size=4
     )
     tokenizer = vllm_model.get_tokenizer()
 
