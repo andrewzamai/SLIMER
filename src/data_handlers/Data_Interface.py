@@ -408,6 +408,35 @@ class Data_Interface(ABC):
                                 def_and_guidelines[map_to_extended_NE_name[l].upper()] = DeG_per_NEs[l]['gpt_answer']
                                 json_output[map_to_extended_NE_name[l].upper()] = [x[0] for x in sample_gold_spans_per_ne[l]]
 
+                            # tagNames masking with LABEL-id
+                            tag_to_LABEL_dict = {}
+                            label_ID = 0
+                            for l in tagNames_list:
+                                tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
+                                label_ID += 1
+
+                            tagNames_list = sorted(tag_to_LABEL_dict.values())
+                            # print(tag_to_LABEL_dict)
+                            for original_tag, mask_word in tag_to_LABEL_dict.items():
+                                # print(def_and_guidelines)
+                                if original_tag != mask_word:
+                                    this_tag_DeG = def_and_guidelines.pop(original_tag)
+                                    # Use regex with word boundaries to ensure exact matches are replaced
+                                    this_tag_DeG['Definition'] = re.sub(rf'\b{re.escape(original_tag)}\b',
+                                                                        mask_word,
+                                                                        this_tag_DeG['Definition'],
+                                                                        flags=re.IGNORECASE)
+                                    this_tag_DeG['Guidelines'] = re.sub(rf'\b{re.escape(original_tag)}\b',
+                                                                        mask_word,
+                                                                        this_tag_DeG['Guidelines'],
+                                                                        flags=re.IGNORECASE)
+
+                                    def_and_guidelines[mask_word] = this_tag_DeG
+
+                                    json_output[mask_word] = json_output.pop(original_tag)
+
+                            json_output = dict(sorted(json_output.items()))
+
                             instruction = slimer_prompter.generate_prompt(
                                 ne_tags=", ".join(tagNames_list),
                                 def_and_guidelines=json.dumps(def_and_guidelines, indent=2),
