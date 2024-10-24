@@ -119,7 +119,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
         )
         SLIMER_PARALLEL_dataseDict = BUSTER_handler.convert_dataset_for_SLIMER_PARALLEL(
             exclude_misc=True,
-            max_tagNames_per_prompt=6,
+            max_tagNames_per_prompt=-1,
             input_chunking_window=900,
             chunking_overlap=15,
         )
