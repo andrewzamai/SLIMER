@@ -408,6 +408,7 @@ class Data_Interface(ABC):
                                 def_and_guidelines[map_to_extended_NE_name[l].upper()] = DeG_per_NEs[l]['gpt_answer']
                                 json_output[map_to_extended_NE_name[l].upper()] = [x[0] for x in sample_gold_spans_per_ne[l]]
 
+                            """
                             # tagNames masking with LABEL-id
                             tag_to_LABEL_dict = {}
                             label_ID = 0
@@ -436,6 +437,7 @@ class Data_Interface(ABC):
                                     json_output[mask_word] = json_output.pop(original_tag)
 
                             json_output = dict(sorted(json_output.items()))
+                            """
 
                             instruction = slimer_prompter.generate_prompt(
                                 ne_tags=", ".join(tagNames_list),

@@ -999,6 +999,7 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
                 def_and_guidelines[l] = values_indexed_bytag[l]['def_and_guidelines']
                 json_output[l] = values_indexed_bytag[l]['this_tagName_output']
 
+            """
             # tagNames masking with LABEL-id
             tag_to_LABEL_dict = {}
             label_ID = 0
@@ -1023,7 +1024,7 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
                     json_output[mask_word] = json_output.pop(original_tag)
 
             json_output = dict(sorted(json_output.items()))
-
+            """
 
             instruction = slimer_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels),
                                                           def_and_guidelines=json.dumps(def_and_guidelines, indent=2),
