@@ -1038,9 +1038,12 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
     return Dataset.from_list(test_set)
 
 def chunk_labels(lst, N):
-    """Yield successive N-sized labels from lst."""
-    for i in range(0, len(lst), N):
-        yield lst[i:i + N]
+    """Yield successive N-sized labels from lst. If N is -1, yield the entire list."""
+    if N == -1:
+        yield lst
+    else:
+        for i in range(0, len(lst), N):
+            yield lst[i:i + N]
 
 
 if __name__ == "__main__":
