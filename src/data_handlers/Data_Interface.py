@@ -453,10 +453,13 @@ class Data_Interface(ABC):
 
         return DatasetDict({split: Dataset.from_list(values) for split, values in dataset_dict_SLIMER_PARALLEL.items()})
 
-    def chunk_labels(self, lst, N):
-        """Yield successive N-sized labels from lst."""
-        for i in range(0, len(lst), N):
-            yield lst[i:i + N]
+    def chunk_labels(lst, N):
+        """Yield successive N-sized labels from lst. If N is -1, yield the entire list."""
+        if N == -1:
+            yield lst
+        else:
+            for i in range(0, len(lst), N):
+                yield lst[i:i + N]
 
     def chunk_document_with_sliding_window(
             self,

@@ -320,7 +320,7 @@ if __name__ == "__main__":
         p_being_masked=1.0
     )
 
-    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_1pMask"
+    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_1pMask_5ep"
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json(f'./data/pileNER/{dataset_name}/train.jsonl')
     datasetDict_SLIMER_PARALLEL_format['validation'].to_json(f'./data/pileNER/{dataset_name}/validation.jsonl')

@@ -14,7 +14,7 @@ early_stopping_patience: 5
 #training hyperparams
 batch_size: 32
 micro_batch_size: 1
-num_epochs: 1
+num_epochs: 5
 learning_rate: 3.0e-4
 cutoff_len: 4096
 
