@@ -15,6 +15,8 @@ from transformers import (
 from trl import setup_chat_format, DataCollatorForCompletionOnlyLM
 from peft import LoraConfig
 
+from transformers import EarlyStoppingCallback
+
 from trl import SFTTrainer
 
 from src.SFT_finetuning.commons.prompter import Prompter
@@ -124,6 +126,7 @@ def training_function(script_args, training_args):
     trainer = SFTTrainer(
         model=model,
         args=training_args,
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=5)],
         data_collator=collator,
         train_dataset=train_dataset,
         eval_dataset=test_dataset,
