@@ -118,6 +118,8 @@ def training_function(script_args, training_args):
     ################
     # Training
     ################
+
+
     trainer = SFTTrainer(
         model=model,
         args=training_args,
@@ -129,7 +131,7 @@ def training_function(script_args, training_args):
         tokenizer=tokenizer,
         packing=False,  # True
         dataset_kwargs={
-            "add_special_tokens": False,  # We template with special tokens
+            "add_special_tokens": True,  # We template with special tokens
             "append_concat_token": False,  # No need to add additional separator token
         },
     )
