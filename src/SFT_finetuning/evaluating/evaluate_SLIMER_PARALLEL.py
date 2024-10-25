@@ -129,7 +129,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
             exclude_misc=True,
             mask_labels=False,
             max_tagNames_per_prompt=-1,
-            input_chunking_window=300,
+            input_chunking_window=900,
             chunking_overlap=15,
         )
         return SLIMER_PARALLEL_dataseDict['test']
