@@ -320,7 +320,7 @@ if __name__ == "__main__":
         p_being_masked=1.0
     )
 
-    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_1pMask_5ep"
+    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_1pMask"
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json(f'./data/pileNER/{dataset_name}/train.jsonl')
     datasetDict_SLIMER_PARALLEL_format['validation'].to_json(f'./data/pileNER/{dataset_name}/validation.jsonl')
@@ -331,7 +331,7 @@ if __name__ == "__main__":
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
     configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA3-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_pmask1"
+    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA3-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_pmask1_5ep"
 
     train(**configs)
 
