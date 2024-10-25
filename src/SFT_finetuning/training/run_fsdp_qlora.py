@@ -78,7 +78,8 @@ def training_function(script_args, training_args):
             desc="Log a few random samples from the processed training set"
     ):
         for index in random.sample(range(len(train_dataset)), 2):
-            print(train_dataset[index]["text"])
+            #print(train_dataset[index]["text"])
+            print(train_dataset[index]["messages"])
 
     # Model
     torch_dtype = torch.bfloat16
