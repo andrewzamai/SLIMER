@@ -370,7 +370,13 @@ class Data_Interface(ABC):
 
         return sentences_per_ne_type
 
-    def convert_dataset_for_SLIMER_PARALLEL(self, exclude_misc=True, max_tagNames_per_prompt=5, input_chunking_window=900, chunking_overlap=15):
+    def convert_dataset_for_SLIMER_PARALLEL(
+            self,
+            exclude_misc=True,
+            mask_labels=False,
+            max_tagNames_per_prompt=5,
+            input_chunking_window=900,
+            chunking_overlap=15):
         # convert Dataset from BIO labelling to SLIMER-PARALLEL format
         # columns: id, input, instruction (with D&G if path_to_DeG provided) and output json of gold answers
         dataset_dict_SLIMER_PARALLEL = {split: [] for split in self.datasetdict_BIO.keys()}
@@ -408,35 +414,35 @@ class Data_Interface(ABC):
                                 def_and_guidelines[map_to_extended_NE_name[l].upper()] = DeG_per_NEs[l]['gpt_answer']
                                 json_output[map_to_extended_NE_name[l].upper()] = [x[0] for x in sample_gold_spans_per_ne[l]]
 
-                            # tagNames masking with LABEL-id
-                            tag_to_LABEL_dict = {}
-                            label_ID = 0
-                            for l in tagNames_list:
-                                tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
-                                label_ID += 1
+                            if mask_labels:
+                                # tagNames masking with LABEL-id
+                                tag_to_LABEL_dict = {}
+                                label_ID = 0
+                                for l in tagNames_list:
+                                    tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
+                                    label_ID += 1
 
-                            tagNames_list = sorted(tag_to_LABEL_dict.values())
-                            # print(tag_to_LABEL_dict)
-                            for original_tag, mask_word in tag_to_LABEL_dict.items():
-                                # print(def_and_guidelines)
-                                if original_tag != mask_word:
-                                    this_tag_DeG = def_and_guidelines.pop(original_tag)
-                                    # Use regex with word boundaries to ensure exact matches are replaced
-                                    this_tag_DeG['Definition'] = re.sub(rf'\b{re.escape(original_tag)}\b',
-                                                                        mask_word,
-                                                                        this_tag_DeG['Definition'],
-                                                                        flags=re.IGNORECASE)
-                                    this_tag_DeG['Guidelines'] = re.sub(rf'\b{re.escape(original_tag)}\b',
-                                                                        mask_word,
-                                                                        this_tag_DeG['Guidelines'],
-                                                                        flags=re.IGNORECASE)
+                                tagNames_list = sorted(tag_to_LABEL_dict.values())
+                                # print(tag_to_LABEL_dict)
+                                for original_tag, mask_word in tag_to_LABEL_dict.items():
+                                    # print(def_and_guidelines)
+                                    if original_tag != mask_word:
+                                        this_tag_DeG = def_and_guidelines.pop(original_tag)
+                                        # Use regex with word boundaries to ensure exact matches are replaced
+                                        this_tag_DeG['Definition'] = re.sub(rf'\b{re.escape(original_tag)}\b',
+                                                                            mask_word,
+                                                                            this_tag_DeG['Definition'],
+                                                                            flags=re.IGNORECASE)
+                                        this_tag_DeG['Guidelines'] = re.sub(rf'\b{re.escape(original_tag)}\b',
+                                                                            mask_word,
+                                                                            this_tag_DeG['Guidelines'],
+                                                                            flags=re.IGNORECASE)
 
-                                    def_and_guidelines[mask_word] = this_tag_DeG
+                                        def_and_guidelines[mask_word] = this_tag_DeG
 
-                                    json_output[mask_word] = json_output.pop(original_tag)
+                                        json_output[mask_word] = json_output.pop(original_tag)
 
-                            json_output = dict(sorted(json_output.items()))
-
+                                json_output = dict(sorted(json_output.items()))
 
                             instruction = slimer_prompter.generate_prompt(
                                 ne_tags=", ".join(tagNames_list),

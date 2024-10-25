@@ -898,7 +898,14 @@ def build_dataset_SLIMER_PARALLEL_format(
         "test": test_dataset
     })
 
-def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, path_to_dataset, with_definition, path_to_NE_guidelines_json, max_tagNames_per_prompt=5, SLIMER_prompter_name='SLIMER_PARALLEL_instruction_template'):
+def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
+        dataset_name,
+        path_to_dataset,
+        path_to_NE_guidelines_json,
+        SLIMER_prompter_name='SLIMER_PARALLEL_instruction_template',
+        mask_labels=False,
+        with_definition=True,
+        max_tagNames_per_prompt=5):
     """
     Converts MIT/CrossNER test sets for SLIMER inference format.
     """
@@ -999,32 +1006,31 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(dataset_name, p
                 def_and_guidelines[l] = values_indexed_bytag[l]['def_and_guidelines']
                 json_output[l] = values_indexed_bytag[l]['this_tagName_output']
 
+            if mask_labels:
+                # tagNames masking with LABEL-id
+                tag_to_LABEL_dict = {}
+                label_ID = 0
+                for l in this_sample_labels:
+                    tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
+                    label_ID += 1
 
-            # tagNames masking with LABEL-id
-            tag_to_LABEL_dict = {}
-            label_ID = 0
-            for l in this_sample_labels:
-                tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
-                label_ID += 1
+                this_sample_labels = sorted(tag_to_LABEL_dict.values())
+                # print(tag_to_LABEL_dict)
+                for original_tag, mask_word in tag_to_LABEL_dict.items():
+                    #print(def_and_guidelines)
+                    if original_tag != mask_word:
+                        this_tag_DeG = def_and_guidelines.pop(original_tag)
+                        # Use regex with word boundaries to ensure exact matches are replaced
+                        this_tag_DeG['Definition'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word,
+                                                            this_tag_DeG['Definition'], flags=re.IGNORECASE)
+                        this_tag_DeG['Guidelines'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word,
+                                                            this_tag_DeG['Guidelines'], flags=re.IGNORECASE)
 
-            this_sample_labels = sorted(tag_to_LABEL_dict.values())
-            # print(tag_to_LABEL_dict)
-            for original_tag, mask_word in tag_to_LABEL_dict.items():
-                #print(def_and_guidelines)
-                if original_tag != mask_word:
-                    this_tag_DeG = def_and_guidelines.pop(original_tag)
-                    # Use regex with word boundaries to ensure exact matches are replaced
-                    this_tag_DeG['Definition'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word,
-                                                        this_tag_DeG['Definition'], flags=re.IGNORECASE)
-                    this_tag_DeG['Guidelines'] = re.sub(rf'\b{re.escape(original_tag)}\b', mask_word,
-                                                        this_tag_DeG['Guidelines'], flags=re.IGNORECASE)
+                        def_and_guidelines[mask_word] = this_tag_DeG
 
-                    def_and_guidelines[mask_word] = this_tag_DeG
+                        json_output[mask_word] = json_output.pop(original_tag)
 
-                    json_output[mask_word] = json_output.pop(original_tag)
-
-            json_output = dict(sorted(json_output.items()))
-
+                json_output = dict(sorted(json_output.items()))
 
             instruction = slimer_prompter.generate_prompt(ne_tags=", ".join(this_sample_labels),
                                                           def_and_guidelines=json.dumps(def_and_guidelines, indent=2),
