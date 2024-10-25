@@ -408,7 +408,6 @@ class Data_Interface(ABC):
                                 def_and_guidelines[map_to_extended_NE_name[l].upper()] = DeG_per_NEs[l]['gpt_answer']
                                 json_output[map_to_extended_NE_name[l].upper()] = [x[0] for x in sample_gold_spans_per_ne[l]]
 
-
                             # tagNames masking with LABEL-id
                             tag_to_LABEL_dict = {}
                             label_ID = 0
@@ -453,7 +452,7 @@ class Data_Interface(ABC):
 
         return DatasetDict({split: Dataset.from_list(values) for split, values in dataset_dict_SLIMER_PARALLEL.items()})
 
-    def chunk_labels(lst, N):
+    def chunk_labels(self, lst, N):
         """Yield successive N-sized labels from lst. If N is -1, yield the entire list."""
         if N == -1:
             yield lst
