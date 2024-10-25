@@ -11,9 +11,8 @@ from transformers import (
     AutoTokenizer,
     BitsAndBytesConfig,
     set_seed,
-
 )
-from trl import setup_chat_format
+from trl import setup_chat_format, DataCollatorForCompletionOnlyLM
 from peft import LoraConfig
 
 from trl import SFTTrainer
@@ -66,8 +65,8 @@ def training_function(script_args, training_args):
             {"role": "user", "content": prompter.generate_prompt(input=row["input"], instruction=row["instruction"])},
             {"role": "assistant", "content": row["output"]}
         ]
-        #row["text"] = tokenizer.apply_chat_template(conversation, tokenize=False)
-        row["messages"] = conversation
+        #return tokenizer.apply_chat_template(conversation, tokenize=False)
+        row["text"] = tokenizer.apply_chat_template(conversation, tokenize=False)
         return row
 
     train_dataset = train_dataset.map(format_chat_template, remove_columns=["input", "instruction", "output"])
@@ -78,8 +77,8 @@ def training_function(script_args, training_args):
             desc="Log a few random samples from the processed training set"
     ):
         for index in random.sample(range(len(train_dataset)), 2):
-            #print(train_dataset[index]["text"])
-            print(train_dataset[index]["messages"])
+            print(train_dataset[index]["text"])
+
 
     # Model
     torch_dtype = torch.bfloat16
@@ -119,19 +118,22 @@ def training_function(script_args, training_args):
     # Training
     ################
 
+    response_template = "<|start_header_id|>assistant<|end_header_id|>\n\n"
+    collator = DataCollatorForCompletionOnlyLM(response_template, tokenizer=tokenizer)
 
     trainer = SFTTrainer(
         model=model,
         args=training_args,
+        data_collator=collator,
         train_dataset=train_dataset,
-        # dataset_text_field="text",
         eval_dataset=test_dataset,
+        dataset_text_field="text",
         peft_config=peft_config,
         max_seq_length=script_args.max_seq_length,
         tokenizer=tokenizer,
-        packing=False,  # True
+        packing=False,
         dataset_kwargs={
-            "add_special_tokens": True,  # We template with special tokens
+            "add_special_tokens": False,  # We template with special tokens
             "append_concat_token": False,  # No need to add additional separator token
         },
     )
