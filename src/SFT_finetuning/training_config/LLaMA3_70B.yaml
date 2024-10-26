@@ -3,11 +3,11 @@ model_id: "meta-llama/Llama-3.1-70B-Instruct" # Hugging Face model id
 dataset_path: "./data/pileNER/SLIMER_PARALLEL_5tagNamesPerPrompt_wDeG_1pMask"
 max_seq_length: 4096              # max sequence length for model and packing of the dataset
 # training parameters
-output_dir: "./SLIMER-LLaMA3-70B-LORAw-v4"     # Temporary output directory for model checkpoints
+output_dir: "./SLIMER-LLaMA3-70B-LORAw-v5"     # Temporary output directory for model checkpoints
 report_to: "tensorboard"               # report metrics to tensorboard
-learning_rate: 0.00005                  # learning rate 2e-4
+learning_rate: 0.0003                  # learning rate 2e-4
 lr_scheduler_type: "cosine"          # learning rate scheduler
-num_train_epochs: 1                    # number of training epochs
+num_train_epochs: 3                    # number of training epochs
 load_best_model_at_end: true
 #max_steps: 50
 per_device_train_batch_size: 1         # batch size per device during training
@@ -17,8 +17,8 @@ optim: adamw_torch                     # use torch adamw optimizer
 logging_steps: 10                      # log every 10 steps
 save_strategy: steps                   # save checkpoint every epoch
 eval_strategy: steps                   # evaluate every epoch
-eval_steps: 30
-save_steps: 30
+eval_steps: 60
+save_steps: 60
 max_grad_norm: 1.0                     # max gradient norm
 warmup_ratio: 0.03                     # warmup ratio
 bf16: true                             # use bfloat16 precision
