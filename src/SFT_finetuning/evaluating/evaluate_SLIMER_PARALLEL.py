@@ -149,8 +149,8 @@ if __name__ == '__main__':
 
     to_eval_on = [
         # converting from uniNER eval datasets using function inside data_handler_pileNER
-        #{'datasets_cluster_name': 'crossNER', 'data_handler': data_handler_pileNER, 'subdataset_names': ['ai', 'literature', 'music', 'politics', 'science']},
-        #{'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
+        {'datasets_cluster_name': 'crossNER', 'data_handler': data_handler_pileNER, 'subdataset_names': ['ai', 'literature', 'music', 'politics', 'science']},
+        {'datasets_cluster_name': 'MIT', 'data_handler': data_handler_pileNER, 'subdataset_names': ['movie', 'restaurant']},
         {'datasets_cluster_name': 'BUSTER', 'data_handler': data_handler_BUSTER, 'subdataset_names': ['BUSTER']},
     ]
 
@@ -170,7 +170,7 @@ if __name__ == '__main__':
     vllm_model = LLM(
         model=args.merged_model_name,
         max_model_len=cutoff_len + max_new_tokens,
-        tensor_parallel_size=1
+        tensor_parallel_size=4
     )
     tokenizer = vllm_model.get_tokenizer()
 
