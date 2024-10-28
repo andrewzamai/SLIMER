@@ -3,7 +3,7 @@ model_id: "meta-llama/Llama-3.1-70B-Instruct" # Hugging Face model id
 dataset_path: "./data/pileNER/SLIMER_PARALLEL_5tagNamesPerPrompt_wDeG_1pMask"
 max_seq_length: 4096              # max sequence length for model and packing of the dataset
 # training parameters
-output_dir: "./SLIMER-LLaMA3-70B-LORAw-v5"     # Temporary output directory for model checkpoints
+output_dir: "./SLIMER-LLaMA3-70B-LORAw-v6"     # Temporary output directory for model checkpoints
 report_to: "tensorboard"               # report metrics to tensorboard
 learning_rate: 0.0003                  # learning rate 2e-4
 lr_scheduler_type: "cosine"          # learning rate scheduler
