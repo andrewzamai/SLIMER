@@ -271,7 +271,7 @@ def train(
         load_best_model_at_end=True if val_set_size > 0 or val_data_path else False,
         ddp_find_unused_parameters=False if ddp else None,
         group_by_length=group_by_length,
-        report_to="wandb" if use_wandb else None,
+        report_to="wandb" if use_wandb else "tensorboard",
         run_name=wandb_run_name if use_wandb else None,
         gradient_checkpointing=gradient_checkpointing,
         dataloader_num_workers=world_size

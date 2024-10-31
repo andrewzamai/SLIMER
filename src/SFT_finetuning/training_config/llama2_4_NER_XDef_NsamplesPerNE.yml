@@ -12,8 +12,6 @@ val_set_size: -1  # if -1 use all validation data
 output_dir: None
 early_stopping_patience: 5
 
-report_to: "tensorboard"
-
 #training hyperparams
 batch_size: 32
 micro_batch_size: 1
