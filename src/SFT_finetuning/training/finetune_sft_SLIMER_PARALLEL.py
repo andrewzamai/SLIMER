@@ -317,21 +317,21 @@ if __name__ == "__main__":
         path_to_DeG="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
         template_path="./src/SFT_finetuning/templates",
         template_name_SLIMER_PARALLEL="SLIMER_PARALLEL_instruction_template",
-        p_being_masked=1.0
+        p_being_masked=0
     )
 
-    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_1pMask"
+    dataset_name = f"SLIMER_PARALLEL_{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG"
 
     datasetDict_SLIMER_PARALLEL_format['train'].to_json(f'./data/pileNER/{dataset_name}/train.jsonl')
     datasetDict_SLIMER_PARALLEL_format['validation'].to_json(f'./data/pileNER/{dataset_name}/validation.jsonl')
 
     # now loading training config from yml and overriding some variables like dataset name and output_dir
-    path_to_training_config = './src/SFT_finetuning/training_config/llama3_parallel.yml'
+    path_to_training_config = './src/SFT_finetuning/training_config/llama2_4_NER_XDef_NsamplesPerNE.yml'
     with open(path_to_training_config, 'rb') as f:
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
     configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA3-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG_pmask1_5ep"
+    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA2-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG"
 
     train(**configs)
 
