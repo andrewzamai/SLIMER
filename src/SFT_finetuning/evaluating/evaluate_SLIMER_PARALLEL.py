@@ -106,8 +106,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
     elif datasets_cluster_name == 'MIT':
         path_to_eval_dataset_uniNER = f"./data/eval_data_UniNER/test_data/mit-{subdataset_name}.json"
         path_to_guidelines_folder = f"./src/data_handlers/questions/{datasets_cluster_name}/gpt_guidelines"
-        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder,
-                                                     subdataset_name + '_NE_definitions.json')
+        path_to_subdataset_guidelines = os.path.join(path_to_guidelines_folder, subdataset_name + '_NE_definitions.json')
         return data_handler.convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
             subdataset_name,
             path_to_eval_dataset_uniNER,
@@ -170,7 +169,7 @@ if __name__ == '__main__':
     vllm_model = LLM(
         model=args.merged_model_name,
         max_model_len=cutoff_len + max_new_tokens,
-        tensor_parallel_size=4
+        tensor_parallel_size=1
     )
     tokenizer = vllm_model.get_tokenizer()
 
