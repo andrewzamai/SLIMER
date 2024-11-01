@@ -163,7 +163,7 @@ if __name__ == '__main__':
     cutoff_len = 3096
     print(f"\ninput_cutoff_len: {cutoff_len}")
 
-    max_new_tokens = 2048
+    max_new_tokens = 1000  # 2048
     print(f"\nmax_new_tokens: {max_new_tokens}\n")
 
     vllm_model = LLM(
