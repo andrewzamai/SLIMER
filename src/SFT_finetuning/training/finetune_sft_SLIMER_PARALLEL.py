@@ -331,7 +331,7 @@ if __name__ == "__main__":
         configs = yaml.safe_load(f.read())
     configs['data_path'] = f'./data/pileNER/{dataset_name}/train.jsonl'
     configs['val_data_path'] = f'./data/pileNER/{dataset_name}/validation.jsonl'
-    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA2-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG"
+    configs['output_dir'] = f"./trained_models/SLIMER-PARALLEL-LLaMA2-{max_tagNames_per_prompt}tagNamesPerPrompt_wDeG-v2"
 
     train(**configs)
 

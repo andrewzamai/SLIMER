@@ -22,7 +22,7 @@ learning_rate: 3.0e-4
 cutoff_len: 4096
 
 warmup_steps: 60
-eval_steps: 20
+eval_steps: 40
 logging_steps: 5
 max_grad_norm: 1.0
 

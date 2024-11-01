@@ -874,7 +874,6 @@ def build_dataset_SLIMER_PARALLEL_format(
             })
             samples_progressiveID += 1
 
-    """
     train_ratio = 0.9
     num_samples = len(samples)
     num_train = int(train_ratio * num_samples)
@@ -883,13 +882,15 @@ def build_dataset_SLIMER_PARALLEL_format(
 
     val_fold = val_test_fold[:math.floor(len(val_test_fold) / 2.0)]
     test_fold = val_test_fold[math.floor(len(val_test_fold) / 2.0):]
+
     """
-    random.seed(42)
+    
     random.shuffle(samples)
     train_fold = samples[:3910]
     val_fold = samples[3910:3910+1000]
     test_fold = samples[4910:4910+1000]
-
+    """
+    random.seed(42)
     random.shuffle(train_fold)
     random.shuffle(val_fold)
     random.shuffle(test_fold)
