@@ -1,7 +1,6 @@
 <div align="center">
-  <h1>👻 SLIMER: Show Less Instruct More Entity Recognition</h1>
+  <h1>👻 SLIMER-PARALLEL: Show Less Instruct More Entity Recognition</h1>
 </div>
-
 
 <p align="center">
     <a href="https://github.com/andrewzamai/SLIMER/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/badge/license-Apache2.0-blue"></a>
@@ -24,7 +23,7 @@ Designed to work on:
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Parallel NE types extraction
 
 <div align="center">
-<img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 275px;">
+<img src="assets/SLIMER_PARALLEL_prompt.png" alt="Alt text" style="max-width: 100%; width: 275px;">
 </div>
 
 ## 📄 TL;DR
