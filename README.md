@@ -73,7 +73,7 @@ PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_SLIMER_PARALLEL.
 
 Train, merge, evaluate your SLIMER:
 ```
-# 1) train on PileNER-subset with Definition and Guidelines, 391 NEs, 5 samples per NE
+# 1) train on PileNER-subset with Definition and Guidelines, 391 NEs
 PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft_SLIMER_PARALLEL.py
 
 # 2) merge LORA weights
