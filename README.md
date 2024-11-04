@@ -23,80 +23,9 @@ Designed to work on:
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Parallel NE types extraction
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Instruction Tuning Prompt</title>
-    <style>
-        .container {
-            border: none;
-            padding: 5px;
-            width: 300px;
-            margin: 0 auto;
-            font-family: Arial, sans-serif;
-            font-size: 8px;
-            border-radius: 10px; /* Rounded borders for container */
-            overflow: hidden; /* Ensure child elements respect container's rounded borders */
-            background-color: #f0f0f0
-        }
-        .header {
-            background-color: black;
-            color: white;
-            padding: 5px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-            border-top-left-radius: 10px; /* Rounded top-left corner */
-            border-top-right-radius: 10px; /* Rounded top-right corner */
-        }
-        .content {
-            padding: 5px;
-        }
-        .definition, {
-            padding: 5px;
-            border-radius: 10px; /* Rounded borders for definition and guidelines */
-        }
-        .definition {
-            background-color: #ffc773;
-        }
-        .footer {
-            background-color: black;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">SLIMER-3-PARALLEL prompt</div>
-        <div class="content">
-            <p><b><|start_header_id|>user<|end_header_id|></b></p>
-            <p>You are given a text chunk (delimited by triple quotes) and an instruction.<br>
-            Read the text and answer to the instruction in the end.</p>
-            <p>"""<br>
-            {input text}<br>
-            """</p>
-            <p><b>Instruction:</b> Extract the entities of type <b>[NEs_list]</b> from the text chunk you have read. Be aware that not all of these entities are necessarily present. Do not extract entities that do not exist in the text, return an empty list for that tag. Ensure each entity is assigned to only one appropriate class.</p>
-            <p>To help you, here are dedicated Definition and Guidelines for each entity tag.</p>
-            <div class="definition">
-            <p>{</p>
-            <p>{<b>"NE_type_1":</b> {"Definition": "", "Guidelines": ""}</p>
-            <p><b> ... </b>
-            <p>{<b>"NE_type_N":</b> {"Definition": "", "Guidelines": ""}</p>
-            <p>}</p>
-            </div>
-            <p>Return only a JSON object. The JSON should strictly follow this format: {"NE_type_1": [], ..., "NE_type_N":[]}. DO NOT output anything else, just the JSON itself.</p>
-            <p><b><|eot_id|><|start_header_id|>assistant<|end_header_id|></b></p>
-        </div>
-        <div class="footer"></div>
-    </div>
-</body>
-</html>
-
+<div align="center">
+<img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 275px;">
+</div>
 
 ## 📄 TL;DR
 Existing models primarily focus on addressing zero-shot NER on Out-of-Domain inputs, while fine-tuning on an extensive number of entity classes that often highly or completely overlap with the test sets used in the literature. 
