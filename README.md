@@ -12,11 +12,16 @@
 
 ## Instruct your LLM with Definitions and Guidelines for Zero-Shot NER 🔎 📖
 
+This LLaMA-3 based SLIMER scores +17 % over paper's original SLIMER LLaMA-2,
+while allowing up to 16 NEs to be extracted in parallel per prompt. 
+
 Designed to work on:
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Out-Of-Domain inputs (e.g. news, science, politics, music ...)
 
 &nbsp;&nbsp;&nbsp;&nbsp;✅ Never-Seen-Before Named Entities (the model was not trained on that entity type? It will tag it anyway!)
+
+&nbsp;&nbsp;&nbsp;&nbsp;✅ Parallel NE types extraction
 
 <div align="center">
 <img src="assets/SLIMER_prompt.png" alt="Alt text" style="max-width: 100%; width: 275px;">
@@ -50,7 +55,7 @@ PROs:
 
 CONs:
 
-&nbsp;&nbsp;&nbsp;&nbsp;❌ does not scale well with increasing label set cardinality (future work: prefix-caching)
+&nbsp;&nbsp;&nbsp;&nbsp;✅ this version does now scale well with increasing label set cardinality
 
 
 ## Installation
@@ -65,19 +70,17 @@ pip install -r ./requirements.txt
 
 Evaluate SLIMER w/ D&G on MIT/CrossNER/BUSTER
 ```
-PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py expertai/SLIMER --with_guidelines
+PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_SLIMER_PARALLEL.py expertai/SLIMER -1 --with_guidelines
 ```
 
 Train, merge, evaluate your SLIMER:
 ```
 # 1) train on PileNER-subset with Definition and Guidelines, 391 NEs, 5 samples per NE
-PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft.py 391 5 5 --with_guidelines
+PYTHONPATH=$(pwd) python src/SFT_finetuning/training/finetune_sft_SLIMER_PARALLEL.py
 
 # 2) merge LORA weights
-PYTHONPATH=$(pwd) python src/SFT_finetuning/commons/merge_lora_weights.py 391 5 5 --with_guidelines
 
 # 3) evaluate SLIMER model on MIT/CrossNER/BUSTER
-PYTHONPATH=$(pwd) python src/SFT_finetuning/evaluating/evaluate_vLLM.py LLaMA2_7B_5pos_5neg_perNE_top391NEs_TrueDef --with_guidelines
 ```
 
 ## Run it on your NER data!
@@ -96,37 +99,40 @@ A simple inference example is as follows:
 
 ```python
 from vllm import LLM, SamplingParams
-from src.SFT_finetuning.commons.prompter import SLIMER_instruction_prompter, Prompter
 
+vllm_model = LLM(model="expertai/SLIMER-PARALLEL-LLaMA3")
+tokenizer = vllm_model.get_tokenizer()
 
-vllm_model = LLM("expertai/SLIMER")
-# it is recommended to use a temperature of 0
-# max_new_tokens can be adjusted depending on the expected length and number of entities (default 128)
-sampling_params = SamplingParams(temperature=0, max_tokens=128, stop=['</s>'])
+# suggested temperature 0, max_tokens hyperparam
+cutoff_len = 4096
+sampling_params = SamplingParams(temperature=0, max_tokens=1000, stop=tokenizer.eos_token)
 
-# suppose we want to extract the entities of type "algorithm", we just need to write the definition and guidelines in simple syntax
-tag_to_extract = "algorithm"
-tag_definition = "ALGORITHM entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines."
-tag_guidelines = "Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'."
+# given list of NE types and dictionary of Def and Guidelines for each --> returns instruction
+slimer_prompter = SLIMER_PARALLEL_instruction_prompter("SLIMER_PARALLEL_instruction_template", './src/SFT_finetuning/templates')
 
-# format the Def & Guidelines into SLIMER instruction
-slimer_prompter = SLIMER_instruction_prompter("SLIMER_instruction_template", template_path='./src/SFT_finetuning/templates')
-instruction = slimer_prompter.generate_prompt(ne_tag=tag_to_extract, definition=tag_definition, guidelines=tag_guidelines)
-print(instruction)
-"Extract the Named Entities of type ALGORITHM from the text chunk you have read. You are given a DEFINITION and some GUIDELINES.\nDEFINITION: ALGORITHM entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines.\nGUIDELINES: Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present."
+# create a dictionary of dictionaries, each NE_type as key should have a {Definition: str, Guidelines: str} value
+ne_types_list = ['ORGANIZATION', 'UNIVERSITY', 'LOCATION', 'PERSON', 'CONFERENCE']
+def_guidelines_per_NE_dict = {'ORGANIZATION': {'Definition': "'organization' refers to structured groups, institutions, companies, or associations.", 'Guidelines': "Avoid labeling generic terms like 'team' or 'group'. Exercise caution with ambiguous entities like 'Apple' (company vs. fruit) and 'Manchester United' (sports team vs. fan club)."}, 'UNIVERSITY': {'Definition': 'UNIVERSITY represents educational institutions that offer higher education and academic research programs.', 'Guidelines': "Avoid labeling general concepts such as 'education' or 'academia' as UNIVERSITY. Exercise caution with ambiguous terms like 'Cambridge' (can refer to different institutions) and 'Harvard' (can refer to a person)."}, 'LOCATION': {'Definition': 'LOCATION refers to specific geographic entities such as venues, facilities, and institutions that represent physical places with distinct addresses or functions.', 'Guidelines': "Exercise caution with ambiguous terms, e.g., 'Amazon' (company, river, and region) and 'Cambridge' (U.S. city, UK city, and university). Consider the context and specificity to accurately classify locations."}, 'PERSON': {'Definition': 'PERSON refers to individuals, including public figures, celebrities, and notable personalities.', 'Guidelines': 'If a person is working on research (including professor, Ph.D. student, researcher in companies, and etc) avoid labeling it as PERSON entity.'}, 'CONFERENCE': {'Definition': 'CONFERENCE refers to specific events or gatherings where experts, researchers, and professionals convene to present and discuss their work in a particular field or discipline.', 'Guidelines': "Exercise caution when labeling entities that could refer to institutions, organizations, or associations rather than specific events. Take care with ambiguous terms like 'International Journal of Computer Vision', which may refer to a publication rather than a conference."}}
 
-input_text = "Typical generative model approaches include naive Bayes classifier s , Gaussian mixture model s , variational autoencoders and others ."
+instruction = slimer_prompter.generate_prompt(
+  ne_tags=", ".join(ne_types_list),
+  def_and_guidelines=json.dumps(def_guidelines_per_NE_dict, indent=2),
+  expected_json_format=json.dumps({k: [] for k in def_guidelines_per_NE_dict.keys()}, indent=2)
+)
 
-# prefix the input text to the instruction and format it into LLaMA-2 template 
-llama2_prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
-prompts = [llama2_prompter.generate_prompt(instruction, input_text)]
-print(prompts[0])
-"[INST] You are given a text chunk (delimited by triple quotes) and an instruction.\nRead the text and answer to the instruction in the end.\n\"\"\"\nTypical generative model approaches include naive Bayes classifier s , Gaussian mixture model s , variational autoencoders and others .\n\"\"\"\nInstruction: Extract the Named Entities of type ALGORITHM from the text chunk you have read. You are given a DEFINITION and some GUIDELINES.\nDEFINITION: ALGORITHM entities refer to specific computational procedures or methods designed to solve a problem or perform a task within the field of computer science or related disciplines.\nGUIDELINES: Avoid labeling generic technology or software names without specific algorithmic context. Exercise caution with terms that may denote both a specific algorithm and a generic concept, such as 'neural network'.\nReturn a JSON list of instances of this Named Entity type. Return an empty list if no instances are present.\n[/INST]"
+input_text = 'Typical generative model approaches include naive Bayes classifier s , Gaussian mixture model s , variational autoencoders and others .'
 
-responses = vllm_model.generate(prompts, sampling_params)
-all_pred_answers = [output.outputs[0].text.strip() for output in responses]
-print(all_pred_answers[0])
-"[\"naive Bayes classifier\", \"Gaussian mixture model\", \"variational autoencoders\"]"
+# this promper formats the input text to analize with SLIMER instruction
+input_instruction_prompter = Prompter('LLaMA3-chat-NOheaders', template_path='./src/SFT_finetuning/templates')
+
+system_message = "You are a helpful NER assistant designed to output JSON."
+conversation = [
+    {"role": "system", "content": system_message},
+    {"role": "user", "content": input_instruction_prompter.generate_prompt(input=input_text, instruction=instruction)},  # the input_text + instruction
+]
+prompt = tokenizer.apply_chat_template(conversation, tokenize=False, truncation=True, max_length=cutoff_len, add_generation_prompt=True)
+
+responses = vllm_model.generate(prompt, sampling_params)
 ```
     
 ## 📚 Citation

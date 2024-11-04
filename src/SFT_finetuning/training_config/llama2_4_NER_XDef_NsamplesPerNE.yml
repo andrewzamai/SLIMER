@@ -2,8 +2,8 @@
 
 base_model: meta-llama/Llama-2-7b-chat-hf
 # NB: this Huggingface repository requires to login with an account with granted access
-#prompt_template_name: LLaMA2-chat
-prompt_template_name: LLaMA3-chat-NOheaders
+prompt_template_name: LLaMA2-chat
+#prompt_template_name: LLaMA3-chat-NOheaders
 # using dataset GenQA format (instruction, input, output) columns
 data_path: None
 val_data_path: None
@@ -12,17 +12,17 @@ val_set_size: -1  # if -1 use all validation data
 output_dir: None
 early_stopping_patience: 5
 
-system_message: You are a helpful NER assistant designed to output JSON.
+# system_message: You are a helpful NER assistant designed to output JSON.
 
 #training hyperparams
 batch_size: 32
 micro_batch_size: 1
 num_epochs: 3
 learning_rate: 3.0e-4
-cutoff_len: 4096
+cutoff_len: 768
 
 warmup_steps: 60
-eval_steps: 40
+eval_steps: 20
 logging_steps: 5
 max_grad_norm: 1.0
 

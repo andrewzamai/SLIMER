@@ -997,7 +997,7 @@ def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
     # samples_grouped_by_input = {i: (key, values) for i, (key, values) in enumerate(samples_grouped_by_input.items())}
 
     slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
-    # slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, '../SFT_finetuning/templates')
+    #slimer_prompter = SLIMER_PARALLEL_instruction_prompter(SLIMER_prompter_name, '../SFT_finetuning/templates')
     test_set = []
     for input, values in samples_grouped_by_input.items():
 
