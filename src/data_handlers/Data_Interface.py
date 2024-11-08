@@ -418,6 +418,7 @@ class Data_Interface(ABC):
                                 # tagNames masking with LABEL-id
                                 tag_to_LABEL_dict = {}
                                 label_ID = 0
+                                random.shuffle(tagNames_list)
                                 for l in tagNames_list:
                                     tag_to_LABEL_dict[l] = f"LABEL_{label_ID}"
                                     label_ID += 1
