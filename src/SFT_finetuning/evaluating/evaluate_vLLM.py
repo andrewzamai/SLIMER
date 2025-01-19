@@ -18,6 +18,7 @@ from datasets import Dataset, DatasetDict, load_dataset
 from collections import defaultdict
 import numpy as np
 import argparse
+import torch
 import json
 import sys
 import os
@@ -66,9 +67,11 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
 
 
 if __name__ == '__main__':
+ 
+    torch.cuda.empty_cache()
 
     parser = argparse.ArgumentParser(description='''Evaluate SLIMER's Zero-Shot NER performance''')
-    parser.add_argument('merged_model_name', type=str, help='path_to_merged_model')
+    parser.add_argument('--merged_model_name', type=str, help='path_to_merged_model')
     parser.add_argument('--with_guidelines', action='store_true', help='Whether to use Def & Guidelines')
     args = parser.parse_args()
 
@@ -97,10 +100,10 @@ if __name__ == '__main__':
     vllm_model = LLM(model=args.merged_model_name)
     tokenizer = vllm_model.get_tokenizer()
 
-    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=['</s>'])
+    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
     print(sampling_params)
 
-    prompter = Prompter('LLaMA2-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
+    prompter = Prompter('LLaMA3-chat', template_path='./src/SFT_finetuning/templates', eos_text='')
 
     for data in to_eval_on:
 

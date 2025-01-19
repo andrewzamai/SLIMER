@@ -4,6 +4,7 @@ import os.path
 import sys
 import time
 import shutil
+import torch
 import argparse
 from huggingface_hub import login
 from src.SFT_finetuning.commons.initialization import get_HF_access_token, init_model
@@ -52,21 +53,25 @@ if __name__ == "__main__":
     #HF_ACCESS_TOKEN = get_HF_access_token('./.env')
     #login(token=HF_ACCESS_TOKEN)
 
-    base_model = "meta-llama/Llama-2-7b-chat-hf"
+    #base_model = "meta-llama/Llama-2-7b-chat-hf"
+    base_model = "meta-llama/Llama-3.1-8B-Instruct"
     # as it is the code requires namespace/model_name format only, no more subfolders
 
     parser = argparse.ArgumentParser(description='''Llama merger parser''')
     # adding arguments
+    parser.add_argument('--number_NEs', type=int, help='Number of NEs')
+    parser.add_argument('--number_pos_samples_per_NE', type=int, help='Number of positive samples per NE')
+    parser.add_argument('--number_neg_samples_per_NE', type=int, help='Number of negative samples per NE')
+    parser.add_argument('--model_suffix', type=int, help='Model suffix ID')
     parser.add_argument('--with_guidelines', action='store_true', help='Whether to use guidelines')
-    parser.add_argument('number_NEs', type=int, help='Number of NEs')
-    parser.add_argument('number_pos_samples_per_NE', type=int, help='Number of positive samples per NE')
-    parser.add_argument('number_neg_samples_per_NE', type=int, help='Number of negative samples per NE')
     # parsing arguments
     args = parser.parse_args()
-    path_to_lora = f"./trained_models/LLaMA2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
-    save_model_at = f"./merged_models/LLaMA2_7B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def"
+    path_to_lora = f"./trained_models/LLaMA3.1_8B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def_{args.model_suffix}"
+    save_model_at = f"./merged_models/LLaMA3.1_8B_{args.number_pos_samples_per_NE}pos_{args.number_neg_samples_per_NE}neg_perNE_top{args.number_NEs}NEs_{args.with_guidelines}Def_{args.model_suffix}"
 
     merge_main(base_model, path_to_lora, save_model_at)
+
+    torch.cuda.empty_cache()
 
     """ PUSH TO HF HUB """
 
