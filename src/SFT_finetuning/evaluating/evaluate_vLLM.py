@@ -97,7 +97,11 @@ if __name__ == '__main__':
     max_new_tokens = 128
     print(f"\nmax_new_tokens: {max_new_tokens}\n")
 
-    vllm_model = LLM(model=args.merged_model_name)
+    vllm_model = LLM(
+        model=args.merged_model_name, 
+        tensor_parallel_size=1,
+        max_model_len=cutoff_len + max_new_tokens
+    )
     tokenizer = vllm_model.get_tokenizer()
 
     sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
