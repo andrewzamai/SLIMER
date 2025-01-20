@@ -11,8 +11,8 @@ UniNER's authors provide the crossNER/MIT test datasets already converted to QA 
 Importantly these provided datasets exclude MISCELLANEOUS class
 """
 
-# noinspection PyUnresolvedReferences
 from vllm import LLM, SamplingParams
+from vllm.lora.request import LoRARequest
 
 from datasets import Dataset, DatasetDict, load_dataset
 from collections import defaultdict
@@ -72,7 +72,8 @@ if __name__ == '__main__':
     torch.cuda.empty_cache()
 
     parser = argparse.ArgumentParser(description='''Evaluate SLIMER's Zero-Shot NER performance''')
-    parser.add_argument('--merged_model_name', type=str, help='path_to_merged_model')
+    parser.add_argument('--base_model_name', type=str, help='path_to_base_model_name')
+    parser.add_argument('--path_to_LORA_adapter', type=str, help='path_to_LORA_adapters')
     parser.add_argument('--with_guidelines', action='store_true', help='Whether to use Def & Guidelines')
     args = parser.parse_args()
 
@@ -85,7 +86,7 @@ if __name__ == '__main__':
         {'datasets_cluster_name': 'BUSTER', 'data_handler': data_handler_BUSTER, 'subdataset_names': ['BUSTER']},
     ]
 
-    print(f"\nLLM model: {args.merged_model_name}")
+    print(f"\nLLM model: {args.base_model_name}")
 
     print(f"\nWith Definition & Guidelines: {args.with_guidelines}")
 
@@ -99,9 +100,10 @@ if __name__ == '__main__':
     print(f"\nmax_new_tokens: {max_new_tokens}\n")
 
     vllm_model = LLM(
-        model=args.merged_model_name, 
+        model=args.base_model_name, 
         tensor_parallel_size=1,
-        max_model_len=cutoff_len + max_new_tokens
+        max_model_len=cutoff_len + max_new_tokens,
+        enable_lora=True
     )
     tokenizer = vllm_model.get_tokenizer()
 
@@ -159,7 +161,11 @@ if __name__ == '__main__':
 
             # 5) run inference on SLIMER via vLLM
             prompts = [prompter.generate_prompt(instruction, input) for instruction, input in batch_instruction_input_pairs]
-            responses = vllm_model.generate(prompts, sampling_params)
+            responses = vllm_model.generate(
+                prompts, 
+                sampling_params, 
+                lora_request=LoRARequest(args.path_to_LORA_adapter.split('/')[-1], 1, args.path_to_LORA_adapter)
+            )
 
             # 6) should be already ordered by the vLLM engine, we ensure that
             responses_corret_order = []
@@ -255,14 +261,13 @@ if __name__ == '__main__':
                     'pred_answers': all_pred_answers[i]
                 })
 
-            path_to_save_predictions = os.path.join("./predictions", args.merged_model_name.split('/')[-1])
+            path_to_save_predictions = os.path.join("./predictions", args.path_to_LORA_adapter.split('/')[-1])
             if not os.path.exists(path_to_save_predictions):
                 os.makedirs(path_to_save_predictions)
             with open(os.path.join(path_to_save_predictions, subdataset_name + '.json'), 'w', encoding='utf-8') as f:
                 json.dump(preds_to_save, f, ensure_ascii=False, indent=2)
             print("\n")
     
-    shutil.rmtree(args.merged_model_name)
 
     print("\nDONE :)")
     sys.stdout.flush()
