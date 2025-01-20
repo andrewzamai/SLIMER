@@ -443,7 +443,7 @@ def get_n_sentences_per_ne_type(dataset_MSEQA_format, ne_types_list, n_sentences
 
 def convert_MSEQA_dataset_to_GenQA_format_SI(dataset_MSEQA_format, with_definition, path_to_NE_guidelines_json=None, path_to_save_to='./unk_dataset_GenQA', SLIMER_prompter_name='SLIMER_instruction_template'):
 
-    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, '/Users/andrew/ExpertAI/SLIMER/src/SFT_finetuning/templates')
+    slimer_prompter = SLIMER_instruction_prompter(SLIMER_prompter_name, './src/SFT_finetuning/templates')
 
     print("Converting to SLIMER format, adding Definition and Guidelines if specified ...")
     sys.stdout.flush()
