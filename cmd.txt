@@ -1,0 +1,1 @@
+rsync -avz --progress -e "ssh" --exclude-from='SLIMER/.gitignore' SLIMER/ uvf86lr@JeanZay:/lustre/fswork/projects/rech/dmx/uvf86lr/SLIMER
