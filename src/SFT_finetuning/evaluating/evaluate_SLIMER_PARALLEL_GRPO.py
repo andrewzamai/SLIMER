@@ -18,6 +18,7 @@ from datasets import Dataset, DatasetDict, load_dataset
 from collections import defaultdict
 import numpy as np
 import argparse
+import torch
 import json
 import sys
 import os
@@ -37,45 +38,50 @@ import json
 
 def parse_json_pred(sample, response):
     """
-    Evaluate json prediction to dictionary.
-    Removes hallucinated types and sets to empty list the non predicted entity types.
+    Extract JSON from model response and match it against gold annotations.
+    Returns (gold_dict, pred_dict, all_good_parsing)
     """
     all_good_parsing = True
+
     try:
+        # Step 1: Extract code block if enclosed with ```json ... ```
+        match_json = re.search(r"```json\s*(.*?)\s*```", response, re.DOTALL)
+        if match_json:
+            response = match_json.group(1).strip()
+        else:
+            # Step 2: Trim anything before/including </think> if present
+            think_end = re.search(r"</think>", response, re.IGNORECASE)
+            if think_end:
+                response = response[think_end.end():].strip()
+
+                # Step 2.1: Fallback - extract JSON from first { to last }
+                start = response.find("{")
+                end = response.rfind("}")
+                if start != -1 and end != -1 and end > start:
+                    response = response[start:end+1].strip()
+                
+        # Step 4: Try to parse cleaned response as JSON
         parsed_response = json.loads(response)
-    except json.JSONDecodeError:
+
+    except (json.JSONDecodeError, ValueError):
         all_good_parsing = False
         parsed_response = {}
+
+    # Step 5: Parse gold standard JSON
     try:
         parsed_gold_output = json.loads(sample['output'])
     except json.JSONDecodeError:
         all_good_parsing = False
         parsed_gold_output = {}
 
-    # check for hallucinated types (unexpected keys)
+    # Step 6: Normalize and validate keys and value types
     expected_keys = set(parsed_gold_output.keys())
-    keys_in_response = set(parsed_response.keys())
-
-    # identify and remove unexpected (hallucinated) keys
-    unexpected_keys = keys_in_response - expected_keys
-    for key in unexpected_keys:
-        parsed_response.pop(key)
-
-    # check for missing keys or not parsable
     for key in expected_keys:
-        # if missing set it to []
         value = parsed_response.get(key, [])
         if not isinstance(value, list):
-            all_good_parsing = False
             parsed_response[key] = []
         else:
-            # if not str pop it
-            value = [x for x in value if isinstance(x, str)]
-            parsed_response[key] = value
-
-    # remove hallucinated text spans
-    for key, values in parsed_response.items():
-        parsed_response[key] = [text_span for text_span in values if text_span in sample['input']]
+            parsed_response[key] = [x for x in value if isinstance(x, str)]
 
     return parsed_gold_output, parsed_response, all_good_parsing
 
@@ -96,7 +102,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
             subdataset_name,
             path_to_eval_dataset_uniNER,
             path_to_subdataset_guidelines,
-            'SLIMER_PARALLEL_instruction_template',
+            'SLIMER_PARALLEL_instruction_template_GRPO',
             mask_labels=False,
             with_definition=with_definition,
             max_tagNames_per_prompt=max_tagNames_per_prompt
@@ -110,7 +116,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
             subdataset_name,
             path_to_eval_dataset_uniNER,
             path_to_subdataset_guidelines,
-            'SLIMER_PARALLEL_instruction_template',
+            'SLIMER_PARALLEL_instruction_template_GRPO',
             mask_labels=False,
             with_definition=with_definition,
             max_tagNames_per_prompt=max_tagNames_per_prompt
@@ -127,7 +133,7 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
             exclude_misc=True,
             mask_labels=False,
             max_tagNames_per_prompt=-1,
-            input_chunking_window=900,
+            input_chunking_window=-1,  #900
             chunking_overlap=15,
         )
         return SLIMER_PARALLEL_dataseDict['test']
@@ -136,14 +142,20 @@ def load_or_build_dataset_SLIMER_format(datasets_cluster_name, subdataset_name, 
 
 
 if __name__ == '__main__':
-    # CUDA_VISIBLE_DEVICES=2 python src/SFT_finetuning/evaluating/evaluate_SLIMER_PARALLEL.py meta-llama/Llama-3.1-8B-Instruct 5 --with_guidelines
-    parser = argparse.ArgumentParser(description='''Evaluate SLIMER-PARALLEL Zero-Shot NER performance''')
-    parser.add_argument('merged_model_name', type=str, help='path_to_merged_model')
-    parser.add_argument('max_tagNames_per_prompt', type=int, help='max_tagNames_per_prompt')
+
+    parser = argparse.ArgumentParser(description='''Evaluate SLIMER-PARALLEL (w/ GRPO reasoning) Zero-Shot NER performance''')
+    parser.add_argument('--merged_model_name', type=str, help='path_to_merged_model')
+    parser.add_argument('--max_tagNames_per_prompt', type=int, help='max_tagNames_per_prompt')
     parser.add_argument('--with_guidelines', action='store_true', help='Whether to use Def & Guidelines')
+    parser.add_argument('--temperature', default=0.6, type=float, help='generation temp')
+    parser.add_argument('--top_p', default=0.9, type=float, help='generation setting')
+    parser.add_argument('--top_k', default=-1, type=int, help='generation setting')
+    parser.add_argument('--min_p', default=0, type=float, help='generation setting')
+    parser.add_argument('--num_GPUs', default=1, type=int, help='num avail gpus')
+    parser.add_argument('--system_message', type=str, help='system message')
     args = parser.parse_args()
 
-    print("\nCrossNER/MIT/BUSTER ZERO-SHOT NER EVALUATIONS with UniNER official eval script:\n")
+    print("\nCrossNER/MIT/BUSTER ZERO-SHOT NER EVALUATIONS (w/ GRPO reasoning) using UniNER official eval script.")
 
     to_eval_on = [
         # converting from uniNER eval datasets using function inside data_handler_pileNER
@@ -162,26 +174,27 @@ if __name__ == '__main__':
     cutoff_len = 3096
     print(f"\ninput_cutoff_len: {cutoff_len}")
 
-    max_new_tokens = 1000  # 2048
+    max_new_tokens = 4000 
     print(f"\nmax_new_tokens: {max_new_tokens}\n")
 
     vllm_model = LLM(
         model=args.merged_model_name,
         max_model_len=cutoff_len + max_new_tokens,
-        tensor_parallel_size=1
+        tensor_parallel_size=args.num_GPUs, # increase if multiple gpus available
+        enable_prefix_caching=True,
+        #enforce_eager=True,
+        dtype=torch.bfloat16
     )
     tokenizer = vllm_model.get_tokenizer()
 
-    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, stop=tokenizer.eos_token)
-    """
     sampling_params = SamplingParams(
-        n=1,
-        best_of=4,
-        temperature=0.6,
-        top_p=0.9,
-        max_tokens=max_new_tokens,
-        stop=tokenizer.eos_token)
-    """
+        temperature=args.temperature,
+        top_p=args.top_p,
+        top_k=args.top_k,
+        min_p=args.min_p,
+        max_tokens=max_new_tokens, 
+        stop_token_ids=[tokenizer.eos_token_id]
+    )
     print(sampling_params)
 
     # prompter to prefix input to the instruction
@@ -206,13 +219,13 @@ if __name__ == '__main__':
             sys.stdout.flush()
 
             def format_chat_template(row):
-                system_message = "You are a helpful NER assistant designed to output JSON."
+                #system_message = "You are a helpful NER assistant designed to output JSON."
                 #system_message = "You are a helpful assistant."
                 conversation = [
-                    {"role": "system", "content": system_message},
+                    {"role": "system", "content": args.system_message},  # system message
                     {"role": "user", "content": input_instruction_prompter.generate_prompt(input=row["input"], instruction=row["instruction"])},  # the input_text + instruction
                 ]
-                row["prompt"] = tokenizer.apply_chat_template(conversation, tokenize=False, truncation=True, max_length=cutoff_len, add_generation_prompt=True)
+                row["prompt"] = tokenizer.apply_chat_template(conversation, tokenize=False, truncation=True, max_length=cutoff_len, add_generation_prompt=True, enable_thinking=False) #+ "\n\n<think>\n"
                 return row
 
             # 5) run inference on SLIMER via vLLM
@@ -225,7 +238,9 @@ if __name__ == '__main__':
             # 7) retrieve pred answers, aggregate them from chunks back to document level
             all_pred_answers = [output.outputs[0].text.strip() for output in responses]
 
-            print(all_pred_answers[0:10])
+            for p in all_pred_answers[0:10]:
+                print(p)
+                print("---------------------------------------------------------- ")
 
             all_pred_answers_per_type = defaultdict(list)
             all_gold_answers_per_type = defaultdict(list)
@@ -249,25 +264,7 @@ if __name__ == '__main__':
 
             print(f"Safely parsed preds: {safely_parsed_preds_count/len(all_pred_answers)*100} %\n")
 
-            """
-            # Flatten the nested list of lists
-            pred_answers_for_micro = [pred for preds in all_pred_answers_per_type.values() for pred in preds]
-            gold_answers_for_micro = [gold for golds in all_gold_answers_per_type.values() for gold in golds]
-
-            print(pred_answers_for_micro[0:5])
-            print(gold_answers_for_micro[0:5])
-            if partial_evaluate:
-                eval_result = uniNER_official_eval_script.NEREvaluator().partial_evaluate(pred_answers_for_micro, gold_answers_for_micro)
-            else:
-                eval_result = uniNER_official_eval_script.NEREvaluator().evaluate(pred_answers_for_micro, gold_answers_for_micro)
-
-            precision = round(eval_result["precision"]*100, 2)
-            recall = round(eval_result["recall"]*100, 2)
-            f1 = round(eval_result["f1"]*100, 2)
-            print("\n{} ==> micro-Precision: {:.2f}, micro-Recall: {:.2f}, micro-F1: {:.2f}".format(subdataset_name, precision, recall, f1))
             
-            """
-
             print("\nMetrics per NE category (100%):\n")
             this_dataset_metrics = {}
             for tagName in all_gold_answers_per_type.keys():

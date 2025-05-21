@@ -772,6 +772,7 @@ def load_DeG_per_NEs(path_to_DeG):
 
     return DeG_per_NEs_raw
 
+
 def build_dataset_SLIMER_PARALLEL_format(
         top_391_NEs_list,
         max_tagNames_per_prompt=5,
@@ -801,6 +802,8 @@ def build_dataset_SLIMER_PARALLEL_format(
 
     if path_to_DeG:
         DeG_per_NEs = load_DeG_per_NEs(path_to_DeG)
+
+    #print(DeG_per_NEs)
 
     samples = []
     samples_progressiveID = 0
@@ -874,7 +877,33 @@ def build_dataset_SLIMER_PARALLEL_format(
             })
             samples_progressiveID += 1
 
-    train_ratio = 0.9
+    # Step 1: Sample 100 for validation and 100 for test
+    val_fold = random.sample(samples, 100)
+    remaining_after_val = [s for s in samples if s not in val_fold]
+
+    test_fold = random.sample(remaining_after_val, 100)
+    remaining_after_test = [s for s in remaining_after_val if s not in test_fold]
+
+    # Step 2: The rest are training samples
+    train_fold = remaining_after_test
+
+    # Optional: shuffle individual splits (already shuffled globally)
+    random.shuffle(train_fold)
+    random.shuffle(val_fold)
+    random.shuffle(test_fold)
+
+    # Step 3: Convert to HuggingFace Datasets
+    train_dataset = Dataset.from_list(train_fold)
+    validation_dataset = Dataset.from_list(val_fold)
+    test_dataset = Dataset.from_list(test_fold)
+
+    return DatasetDict({
+        "train": train_dataset,
+        "validation": validation_dataset,
+        "test": test_dataset
+    })
+
+    train_ratio = 0.95
     num_samples = len(samples)
     num_train = int(train_ratio * num_samples)
     train_fold = samples[:num_train]
@@ -884,7 +913,6 @@ def build_dataset_SLIMER_PARALLEL_format(
     test_fold = val_test_fold[math.floor(len(val_test_fold) / 2.0):]
 
     """
-    
     random.shuffle(samples)
     train_fold = samples[:3910]
     val_fold = samples[3910:3910+1000]
@@ -904,6 +932,7 @@ def build_dataset_SLIMER_PARALLEL_format(
         "validation": validation_dataset,
         "test": test_dataset
     })
+
 
 def convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
         dataset_name,
@@ -1061,11 +1090,12 @@ def chunk_labels(lst, N):
 
 if __name__ == "__main__":
 
+    """
     ai_test_set = convert_MIT_CrossNER_test_sets_for_SLIMER_PARALLEL_inference(
         dataset_name='ai',
-        path_to_dataset="../../data/eval_data_UniNER/test_data/CrossNER_AI.json",
+        path_to_dataset="./data/eval_data_UniNER/test_data/CrossNER_ai.json",
         with_definition=True,
-        path_to_NE_guidelines_json="./questions/crossNER/gpt_guidelines/ai_NE_definitions.json",
+        path_to_NE_guidelines_json="./src/data_handlers/questions/crossNER/gpt_guidelines/ai_NE_definitions.json",
         SLIMER_prompter_name='SLIMER_PARALLEL_instruction_template'
     )
     print(ai_test_set)
@@ -1075,19 +1105,19 @@ if __name__ == "__main__":
     print(ai_test_set[100]['output'])
     print(ai_test_set[101])
     print(ai_test_set[200])
-
     """
+
     from src.SFT_finetuning.commons.basic_utils import load_json
-    top_391_NEs_list = list(load_json("./questions/pileNER/top391NEs_definitions.json").keys())
-    print(top_391_NEs_list)
+    top_391_NEs_list = list(load_json("./src/data_handlers/questions/pileNER/top391NEs_definitions.json").keys())
+    #print(top_391_NEs_list)
 
     datasetDict_SLIMER_PARALLEL_format = build_dataset_SLIMER_PARALLEL_format(
         top_391_NEs_list,
         max_tagNames_per_prompt=5,
-        path_to_DeG="./questions/pileNER/top391NEs_definitions.json",
-        template_path="../SFT_finetuning/templates",
-        template_name_SLIMER_PARALLEL="SLIMER_PARALLEL_instruction_template",
-        p_being_masked=0.3
+        path_to_DeG="./src/data_handlers/questions/pileNER/top391NEs_definitions.json",
+        template_path="./src/SFT_finetuning/templates",
+        template_name_SLIMER_PARALLEL="SLIMER_PARALLEL_instruction_template_GRPO",
+        p_being_masked=0
     )
     print(datasetDict_SLIMER_PARALLEL_format)
     print(datasetDict_SLIMER_PARALLEL_format['train'])
@@ -1097,8 +1127,9 @@ if __name__ == "__main__":
     print(datasetDict_SLIMER_PARALLEL_format['train'][11]['input'])
     print(datasetDict_SLIMER_PARALLEL_format['train'][11]['output'])
 
-    datasetDict_SLIMER_PARALLEL_format['train'].to_json("../../data/pileNER/pileNER_SLIMER_PARALLEL_format_train.jsonl")
-    """
+    #datasetDict_SLIMER_PARALLEL_format['train'].to_json("../../data/pileNER/pileNER_SLIMER_PARALLEL_format_train.jsonl")
+
+    datasetDict_SLIMER_PARALLEL_format.push_to_hub("andrewzamai/SLIMER_PARALLEL_pileNER_top391NEs_TrueDef_GRPO_p0mask", private=False)
 
     """
 

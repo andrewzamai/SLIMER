@@ -383,7 +383,7 @@ class Data_Interface(ABC):
         if self.path_to_DeG:
             DeG_per_NEs = self.load_DeG_per_NEs()
 
-        slimer_prompter = SLIMER_PARALLEL_instruction_prompter('SLIMER_PARALLEL_instruction_template', self.path_to_templates)
+        slimer_prompter = SLIMER_PARALLEL_instruction_prompter('SLIMER_PARALLEL_instruction_template_GRPO', self.path_to_templates)
 
         # Calculate the total number of samples for tqdm progress bar
         total_samples = sum(len(dataset_BIO) for dataset_BIO in self.datasetdict_BIO.values())
